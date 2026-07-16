@@ -1,0 +1,67 @@
+{
+  "schema_version": 2,
+  "id": "CUSTOM-BMI-EXAMPLE",
+  "category": "通用",
+  "subspecialty": "营养评估",
+  "scenario": "自定义公式示例",
+  "name_cn": "自定义 BMI 示例",
+  "name_en": "Custom BMI Example",
+  "purpose": "演示如何声明输入、公式、输出和分层解读；临床使用前请替换并核验来源。",
+  "inputs": [
+    {
+      "name": "weight_kg",
+      "type": "number",
+      "unit": "kg",
+      "minimum": 0,
+      "exclusive_minimum": true,
+      "description": "体重"
+    },
+    {
+      "name": "height_cm",
+      "type": "number",
+      "unit": "cm",
+      "minimum": 0,
+      "exclusive_minimum": true,
+      "description": "身高"
+    }
+  ],
+  "output": {
+    "unit": "kg/m^2",
+    "round": 2
+  },
+  "calculation": {
+    "type": "formula",
+    "expression": "weight_kg / ((height_cm / 100) ** 2)"
+  },
+  "interpretation": [
+    {
+      "when": "value < 18.5",
+      "text": "低于常用成人参考范围"
+    },
+    {
+      "when": "value < 24",
+      "text": "处于示例参考范围"
+    }
+  ],
+  "default_interpretation": "高于示例参考范围",
+  "test_cases": [
+    {
+      "name": "示例 BMI 已知值",
+      "inputs": {
+        "weight_kg": 70,
+        "height_cm": 175
+      },
+      "expected_value": 22.86,
+      "tolerance": 0,
+      "expected_interpretation": "处于示例参考范围"
+    }
+  ],
+  "clinical_note": "示例并非临床发布；用于患者前须核对人群、阈值、来源和版本。",
+  "source": {
+    "type": "publication",
+    "name": "Replace with a specific guideline or primary publication",
+    "url": "https://example.org/replace-with-specific-source",
+    "version": "replace-with-version-or-year",
+    "evidence_tier": "custom; requires review"
+  }
+}

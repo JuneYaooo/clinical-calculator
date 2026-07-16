@@ -1,0 +1,4 @@
+interface:
+  display_name: "Clinical Calculator"
+  short_description: "Search, run, and extend clinical calculators"
+  default_prompt: "Use $clinical-calculator to search, validate, run, explain, or safely add a source-backed clinical calculator."

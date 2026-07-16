@@ -1,0 +1,84 @@
+{
+  "schema_version": 2,
+  "id": "CUSTOM-MULTIDIMENSIONAL-EXAMPLE",
+  "category": "通用",
+  "subspecialty": "",
+  "scenario": "离散多维查表示例",
+  "name_cn": "自定义多维查表示例",
+  "name_en": "Custom Multidimensional Lookup Example",
+  "purpose": "演示精确与区间维度、命名多输出和边界测试",
+  "clinical_note": "仅为结构示例；临床使用前须替换示例数据并独立核对来源、版本和适用人群。",
+  "inputs": [
+    {
+      "name": "sex",
+      "type": "choice",
+      "choices": ["male", "female"],
+      "description": "精确匹配维度"
+    },
+    {
+      "name": "age_years",
+      "type": "number",
+      "unit": "years",
+      "minimum": 18,
+      "maximum": 65,
+      "description": "区间匹配维度"
+    },
+    {
+      "name": "weight_kg",
+      "type": "number",
+      "unit": "kg",
+      "minimum": 40,
+      "maximum": 120,
+      "description": "区间匹配维度"
+    }
+  ],
+  "outputs": [
+    {"name": "score", "unit": "points", "round": 0},
+    {"name": "risk_percent", "unit": "%", "round": 1}
+  ],
+  "calculation": {
+    "type": "multidimensional_lookup",
+    "dimensions": [
+      {"input": "sex", "match": "exact"},
+      {"input": "age_years", "match": "range"},
+      {"input": "weight_kg", "match": "range"}
+    ],
+    "rows": [
+      {
+        "keys": {
+          "sex": "male",
+          "age_years": {"minimum": 18, "maximum": 65, "include_maximum": true},
+          "weight_kg": {"minimum": 40, "maximum": 120, "include_maximum": true}
+        },
+        "values": {"score": 1, "risk_percent": 2.5},
+        "interpretation": "示例匹配行"
+      },
+      {
+        "keys": {
+          "sex": "female",
+          "age_years": {"minimum": 18, "maximum": 65, "include_maximum": true},
+          "weight_kg": {"minimum": 40, "maximum": 120, "include_maximum": true}
+        },
+        "values": {"score": 0, "risk_percent": 1.5},
+        "interpretation": "示例匹配行"
+      }
+    ]
+  },
+  "interpretation": [],
+  "default_interpretation": "未匹配查表行",
+  "test_cases": [
+    {
+      "name": "示例闭合上边界",
+      "inputs": {"sex": "male", "age_years": 65, "weight_kg": 120},
+      "expected_values": {"score": 1, "risk_percent": 2.5},
+      "expected_interpretation": "示例匹配行"
+    }
+  ],
+  "source": {
+    "type": "publication",
+    "name": "替换为具体指南或原始文献",
+    "url": "https://example.org/replace-with-specific-source",
+    "version": "替换为版本或年份",
+    "evidence_tier": "custom; requires review"
+  }
+}
