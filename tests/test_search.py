@@ -34,11 +34,12 @@ def test_search_index_is_built_once_and_exposes_match_details():
     registry = load_registry()
     index_identity = id(registry._search_index)
 
-    matches = registry.search("chads vasc")
+    response = registry.search_detailed("chads vasc")
+    matches = response.skills
 
     assert id(registry._search_index) == index_identity
     assert matches[0].metadata.id == "CALC-0049"
-    match = registry.search_match("CALC-0049")
+    match = response.match_for("CALC-0049")
     assert match is not None
     assert match.coverage == 1.0
     assert "name_en" in match.matched_fields
@@ -82,8 +83,8 @@ def test_no_match_cli_has_status_and_suggestions():
 def test_default_scope_suggests_matching_non_executable_catalog_entry():
     registry = load_registry()
 
-    assert registry.search_runnable("脓毒症") == []
-    response = registry.search_response()
+    response = registry.search_runnable_detailed("脓毒症")
+    assert response.skills == []
     assert response.status == "no_match"
     assert response.suggestions[0] == "新生儿早发败血症风险"
 

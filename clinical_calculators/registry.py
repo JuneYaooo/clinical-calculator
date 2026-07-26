@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+from dataclasses import dataclass
 from pathlib import Path
 
 from .calculators import IMPLEMENTATIONS, IMPLEMENTATIONS_BY_ID
@@ -84,6 +85,37 @@ FIELD_MAP = {
 }
 
 
+@dataclass(frozen=True)
+class CalculatorSearchResult:
+    skill: CalculatorSkill
+    match: SearchMatch
+
+
+@dataclass(frozen=True)
+class CalculatorSearchResponse:
+    status: str
+    results: tuple[CalculatorSearchResult, ...]
+    suggestions: tuple[str, ...] = ()
+
+    @property
+    def skills(self) -> list[CalculatorSkill]:
+        """Return skills for the legacy list-returning search methods."""
+
+        return [result.skill for result in self.results]
+
+    def match_for(self, calculator_id: str) -> SearchMatch | None:
+        """Return match diagnostics for an ID within this response."""
+
+        return next(
+            (
+                result.match
+                for result in self.results
+                if result.skill.metadata.id == calculator_id
+            ),
+            None,
+        )
+
+
 class CalculatorRegistry:
     def __init__(
         self,
@@ -109,7 +141,6 @@ class CalculatorRegistry:
                     f"calculator alias target does not exist: {alias_id} -> {canonical_id}"
                 )
         self._search_index = SearchIndex(skills)
-        self._last_search_response = SearchResponse("no_match", ())
 
     def __len__(self) -> int:
         return len(self.skills)
@@ -142,22 +173,12 @@ class CalculatorRegistry:
         }
 
     def search(self, query: str, limit: int | None = 20) -> list[CalculatorSkill]:
+        return self.search_detailed(query, limit).skills
+
+    def search_detailed(
+        self, query: str, limit: int | None = 20
+    ) -> CalculatorSearchResponse:
         return self._search(query, limit=limit)
-
-    def search_response(self) -> SearchResponse:
-        """Return diagnostics for the most recent search on this registry."""
-
-        return self._last_search_response
-
-    def search_match(self, calculator_id: str) -> SearchMatch | None:
-        return next(
-            (
-                hit.match
-                for hit in self._last_search_response.hits
-                if hit.calculator_id == calculator_id
-            ),
-            None,
-        )
 
     def _search(
         self,
@@ -165,7 +186,7 @@ class CalculatorRegistry:
         *,
         limit: int | None,
         allowed_ids: set[str] | None = None,
-    ) -> list[CalculatorSkill]:
+    ) -> CalculatorSearchResponse:
         response = self._search_index.search(
             query,
             limit=limit,
@@ -182,8 +203,14 @@ class CalculatorRegistry:
                 dict.fromkeys((*catalog_suggestions, *response.suggestions))
             )[:5]
             response = SearchResponse("no_match", (), suggestions)
-        self._last_search_response = response
-        return [self._by_id[hit.calculator_id] for hit in self._last_search_response.hits]
+        return CalculatorSearchResponse(
+            response.status,
+            tuple(
+                CalculatorSearchResult(self._by_id[hit.calculator_id], hit.match)
+                for hit in response.hits
+            ),
+            response.suggestions,
+        )
 
     def by_category(self, category: str) -> list[CalculatorSkill]:
         return [skill for skill in self.skills if skill.metadata.category == category]
@@ -216,16 +243,31 @@ class CalculatorRegistry:
         return [skill for skill in self.skills if skill.metadata.id in CLINICALLY_RELEASED_IDS]
 
     def search_runnable(self, query: str, limit: int | None = 20) -> list[CalculatorSkill]:
+        return self.search_runnable_detailed(query, limit).skills
+
+    def search_runnable_detailed(
+        self, query: str, limit: int | None = 20
+    ) -> CalculatorSearchResponse:
         runnable_ids = {skill.metadata.id for skill in self.runnable()}
         return self._search(query, limit=limit, allowed_ids=runnable_ids)
 
     def search_layer(
         self, query: str, layer: str, limit: int | None = 20
     ) -> list[CalculatorSkill]:
+        return self.search_layer_detailed(query, layer, limit).skills
+
+    def search_layer_detailed(
+        self, query: str, layer: str, limit: int | None = 20
+    ) -> CalculatorSearchResponse:
         layer_ids = {skill.metadata.id for skill in self.by_catalog_layer(layer)}
         return self._search(query, limit=limit, allowed_ids=layer_ids)
 
     def search_released(self, query: str, limit: int | None = 20) -> list[CalculatorSkill]:
+        return self.search_released_detailed(query, limit).skills
+
+    def search_released_detailed(
+        self, query: str, limit: int | None = 20
+    ) -> CalculatorSearchResponse:
         released_ids = {skill.metadata.id for skill in self.released()}
         return self._search(query, limit=limit, allowed_ids=released_ids)
 

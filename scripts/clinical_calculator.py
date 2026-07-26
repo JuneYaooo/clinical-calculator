@@ -566,24 +566,27 @@ def main() -> int:
             return 0
         if args.command == "search":
             if args.all:
-                matches = skill_registry.search(args.query, args.limit)
+                search_response = skill_registry.search_detailed(args.query, args.limit)
                 scope = "all"
             elif args.layer:
-                matches = skill_registry.search_layer(args.query, args.layer, args.limit)
+                search_response = skill_registry.search_layer_detailed(
+                    args.query, args.layer, args.limit
+                )
                 scope = args.layer
             else:
-                matches = skill_registry.search_runnable(args.query, args.limit)
+                search_response = skill_registry.search_runnable_detailed(
+                    args.query, args.limit
+                )
                 scope = "executable"
-            search_response = skill_registry.search_response()
             emit(
                 {
                     "query": args.query,
                     "scope": scope,
                     "status": search_response.status,
-                    "count": len(matches),
+                    "count": len(search_response.results),
                     "results": [
-                        skill_summary(item, skill_registry.search_match(item.metadata.id))
-                        for item in matches
+                        skill_summary(result.skill, result.match)
+                        for result in search_response.results
                     ],
                     "suggestions": list(search_response.suggestions),
                 }

@@ -31,5 +31,10 @@ jobs:
         run: python scripts/report_contract_coverage.py
       - name: Evaluate routing quality
         run: python scripts/evaluate_routing.py
+      - name: Evaluate held-out routing quality
+        run: >-
+          python scripts/evaluate_routing.py
+          --cases evaluation/routing_cases_heldout.csv
+          --report reports/routing_evaluation_heldout.json
       - name: Run tests
         run: python -m pytest -q

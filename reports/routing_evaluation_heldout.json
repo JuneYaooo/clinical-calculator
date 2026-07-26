@@ -1,0 +1,57 @@
+{
+  "by_category": {
+    "abbrev": {
+      "case_count": 5,
+      "mrr": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "zero_result_rate": 0.0
+    },
+    "direct": {
+      "case_count": 1,
+      "mrr": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "zero_result_rate": 0.0
+    },
+    "partial": {
+      "case_count": 11,
+      "mrr": 0.954545,
+      "recall_at_1": 0.909091,
+      "recall_at_5": 1.0,
+      "zero_result_rate": 0.0
+    },
+    "scenario": {
+      "case_count": 13,
+      "mrr": 0.884615,
+      "recall_at_1": 0.769231,
+      "recall_at_5": 1.0,
+      "zero_result_rate": 0.0
+    }
+  },
+  "by_locale": {
+    "en": {
+      "case_count": 13,
+      "mrr": 0.961538,
+      "recall_at_1": 0.923077,
+      "recall_at_5": 1.0,
+      "zero_result_rate": 0.0
+    },
+    "zh-CN": {
+      "case_count": 17,
+      "mrr": 0.911765,
+      "recall_at_1": 0.823529,
+      "recall_at_5": 1.0,
+      "zero_result_rate": 0.0
+    }
+  },
+  "case_count": 30,
+  "critical_case_count": 0,
+  "critical_failures": [],
+  "critical_recall_at_1": 0.0,
+  "failures": [],
+  "mrr": 0.933333,
+  "recall_at_1": 0.866667,
+  "recall_at_5": 1.0,
+  "zero_result_rate": 0.0
+}

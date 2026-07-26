@@ -1,7 +1,35 @@
 {
-  "case_count": 130,
-  "mrr": 1.0,
-  "recall_at_1": 1.0,
-  "recall_at_5": 1.0,
-  "zero_result_rate": 0.0
+  "observed": {
+    "case_count": 130,
+    "mrr": 1.0,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "zero_result_rate": 0.0,
+    "critical_recall_at_1": 1.0,
+    "critical_case_count": 11
+  },
+  "thresholds": {
+    "mrr": 0.97,
+    "recall_at_1": 0.97,
+    "recall_at_5": 0.98,
+    "zero_result_rate": 0.02,
+    "critical_recall_at_1": 1.0
+  },
+  "heldout_observed": {
+    "case_count": 30,
+    "mrr": 0.933333,
+    "recall_at_1": 0.866667,
+    "recall_at_5": 1.0,
+    "zero_result_rate": 0.0
+  },
+  "heldout_thresholds": {
+    "mrr": 0.9,
+    "recall_at_1": 0.83,
+    "recall_at_5": 0.96,
+    "zero_result_rate": 0.02
+  },
+  "notes": [
+    "主用例集 130 条里有 81 条是把库存全名原样贴回来当查询，接近恒等映射，所以主集的高分不能当作泛化能力的证据。",
+    "thresholds 是有意预留的余量，不等于实测值；只有 critical_recall_at_1 不留余量。"
+  ]
 }

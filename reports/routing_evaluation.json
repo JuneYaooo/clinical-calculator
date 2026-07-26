@@ -2,15 +2,15 @@
   "by_category": {
     "direct": {
       "case_count": 116,
-      "mrr": 0.98204,
-      "recall_at_1": 0.974138,
-      "recall_at_5": 0.991379,
+      "mrr": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
       "zero_result_rate": 0.0
     },
     "synonym": {
       "case_count": 14,
-      "mrr": 0.910714,
-      "recall_at_1": 0.857143,
+      "mrr": 1.0,
+      "recall_at_1": 1.0,
       "recall_at_5": 1.0,
       "zero_result_rate": 0.0
     }
@@ -18,41 +18,26 @@
   "by_locale": {
     "en": {
       "case_count": 64,
-      "mrr": 0.980469,
-      "recall_at_1": 0.96875,
+      "mrr": 1.0,
+      "recall_at_1": 1.0,
       "recall_at_5": 1.0,
       "zero_result_rate": 0.0
     },
     "zh-CN": {
       "case_count": 66,
-      "mrr": 0.968434,
-      "recall_at_1": 0.954545,
-      "recall_at_5": 0.984848,
+      "mrr": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_5": 1.0,
       "zero_result_rate": 0.0
     }
   },
   "case_count": 130,
-  "failures": [
-    {
-      "category": "direct",
-      "expected_ids": [
-        "CALC-0155"
-      ],
-      "locale": "zh-CN",
-      "query": "成人 eGFR",
-      "relevant_rank": 12,
-      "top_ids": [
-        "CALC-0948",
-        "CALC-0924",
-        "CALC-0070",
-        "CALC-1114",
-        "CALC-0322"
-      ],
-      "zero_results": false
-    }
-  ],
-  "mrr": 0.974359,
-  "recall_at_1": 0.961538,
-  "recall_at_5": 0.992308,
+  "critical_case_count": 11,
+  "critical_failures": [],
+  "critical_recall_at_1": 1.0,
+  "failures": [],
+  "mrr": 1.0,
+  "recall_at_1": 1.0,
+  "recall_at_5": 1.0,
   "zero_result_rate": 0.0
 }
