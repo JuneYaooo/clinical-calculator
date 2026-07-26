@@ -1,0 +1,50 @@
+{
+  "CALC-0021": {
+    "inputs": [
+      {
+        "name": "respiratory_rate",
+        "type": "number",
+        "item_text": "呼吸频率",
+        "description": "呼吸频率"
+      },
+      {
+        "name": "oxygen_saturation_percent",
+        "type": "number",
+        "unit": "%",
+        "item_text": "SpO2",
+        "description": "SpO2"
+      },
+      {
+        "name": "supplemental_oxygen",
+        "type": "boolean",
+        "item_text": "吸氧",
+        "description": "吸氧"
+      },
+      {
+        "name": "temperature_c",
+        "type": "number",
+        "unit": "°C",
+        "item_text": "体温",
+        "description": "体温"
+      },
+      {
+        "name": "systolic_bp",
+        "type": "number",
+        "item_text": "收缩压",
+        "description": "收缩压"
+      },
+      {
+        "name": "heart_rate",
+        "type": "number",
+        "item_text": "脉搏",
+        "description": "脉搏"
+      },
+      {
+        "name": "consciousness",
+        "type": "string",
+        "item_text": "意识/新发意识混乱",
+        "description": "意识/新发意识混乱"
+      }
+    ]
+  }
+}

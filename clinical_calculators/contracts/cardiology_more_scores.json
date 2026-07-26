@@ -1,0 +1,48 @@
+{
+  "CALC-0020": {
+    "inputs": [
+      {
+        "name": "history",
+        "type": "number",
+        "minimum": 0,
+        "maximum": 2,
+        "item_text": "病史",
+        "description": "病史"
+      },
+      {
+        "name": "ecg",
+        "type": "number",
+        "minimum": 0,
+        "maximum": 2,
+        "item_text": "心电图",
+        "description": "心电图"
+      },
+      {
+        "name": "age_years",
+        "type": "number",
+        "unit": "years",
+        "minimum": 0,
+        "item_text": "年龄",
+        "description": "年龄"
+      },
+      {
+        "name": "risk_factors_count",
+        "type": "number",
+        "minimum": 0,
+        "item_text": "危险因素",
+        "description": "危险因素"
+      },
+      {
+        "name": "known_atherosclerotic_disease",
+        "type": "boolean"
+      },
+      {
+        "name": "troponin_multiple_of_normal_limit",
+        "type": "number",
+        "minimum": 0,
+        "item_text": "肌钙蛋白",
+        "description": "肌钙蛋白"
+      }
+    ]
+  }
+}

@@ -4,6 +4,7 @@ from collections.abc import Callable
 import math
 from typing import Any
 
+from .contracts import declared_contract_for
 from .models import CalculationResult, CalculatorMetadata, InputSpec, SkillCheck
 
 
@@ -221,6 +222,9 @@ def _validate_input(spec: InputSpec, value: Any) -> None:
     elif spec.value_type == "sequence":
         if isinstance(value, (str, bytes)) or not isinstance(value, (list, tuple)):
             raise ValueError(f"{spec.name} must be a sequence")
+    elif spec.value_type == "string":
+        if not isinstance(value, str):
+            raise ValueError(f"{spec.name} must be a string")
 
 
 class CalculatorSkill:
@@ -238,7 +242,14 @@ class CalculatorSkill:
         self.metadata = metadata
         self._implementation = implementation
         self.required_inputs = required_inputs
-        self.input_schema = input_schema or tuple(_infer_input_spec(name) for name in required_inputs)
+        declared_schema = declared_contract_for(metadata.id)
+        self.input_schema = (
+            input_schema
+            if input_schema is not None
+            else declared_schema
+            if declared_schema is not None
+            else tuple(_infer_input_spec(name) for name in required_inputs)
+        )
         self.implementation_module = implementation_module
         self.implementation_level = implementation_level
         self.catalog_layer = catalog_layer

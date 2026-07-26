@@ -1,0 +1,34 @@
+{
+  "CALC-0002": {
+    "inputs": [
+      {
+        "name": "urine_sodium_mEq_l",
+        "type": "number",
+        "unit": "mEq/L",
+        "item_text": "尿钠",
+        "description": "尿钠"
+      },
+      {
+        "name": "serum_sodium_mEq_l",
+        "type": "number",
+        "unit": "mEq/L",
+        "item_text": "血清钠",
+        "description": "血清钠"
+      },
+      {
+        "name": "urine_creatinine_mg_dl",
+        "type": "number",
+        "unit": "mg/dL",
+        "item_text": "尿肌酐",
+        "description": "尿肌酐"
+      },
+      {
+        "name": "serum_creatinine_mg_dl",
+        "type": "number",
+        "unit": "mg/dL",
+        "item_text": "血清钠酐",
+        "description": "血清钠酐"
+      }
+    ]
+  }
+}

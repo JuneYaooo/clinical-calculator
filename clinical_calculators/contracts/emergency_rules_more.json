@@ -1,0 +1,195 @@
+{
+  "CALC-0003": {
+    "inputs": [
+      {
+        "name": "pao2_mm_hg",
+        "type": "number",
+        "unit": "mmHg",
+        "item_text": "动脉氧分压",
+        "description": "动脉氧分压"
+      },
+      {
+        "name": "fio2",
+        "type": "number",
+        "maximum": 100,
+        "item_text": "吸入氧浓度",
+        "description": "吸入氧浓度"
+      }
+    ]
+  },
+  "CALC-0006": {
+    "inputs": [
+      {
+        "name": "age_years",
+        "type": "number",
+        "unit": "years",
+        "minimum": 1,
+        "maximum": 8,
+        "item_text": "年龄",
+        "description": "年龄"
+      },
+      {
+        "name": "cuffed",
+        "type": "boolean"
+      }
+    ]
+  },
+  "CALC-0008": {
+    "inputs": [
+      {
+        "name": "systolic_pressure_mm_hg",
+        "type": "number",
+        "unit": "mmHg",
+        "item_text": "收缩压",
+        "description": "收缩压"
+      },
+      {
+        "name": "diastolic_pressure_mm_hg",
+        "type": "number",
+        "unit": "mmHg",
+        "item_text": "舒张压",
+        "description": "舒张压"
+      }
+    ]
+  },
+  "CALC-0022": {
+    "inputs": [
+      {
+        "name": "midline_cervical_tenderness",
+        "type": "boolean",
+        "item_text": "中线压痛",
+        "description": "中线压痛"
+      },
+      {
+        "name": "focal_neurologic_deficit",
+        "type": "boolean",
+        "item_text": "中枢神经缺损",
+        "description": "中枢神经缺损"
+      },
+      {
+        "name": "altered_level_of_alertness",
+        "type": "boolean",
+        "item_text": "意识",
+        "description": "意识"
+      },
+      {
+        "name": "intoxication",
+        "type": "boolean",
+        "item_text": "醉酒",
+        "description": "醉酒"
+      },
+      {
+        "name": "distracting_injury",
+        "type": "boolean",
+        "item_text": "分散性损伤",
+        "description": "分散性损伤"
+      }
+    ]
+  },
+  "CALC-0024": {
+    "inputs": [
+      {
+        "name": "temperature_c",
+        "type": "number",
+        "unit": "°C",
+        "item_text": "体温",
+        "description": "体温"
+      },
+      {
+        "name": "heart_rate",
+        "type": "number",
+        "item_text": "心率",
+        "description": "心率"
+      },
+      {
+        "name": "respiratory_rate",
+        "type": "number",
+        "item_text": "呼吸频率或PaCO2",
+        "description": "呼吸频率或PaCO2"
+      },
+      {
+        "name": "paco2_mm_hg",
+        "type": "number",
+        "unit": "mmHg",
+        "item_text": "呼吸频率或PaCO2",
+        "description": "呼吸频率或PaCO2"
+      },
+      {
+        "name": "wbc_10e9_l",
+        "type": "number",
+        "unit": "10^9/L",
+        "item_text": "白细胞计数/幼稚细胞比例",
+        "description": "白细胞计数/幼稚细胞比例"
+      },
+      {
+        "name": "bands_percent",
+        "type": "number",
+        "unit": "%",
+        "item_text": "白细胞计数/幼稚细胞比例",
+        "description": "白细胞计数/幼稚细胞比例"
+      }
+    ]
+  },
+  "CALC-0025": {
+    "inputs": [
+      {
+        "name": "heart_rate",
+        "type": "number",
+        "item_text": "心率",
+        "description": "心率"
+      },
+      {
+        "name": "systolic_bp",
+        "type": "number",
+        "item_text": "收缩压",
+        "description": "收缩压"
+      }
+    ]
+  },
+  "CALC-0026": {
+    "inputs": [
+      {
+        "name": "gcs_less_than_15_at_2_hours",
+        "type": "boolean",
+        "item_text": "GCS",
+        "description": "GCS"
+      },
+      {
+        "name": "suspected_open_or_depressed_skull_fracture",
+        "type": "boolean",
+        "item_text": "疑似颅骨骨折",
+        "description": "疑似颅骨骨折"
+      },
+      {
+        "name": "signs_basal_skull_fracture",
+        "type": "boolean"
+      },
+      {
+        "name": "vomiting_two_or_more",
+        "type": "boolean",
+        "item_text": "呕吐",
+        "description": "呕吐"
+      },
+      {
+        "name": "age_years",
+        "type": "number",
+        "unit": "years",
+        "item_text": "年龄",
+        "description": "年龄"
+      },
+      {
+        "name": "amnesia_before_impact_minutes",
+        "type": "number",
+        "unit": "minutes",
+        "item_text": "遗忘",
+        "description": "遗忘"
+      },
+      {
+        "name": "dangerous_mechanism",
+        "type": "boolean",
+        "item_text": "危险机制",
+        "description": "危险机制"
+      }
+    ]
+  }
+}

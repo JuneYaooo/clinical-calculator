@@ -24,6 +24,9 @@ python3 -m pytest -q
 
 提交新增或修改的计算逻辑时，请同时提供：
 
+新增或修改可执行计算器必须同时提交对应的 `clinical_calculators/contracts/*.json` 输入契约；
+格式与回源规则见 `references/input-contracts.md`。
+
 1. 具体的一手文献、官方指南或专业协会来源链接。
 2. 公式、评分规则或参考表对应的版本/年份。
 3. 输入变量、单位、上下限、缺失值处理和取整规则。

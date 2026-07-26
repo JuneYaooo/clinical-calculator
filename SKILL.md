@@ -52,6 +52,7 @@ Read [references/calculator-cli.md](references/calculator-cli.md) for all comman
 - Treat the MIT license as covering repository code, not as permission to reproduce third-party
   questionnaire text, proprietary tables, staging content, or other controlled clinical material.
 - Never reconstruct missing coefficients, point tables, nomograms, licensed questionnaire items, or versions from memory.
+- Read [references/input-contracts.md](references/input-contracts.md) before adding or changing an executable calculator's declared inputs.
 - For medication dosing, separate calculation from prescribing and require clinician/pharmacist review.
 - For emergencies or high-stakes decisions, do not let a calculator replace urgent professional assessment.
 

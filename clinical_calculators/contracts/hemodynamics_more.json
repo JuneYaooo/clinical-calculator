@@ -1,0 +1,174 @@
+{
+  "CALC-0010": {
+    "inputs": [
+      {
+        "name": "hemoglobin_g_dl",
+        "type": "number",
+        "unit": "g/dL",
+        "item_text": "Hgb",
+        "description": "Hgb"
+      },
+      {
+        "name": "oxygen_saturation_percent",
+        "type": "number",
+        "unit": "%",
+        "item_text": "O2Sat",
+        "description": "O2Sat"
+      },
+      {
+        "name": "pao2_mm_hg",
+        "type": "number",
+        "unit": "mmHg",
+        "item_text": "PaO2",
+        "description": "PaO2"
+      }
+    ]
+  },
+  "CALC-0011": {
+    "inputs": [
+      {
+        "name": "hemoglobin_g_dl",
+        "type": "number",
+        "unit": "g/dL",
+        "item_text": "Hgb",
+        "description": "Hgb"
+      },
+      {
+        "name": "venous_oxygen_saturation_percent",
+        "type": "number",
+        "unit": "%",
+        "item_text": "O2vSat",
+        "description": "O2vSat"
+      },
+      {
+        "name": "pvo2_mm_hg",
+        "type": "number",
+        "unit": "mmHg",
+        "item_text": "PvO2",
+        "description": "PvO2"
+      }
+    ]
+  },
+  "CALC-0012": {
+    "inputs": [
+      {
+        "name": "oxygen_consumption_ml_min",
+        "type": "number",
+        "unit": "mL/min",
+        "item_text": "O2消耗量",
+        "description": "O2消耗量"
+      },
+      {
+        "name": "arterial_oxygen_content_ml_dl",
+        "type": "number",
+        "unit": "mL/dL",
+        "item_text": "CaO2",
+        "description": "CaO2"
+      },
+      {
+        "name": "venous_oxygen_content_ml_dl",
+        "type": "number",
+        "unit": "mL/dL",
+        "item_text": "CvO2",
+        "description": "CvO2"
+      }
+    ]
+  },
+  "CALC-0013": {
+    "inputs": [
+      {
+        "name": "cardiac_output_l_min",
+        "type": "number",
+        "unit": "L/min",
+        "item_text": "心输出量",
+        "description": "心输出量"
+      },
+      {
+        "name": "bsa_m2",
+        "type": "number",
+        "unit": "m2",
+        "item_text": "体表面积",
+        "description": "体表面积"
+      }
+    ]
+  },
+  "CALC-0014": {
+    "inputs": [
+      {
+        "name": "cardiac_output_l_min",
+        "type": "number",
+        "unit": "L/min",
+        "item_text": "心输出量",
+        "description": "心输出量"
+      },
+      {
+        "name": "heart_rate_bpm",
+        "type": "number",
+        "unit": "beats/min",
+        "item_text": "心率",
+        "description": "心率"
+      }
+    ]
+  },
+  "CALC-0015": {
+    "inputs": [
+      {
+        "name": "stroke_volume_ml",
+        "type": "number",
+        "unit": "mL",
+        "item_text": "每搏输出量",
+        "description": "每搏输出量"
+      },
+      {
+        "name": "bsa_m2",
+        "type": "number",
+        "unit": "m2",
+        "item_text": "体表面积",
+        "description": "体表面积"
+      }
+    ]
+  },
+  "CALC-0016": {
+    "inputs": [
+      {
+        "name": "oxygen_consumption_ml_min",
+        "type": "number",
+        "unit": "mL/min",
+        "item_text": "耗氧量",
+        "description": "耗氧量"
+      },
+      {
+        "name": "arterial_oxygen_content_ml_dl",
+        "type": "number",
+        "unit": "mL/dL",
+        "item_text": "动脉氧含量",
+        "description": "动脉氧含量"
+      },
+      {
+        "name": "venous_oxygen_content_ml_dl",
+        "type": "number",
+        "unit": "mL/dL",
+        "item_text": "静脉氧含量",
+        "description": "静脉氧含量"
+      }
+    ]
+  },
+  "CALC-0017": {
+    "inputs": [
+      {
+        "name": "height_cm",
+        "type": "number",
+        "unit": "cm",
+        "item_text": "身高",
+        "description": "身高"
+      },
+      {
+        "name": "weight_kg",
+        "type": "number",
+        "unit": "kg",
+        "item_text": "体重",
+        "description": "体重"
+      }
+    ]
+  }
+}

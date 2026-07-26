@@ -1,0 +1,56 @@
+{
+  "CALC-0023": {
+    "inputs": [
+      {
+        "name": "age_years",
+        "type": "number",
+        "unit": "years",
+        "item_text": "年龄",
+        "description": "年龄"
+      },
+      {
+        "name": "heart_rate",
+        "type": "number",
+        "item_text": "心率",
+        "description": "心率"
+      },
+      {
+        "name": "oxygen_saturation_percent",
+        "type": "number",
+        "unit": "%",
+        "item_text": "SpO2",
+        "description": "SpO2"
+      },
+      {
+        "name": "unilateral_leg_swelling",
+        "type": "boolean",
+        "item_text": "单侧腿肿",
+        "description": "单侧腿肿"
+      },
+      {
+        "name": "hemoptysis",
+        "type": "boolean",
+        "item_text": "咯血",
+        "description": "咯血"
+      },
+      {
+        "name": "recent_surgery_or_trauma",
+        "type": "boolean",
+        "item_text": "近期手术/外伤",
+        "description": "近期手术/外伤"
+      },
+      {
+        "name": "prior_dvt_pe",
+        "type": "boolean",
+        "item_text": "既往VTE",
+        "description": "既往VTE"
+      },
+      {
+        "name": "hormone_use",
+        "type": "boolean",
+        "item_text": "雌激素",
+        "description": "雌激素"
+      }
+    ]
+  }
+}

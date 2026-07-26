@@ -1,0 +1,52 @@
+{
+  "CALC-0001": {
+    "inputs": [
+      {
+        "name": "eye",
+        "type": "number",
+        "minimum": 1,
+        "maximum": 4,
+        "item_text": "睁眼",
+        "description": "睁眼\n自发 (4 分)\n对口头命令 (3 分)\n对疼痛 (2 分)\n无 (1 分)"
+      },
+      {
+        "name": "verbal",
+        "type": "number",
+        "minimum": 1,
+        "maximum": 5,
+        "item_text": "最佳语言反应",
+        "description": "最佳语言反应\n交谈正常 (5 分)\n交谈异常 (4 分)\n用词不当 (3 分)\n用词无法理解 (3 分)\n声音无法理解 (2 分)\n无 (1 分)"
+      },
+      {
+        "name": "motor",
+        "type": "number",
+        "minimum": 1,
+        "maximum": 6,
+        "item_text": "最佳活动反应",
+        "description": "最佳活动反应\n遵从口头命令 (6 分)\n定位疼痛刺激 (5 分)\n对疼痛刺激的弯曲收缩 (4 分)\n对疼痛刺激的去皮质反应 (3 分)\n对疼痛刺激的去大脑反应 (2 分)\n无 (1 分)"
+      }
+    ]
+  },
+  "CALC-0009": {
+    "inputs": [
+      {
+        "name": "respiratory_rate",
+        "type": "number",
+        "item_text": "呼吸频率",
+        "description": "呼吸频率"
+      },
+      {
+        "name": "systolic_bp",
+        "type": "number",
+        "item_text": "收缩压",
+        "description": "收缩压"
+      },
+      {
+        "name": "altered_mentation",
+        "type": "boolean",
+        "item_text": "Glasgow 昏迷评分",
+        "description": "Glasgow 昏迷评分"
+      }
+    ]
+  }
+}

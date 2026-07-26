@@ -27,5 +27,7 @@ jobs:
         run: python -m pip install --upgrade pytest
       - name: Validate registry
         run: python scripts/clinical_calculator.py validate
+      - name: Generate input contract coverage report
+        run: python scripts/report_contract_coverage.py
       - name: Run tests
         run: python -m pytest -q

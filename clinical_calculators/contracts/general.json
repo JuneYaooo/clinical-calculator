@@ -1,0 +1,41 @@
+{
+  "CALC-0005": {
+    "inputs": [
+      {
+        "name": "height_cm",
+        "type": "number",
+        "unit": "cm",
+        "item_text": "身高",
+        "description": "身高"
+      },
+      {
+        "name": "weight_kg",
+        "type": "number",
+        "unit": "kg",
+        "item_text": "体重",
+        "description": "体重"
+      }
+    ]
+  },
+  "CALC-0018": {
+    "inputs": [
+      {
+        "name": "height_cm",
+        "type": "number",
+        "unit": "cm",
+        "item_text": "身高",
+        "description": "身高"
+      },
+      {
+        "name": "sex",
+        "type": "choice",
+        "choices": [
+          "male",
+          "female"
+        ],
+        "item_text": "性别",
+        "description": "性别"
+      }
+    ]
+  }
+}

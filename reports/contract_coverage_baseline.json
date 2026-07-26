@@ -1,0 +1,8 @@
+{
+  "executable_calculators": 643,
+  "calculators_with_declared_contract": 23,
+  "calculators_without_declared_contract": 620,
+  "inputs_total": 2334,
+  "any_typed_inputs": 1306,
+  "inputs_without_description": 2256
+}

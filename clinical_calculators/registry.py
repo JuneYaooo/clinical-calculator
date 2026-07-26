@@ -6,6 +6,7 @@ import unicodedata
 from pathlib import Path
 
 from .calculators import IMPLEMENTATIONS, IMPLEMENTATIONS_BY_ID
+from .contracts import load_declared_contracts, validate_contract_alignment
 from .extensions import ManifestError, discover_custom_calculators
 from .models import CalculatorMetadata
 from .release import CLINICALLY_RELEASED_IDS
@@ -398,6 +399,7 @@ def load_registry(
     blockers = _pending_blockers()
     aliases = _calculator_aliases(path)
     skills: list[CalculatorSkill] = []
+    resolved_required_inputs: dict[str, tuple[str, ...]] = {}
     inventory_rows = 0
     with path.open(encoding="utf-8-sig", newline="") as f:
         for row in csv.DictReader(f):
@@ -409,6 +411,8 @@ def load_registry(
                 metadata.id, IMPLEMENTATIONS.get(metadata.name_cn, (None, ()))
             )
             implementation_module = implementation.__module__ if implementation else ""
+            if implementation is not None:
+                resolved_required_inputs[metadata.id] = required_inputs
             level = _implementation_level(metadata.id, implementation, required_inputs, blockers)
             blocker = blockers.get(metadata.id, "")
             skills.append(
@@ -422,6 +426,11 @@ def load_registry(
                     pending_blocker_type=blocker,
                 )
             )
+    validate_contract_alignment(
+        load_declared_contracts(),
+        resolved_required_inputs,
+        {skill.metadata.id for skill in skills},
+    )
     if include_custom:
         built_in_ids = {skill.metadata.id for skill in skills} | set(aliases)
         for definition in discover_custom_calculators(custom_dirs):

@@ -47,6 +47,11 @@ class InputSpec:
     maximum: float | None = None
     choices: tuple[str, ...] = ()
     description: str = ""
+    item_text: str = ""
+    points: float | None = None
+    optional: bool = False
+    default: Any = None
+    unit_alternatives: tuple[tuple[str, str, float], ...] = ()
 
 
 @dataclass(frozen=True)
