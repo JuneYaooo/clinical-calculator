@@ -150,6 +150,24 @@ class CalculatorSkillsTest(unittest.TestCase):
         self.assertTrue(english_matches)
         self.assertEqual(english_matches[0].metadata.name_en, "Glasgow Coma Scale")
 
+        renal_function = registry.search("肾功能")
+        self.assertTrue(renal_function)
+        self.assertTrue(
+            any("Glomerular Filtration Rate" in item.metadata.name_en for item in renal_function)
+        )
+
+        multi_keyword = registry.search("房颤 卒中")
+        self.assertTrue(multi_keyword)
+        self.assertEqual(multi_keyword[0].metadata.id, "CALC-0049")
+
+        natural_phrase = registry.search("房颤卒中风险")
+        self.assertTrue(natural_phrase)
+        self.assertEqual(natural_phrase[0].metadata.id, "CALC-0049")
+
+        punctuation_insensitive = registry.search("CHA₂DS₂-VASc")
+        self.assertTrue(punctuation_insensitive)
+        self.assertEqual(punctuation_insensitive[0].metadata.id, "CALC-0049")
+
         cardiovascular = registry.by_category("心血管医学")
         self.assertTrue(cardiovascular)
         self.assertTrue(all(skill.metadata.category == "心血管医学" for skill in cardiovascular))

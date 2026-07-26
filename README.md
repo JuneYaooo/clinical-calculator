@@ -1,130 +1,178 @@
-<div align="center">
+<p align="center">
+  <img src="./assets/clinical-calculator-cover.svg" alt="Clinical Calculator：面向 AI Agent 的医学计算器与证据路由能力库" width="100%" />
+</p>
 
-# Clinical Calculator Skill
+<h1 align="center">Clinical Calculator</h1>
 
-**面向支持 Skills 的 AI Agent 的医学计算器能力库。**
+<p align="center">
+  <a href="https://github.com/JuneYaooo/clinical-calculator/actions/workflows/test.yml"><img src="https://img.shields.io/github/actions/workflow/status/JuneYaooo/clinical-calculator/test.yml?branch=main&style=flat-square&label=tests" alt="测试状态" /></a>
+  <img src="https://img.shields.io/badge/runnable-643-159a87?style=flat-square" alt="643 个可执行计算器" />
+  <img src="https://img.shields.io/badge/inventory-1%2C054-173a44?style=flat-square" alt="1,054 个有效条目" />
+  <img src="https://img.shields.io/badge/Python-3.10%2B-173a44?style=flat-square&logo=python&logoColor=white" alt="Python 3.10 或更高版本" />
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-173a44?style=flat-square" alt="MIT License" /></a>
+</p>
 
-用自然语言查找、选择、运行和解释临床计算器，也可以把有可靠来源的文件或规则保存为新的自定义计算器。
+<p align="center">
+  用自然语言查找、选择、运行和解释临床计算器；也可以把可靠来源中的公式或规则保存为可验证的自定义计算器。
+</p>
 
-[MIT License](./LICENSE) · [Skill 工作流](./SKILL.md) · [自定义计算器规范](./references/custom-calculators.md)
+<p align="center">
+  <a href="#30-秒开始">快速开始</a> ·
+  <a href="./SKILL.md">Skill 工作流</a> ·
+  <a href="./references/calculator-cli.md">CLI 参考</a> ·
+  <a href="./CONTRIBUTING.md">参与贡献</a>
+</p>
 
-</div>
+> [!IMPORTANT]
+> 这是一个面向支持 `SKILL.md` 的 AI Agent 的能力库，不是独立诊疗产品。计算结果仅用于决策支持、教学与核对，不能替代专业诊断、处方或紧急处置。
 
----
+## 30 秒开始
 
-## 这是什么
+### 交给 Agent 使用
 
-Clinical Calculator 是一个 Agent Skill，不是独立应用或网页产品。
+```bash
+git clone https://github.com/JuneYaooo/clinical-calculator.git
+```
 
-安装到 Codex、Claude Code 或其他支持 Skills 的 Agent 后，用户只需要描述临床问题并提供必要数据。Skill 会寻找合适的计算器，核对输入、单位、版本和适用范围，完成计算并解释结果。
+把仓库目录交给 Codex、Claude Code 或其他支持 Agent Skills 的工具，然后直接描述需求：
 
-它适合：
+```text
+帮我找一下评估房颤卒中风险的计算器，并告诉我需要哪些输入。
+```
 
-- 查找某个医学计算器是否存在、是否可以执行。
-- 根据临床场景选择合适的评分、公式或分级工具。
-- 完成计算，并说明输入、单位、公式、结果和解释。
-- 比较名称相近但人群、版本或用途不同的计算器。
-- 审计哪些计算器已实现，哪些仍需补充来源、系数或参考表。
-- 从可靠文件或文字规则创建并保存新的自定义计算器。
+```text
+患者体重 70 kg、身高 175 cm，计算 BMI，并说明公式、结果、来源和限制。
+```
 
-## 如何使用
+### 直接使用 CLI
 
-把项目链接或本地目录交给支持 Skills 的 Agent，可以直接这样说：
+项目运行时只依赖 Python 标准库：
 
-> 请把这个项目安装为 Clinical Calculator Skill。安装完成后告诉我是否可以使用。
+```bash
+python3 scripts/clinical_calculator.py search "房颤 卒中"
+python3 scripts/clinical_calculator.py info CALC-0049
+python3 scripts/clinical_calculator.py run CALC-0039 \
+  --input weight_kg=70 \
+  --input height_cm=175
+```
 
-安装或刷新后，直接用自然语言提出需求，不需要记忆命令。
+CLI 输出结构化 JSON，便于 Agent、脚本和评测管线稳定消费。
 
-### 查找计算器
+## 它解决什么问题
 
-> 帮我找一下评估房颤卒中风险的计算器，并告诉我需要哪些输入。
+| 临床计算中的常见风险 | 本项目的处理方式 |
+| --- | --- |
+| 同名评分存在人群或版本差异 | 搜索后按唯一 ID 解析；歧义名称不会静默代选 |
+| 输入、单位或边界不明确 | 每个可执行条目暴露机器可读的输入契约 |
+| 目录中“有名字”被误当成“能计算” | 严格区分可执行、待回源、指南知识和受控内容 |
+| 缺失系数被模型凭记忆补全 | 不从名称、摘要或记忆反推公式、表格和阈值 |
+| 有代码被误解为已获临床批准 | 自动化检查与临床发布状态完全分离 |
+| 第三方问卷或分期内容存在权利限制 | 受控内容只保留路由信息，不擅自复刻 |
 
-> 肾功能相关有哪些可以直接执行的计算器？
+## 工作方式
 
-> 这个项目里有没有儿童哮喘严重度评分？
+```mermaid
+flowchart LR
+    A[自然语言问题] --> B[搜索候选]
+    B --> C{名称或版本有歧义?}
+    C -- 是 --> D[用 ID 明确选择]
+    C -- 否 --> E[核对输入、单位与适用范围]
+    D --> E
+    E --> F{本地可执行?}
+    F -- 是 --> G[计算并解释]
+    F -- 否 --> H[说明状态与缺失来源]
+    G --> I[返回公式、结果、来源与限制]
+```
 
-Skill 默认优先返回真正可执行的计算器。名称存在多个版本或变体时，它会说明差异并要求明确选择，不会静默代选。
-
-### 直接计算
-
-> 患者体重 70 千克，身高 175 厘米，帮我计算 BMI 并解释。
-
-> 帮我计算 CURB-65。我可以逐项提供数据。
-
-> 使用 MELD-Na 评估，先告诉我所需变量和单位。
-
-如果信息不足或单位不清楚，Skill 会先追问。完成后会尽量给出：
-
-- 使用的计算器和版本。
-- 输入值与单位。
-- 公式或评分规则。
-- 计算结果与取整方式。
-- 临床解释、适用范围和重要限制。
-- 来源与当前审核状态。
-
-### 检查可用性
-
-> 这个评分现在能直接算吗？如果不能，还缺什么？
-
-> 帮我检查所有糖尿病相关计算器，区分可执行、待回源和指南知识。
-
-> 这个旧 ID 是否已经合并到其他计算器？
-
-Skill 会明确区分以下状态：
-
-- 可执行：本地已有明确输入和计算逻辑。
-- 部分可执行：只能完成中间步骤，仍依赖预评分组件或上游数据。
-- 待回源：名称和来源存在，但公式、系数、表格或版本仍不完整。
-- 指南知识：属于路径、用药规则或预防建议，不适合伪装成单一数值计算器。
-- 受控内容：受问卷版权、分期版本或订阅内容限制，不会擅自复刻。
-
-## 从文件创建新计算器
-
-可以把 JSON、CSV、Markdown、PDF、DOCX 或一段明确的文字规则交给 Agent，并说明希望保存为新的计算器。
-
-例如：
-
-> 这份文件描述了一个医学评分。请提取公式、输入、单位和分层规则，先生成草稿，确认后保存成新的计算器。
-
-> 这是我们科室使用的公开公式和原始来源，请检查是否完整，补充测试案例后加入 Skill。
-
-> 先不要安装。请检查这份 PDF 是否足以实现一个可靠的计算器，并列出缺失信息。
-
-Skill 会按以下顺序处理：
-
-1. 判断文件是在定义计算器，还是只包含一次性的患者数据。
-2. 提取明确写出的输入、单位、边界、公式、查表规则、解释、来源和版本。
-3. 生成自定义计算器草稿，并用来源中的已知答案和边界案例验证。
-4. 信息不完整时保留为草稿，明确说明缺少什么，不猜测公式或系数。
-5. 展示拟保存的名称、输入、规则、来源和测试结果。
-6. 只有用户确认后才正式保存；后续会像内置计算器一样被搜索和运行。
-
-患者姓名、病历号、联系方式或单次病例数据不会被保存进计算器定义。
+默认搜索只返回真正可执行的条目。审计完整目录时，可显式使用 `--all` 或指定 `--layer`。
 
 ## 当前覆盖
 
-- 1,054 个有效逻辑条目。
-- 643 个可执行计算器，覆盖 570 个唯一中文名称。
-- 110 个需要继续回源的计算器候选。
-- 206 个指南、路径和非单公式知识条目。
-- 95 个受版权、版本或订阅约束的条目。
-- 84 个旧重复 ID 已合并为兼容别名。
+| 目录层 | 数量 | 含义 |
+| --- | ---: | --- |
+| `executable` | **643** | 本地已有明确输入契约与计算逻辑 |
+| `source_candidate` | **110** | 需要补充原始公式、系数、表格或版本 |
+| `guidance_knowledge` | **206** | 属于指南路径、用药规则或预防知识，不伪装成单一公式 |
+| `controlled_content` | **95** | 受问卷版权、订阅或版本约束 |
 
-重复名称不等于重复能力。同名条目可能代表不同单位、公式步骤、适用人群或版本；完全重复的条目才会合并。
+目录共包含 **1,054** 个有效逻辑条目、**981** 个唯一中文名称；**84** 个旧重复 ID 已合并为兼容别名。643 个可执行条目覆盖 570 个唯一中文名称。
+
+`complete` 表示“本地可执行”，不表示“已通过临床发布”。当前临床发布允许列表为空。
+
+## 常用命令
+
+| 目标 | 命令 |
+| --- | --- |
+| 查看覆盖摘要 | `python3 scripts/clinical_calculator.py summary` |
+| 搜索可执行计算器 | `python3 scripts/clinical_calculator.py search "关键词"` |
+| 搜索完整目录 | `python3 scripts/clinical_calculator.py search "关键词" --all` |
+| 查看输入、单位与来源 | `python3 scripts/clinical_calculator.py info CALC-0039` |
+| 运行指定计算器 | `python3 scripts/clinical_calculator.py run CALC-0039 --input weight_kg=70 --input height_cm=175` |
+| 校验注册表 | `python3 scripts/clinical_calculator.py validate` |
+| 查看回源队列 | `python3 scripts/clinical_calculator.py backlog --limit 20` |
+| 生成自定义模板 | `python3 scripts/clinical_calculator.py scaffold --help` |
+
+完整参数与结果状态见 [CLI 参考](./references/calculator-cli.md)。
+
+## 自定义计算器
+
+支持把有可靠来源的标量公式、多输出公式、查表和决策树保存为 JSON manifest。流程始终是：
+
+1. 从来源提取明确的输入、单位、边界、规则、版本和已知答案。
+2. 生成草稿并运行 schema 与测试案例校验。
+3. 向用户展示拟安装内容；只有确认后才写入可执行目录。
+
+```bash
+python3 scripts/clinical_calculator.py scaffold \
+  --output /tmp/my-calculator.json \
+  --id CUSTOM-MY-CALC \
+  --name-cn "我的计算器" \
+  --name-en "My Calculator"
+
+python3 scripts/clinical_calculator.py validate-custom /tmp/my-calculator.json
+```
+
+详见 [自定义计算器规范](./references/custom-calculators.md)。
+
+## 项目结构
+
+```text
+clinical-calculator/
+├── SKILL.md                         # Agent 工作流与安全约束
+├── clinical_calculators/            # 注册表、模型、扩展与计算实现
+│   └── calculators/common/          # 按临床主题拆分的计算器模块
+├── scripts/clinical_calculator.py   # JSON CLI
+├── tests/                           # 公式、边界、状态与安全回归测试
+├── references/                      # CLI 与自定义 manifest 规范
+├── reports/                         # 实现状态、来源审计与待办分类
+└── clinical_calculator_inventory_full.csv
+```
+
+## 质量与验证
+
+仓库包含 937 项自动化测试，覆盖注册表完整性、输入边界、已知答案、自定义 manifest 沙箱、目录分层和临床发布状态隔离。每次 push 和 pull request 都会在 Python 3.10、3.12、3.13 上运行校验。
+
+```bash
+python3 scripts/clinical_calculator.py validate
+python3 -m pytest -q
+```
+
+新增或修改医学计算逻辑时，请先阅读 [贡献指南](./CONTRIBUTING.md) 和 [来源方法学](./clinical_calculator_source_methodology.md)。
 
 ## 安全边界
 
-- 计算结果用于决策支持、教学和核对，不能替代专业诊断、处方或紧急处置。
 - 高风险场景必须结合患者状态、完整指南和专业人员判断。
-- 不会从名称、摘要或记忆反推缺失的系数、阈值、表格和版本。
-- 不会未经授权复制受保护的问卷题干、专有分期表或订阅内容。
-- 自定义计算器即使可以运行，也不代表已经通过独立临床审核。
 - 药物剂量计算与具体处方决策必须分开，并由临床医生或药师复核。
+- 自定义计算器即使可以运行，也不代表已经通过独立临床审核。
+- MIT 许可只覆盖仓库代码，不自动授予第三方问卷、专有表格或分期内容的再分发权。
+- 若条目无法运行，项目会返回明确状态和所需材料，不会生成看似可信的伪结果。
 
-## 项目状态
+## 参与贡献
 
-当前 Skill 已通过完整自动化测试、来源残留扫描和 Skill 结构校验。可执行、待回源、指南知识和受控内容在搜索与运行时严格分离，不可执行条目不会伪装成计算结果。
+欢迎提交计算器实现、来源核对、边界测试、别名改进和文档修正。医学公式变更必须附一手或权威来源、版本信息以及至少两个可复现的已知答案。
+
+详见 [CONTRIBUTING.md](./CONTRIBUTING.md)。
 
 ## License
 
-项目代码采用 [MIT License](./LICENSE)。该许可不代表获得第三方问卷、专有表格、分期内容或其他受控医学材料的再分发权。
+[MIT](./LICENSE) © Clinical Calculator contributors

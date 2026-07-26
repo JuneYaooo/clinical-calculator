@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import csv
+import re
+import unicodedata
 from pathlib import Path
 
 from .calculators import IMPLEMENTATIONS, IMPLEMENTATIONS_BY_ID
@@ -54,6 +56,64 @@ KNOWN_PARTIAL_IDS = {
     "CALC-0278",
     "CALC-0283",
 }
+
+# Search aliases are deliberately small and domain-specific. They bridge common
+# clinician wording without changing calculator metadata or guessing formulas.
+SEARCH_ALIASES = {
+    "卒中": ("卒中", "中风", "stroke"),
+    "中风": ("中风", "卒中", "stroke"),
+    "房颤": ("房颤", "心房颤动", "atrial fibrillation"),
+    "心房颤动": ("心房颤动", "房颤", "atrial fibrillation"),
+    "房颤卒中": ("房颤中风", "atrial fibrillation stroke", "cha2ds2"),
+    "房颤卒中风险": ("房颤中风危险", "atrial fibrillation stroke risk", "cha2ds2"),
+    "肾功能": (
+        "肾功能",
+        "肾小球滤过率",
+        "肌酐清除率",
+        "egfr",
+        "ckd-epi",
+        "mdrd",
+        "cockcroft",
+    ),
+    "renal function": (
+        "renal function",
+        "glomerular filtration rate",
+        "creatinine clearance",
+        "egfr",
+        "ckd-epi",
+        "mdrd",
+        "cockcroft",
+    ),
+    "心梗": ("心梗", "心肌梗死", "myocardial infarction"),
+    "心肌梗死": ("心肌梗死", "心梗", "myocardial infarction"),
+    "肺栓塞": ("肺栓塞", "pulmonary embolism"),
+}
+
+
+def _normalize_search_text(value: str) -> str:
+    """Normalize width, case, punctuation, and whitespace for search only."""
+
+    normalized = unicodedata.normalize("NFKC", value).casefold()
+    normalized = re.sub(r"[^\w\u4e00-\u9fff]+", " ", normalized)
+    return " ".join(normalized.split())
+
+
+def _query_groups(query: str) -> tuple[tuple[str, ...], ...]:
+    """Return AND-ed query groups whose members are OR-ed search aliases."""
+
+    normalized = _normalize_search_text(query)
+    if not normalized:
+        return ()
+    if normalized in SEARCH_ALIASES:
+        return (tuple(_normalize_search_text(item) for item in SEARCH_ALIASES[normalized]),)
+    return tuple(
+        tuple(_normalize_search_text(item) for item in SEARCH_ALIASES.get(token, (token,)))
+        for token in normalized.split()
+    )
+
+
+def _matches_groups(haystack: str, groups: tuple[tuple[str, ...], ...]) -> bool:
+    return all(any(alias in haystack for alias in aliases) for aliases in groups)
 
 
 FIELD_MAP = {
@@ -139,8 +199,9 @@ class CalculatorRegistry:
         }
 
     def search(self, query: str, limit: int | None = 20) -> list[CalculatorSkill]:
-        needle = query.strip().lower()
-        if not needle:
+        needle = _normalize_search_text(query)
+        groups = _query_groups(query)
+        if not groups:
             return []
 
         scored: list[tuple[int, str, CalculatorSkill]] = []
@@ -155,20 +216,30 @@ class CalculatorRegistry:
                 metadata.purpose,
                 metadata.source,
             )
-            lower_fields = tuple(field.lower() for field in fields)
-            if not any(needle in field for field in lower_fields):
+            normalized_fields = tuple(_normalize_search_text(field) for field in fields)
+            combined = " ".join(normalized_fields)
+            if not _matches_groups(combined, groups):
                 continue
             score = 100
-            if metadata.name_cn.lower() == needle or metadata.name_en.lower() == needle:
+            name_cn, name_en, category, subspecialty, scenario, purpose, source = normalized_fields
+            if name_cn == needle or name_en == needle:
                 score = 0
-            elif metadata.name_cn.lower().startswith(needle) or metadata.name_en.lower().startswith(needle):
+            elif name_cn.startswith(needle) or name_en.startswith(needle):
                 score = 10
-            elif needle in metadata.name_cn.lower() or needle in metadata.name_en.lower():
+            elif needle in name_cn or needle in name_en:
                 score = 20
-            elif needle in metadata.scenario.lower():
+            elif _matches_groups(f"{name_cn} {name_en}", groups):
+                score = 30
+            elif needle in scenario:
                 score = 40
-            elif needle in metadata.category.lower() or needle in metadata.subspecialty.lower():
+            elif _matches_groups(scenario, groups):
+                score = 50
+            elif _matches_groups(f"{category} {subspecialty}", groups):
                 score = 60
+            elif _matches_groups(purpose, groups):
+                score = 80
+            elif _matches_groups(source, groups):
+                score = 90
             scored.append((score, metadata.name_cn, skill))
 
         scored.sort(key=lambda item: (item[0], item[1], item[2].metadata.id))

@@ -1,0 +1,65 @@
+<svg width="1280" height="500" viewBox="0 0 1280 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1060 70) rotate(128) scale(490 610)">
+      <stop stop-color="#2CB7A2" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#2CB7A2" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" stroke="#D7F5EF" stroke-opacity="0.055"/>
+    </pattern>
+    <filter id="shadow" x="-30" y="-30" width="720" height="480" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#020C10" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="500" rx="28" fill="#0B2028"/>
+  <rect width="1280" height="500" rx="28" fill="url(#grid)"/>
+  <rect width="1280" height="500" rx="28" fill="url(#glow)"/>
+
+  <g transform="translate(72 68)">
+    <rect width="54" height="54" rx="14" fill="#D7F5EF"/>
+    <path d="M16 18H12V36H16M38 18H42V36H38" stroke="#0B2028" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M20 28H25L28 21L32 34L35 28H39" stroke="#159A87" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <text x="72" y="174" fill="#D7F5EF" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="18" font-weight="600" letter-spacing="3">CLINICAL CALCULATOR</text>
+  <text x="72" y="236" fill="#F4FAF8" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="48" font-weight="700" letter-spacing="-1.6">让 Agent 可靠地完成</text>
+  <text x="72" y="294" fill="#F4FAF8" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="48" font-weight="700" letter-spacing="-1.6">医学计算与证据路由</text>
+  <text x="72" y="350" fill="#A9C3C5" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="20">搜索 · 核对输入与单位 · 运行 · 解释 · 追溯来源</text>
+
+  <g transform="translate(72 392)">
+    <rect width="126" height="40" rx="8" fill="#15333B"/>
+    <text x="18" y="26" fill="#D7F5EF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="14" font-weight="600">643 runnable</text>
+    <rect x="138" width="132" height="40" rx="8" fill="#15333B"/>
+    <text x="156" y="26" fill="#D7F5EF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="14" font-weight="600">937 tests</text>
+    <rect x="282" width="146" height="40" rx="8" fill="#15333B"/>
+    <text x="300" y="26" fill="#D7F5EF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="14" font-weight="600">CN / EN search</text>
+  </g>
+
+  <g transform="translate(680 62)" filter="url(#shadow)">
+    <rect width="530" height="376" rx="18" fill="#102A33" stroke="#78CFC0" stroke-opacity="0.22"/>
+    <rect width="530" height="54" rx="18" fill="#153640"/>
+    <rect y="36" width="530" height="18" fill="#153640"/>
+    <circle cx="25" cy="27" r="5" fill="#E98D76"/>
+    <circle cx="44" cy="27" r="5" fill="#E4C36F"/>
+    <circle cx="63" cy="27" r="5" fill="#66BFAF"/>
+    <text x="92" y="33" fill="#8EADB0" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13">clinical_calculator.py</text>
+
+    <text x="28" y="94" fill="#78CFC0" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="14">$</text>
+    <text x="48" y="94" fill="#DCEBE8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="14">search "房颤 卒中"</text>
+
+    <rect x="28" y="117" width="474" height="94" rx="10" fill="#0D242C"/>
+    <text x="48" y="148" fill="#6F9297" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="12">CALC-0049</text>
+    <text x="48" y="174" fill="#F4FAF8" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="16" font-weight="600">CHA₂DS₂-VASc 评分</text>
+    <text x="48" y="197" fill="#8EADB0" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="13">executable · 心血管医学</text>
+
+    <text x="28" y="252" fill="#78CFC0" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="14">$</text>
+    <text x="48" y="252" fill="#DCEBE8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="14">run CALC-0039 ...</text>
+
+    <rect x="28" y="275" width="474" height="73" rx="10" fill="#D7F5EF"/>
+    <text x="48" y="304" fill="#49666A" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="12">RESULT</text>
+    <text x="48" y="332" fill="#0B2028" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="20" font-weight="700">22.8571 kg/m²</text>
+    <circle cx="473" cy="312" r="12" fill="#159A87"/>
+    <path d="M468 312L472 316L479 308" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
