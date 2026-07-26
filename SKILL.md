@@ -36,6 +36,8 @@ Use this repository as a calculation and evidence-routing Skill, not as a produc
 6. Report calculator/version, inputs and units, formula or rule, result and rounding, interpretation, source, and important limits. Keep arithmetic reproducible.
 
 Read [references/calculator-cli.md](references/calculator-cli.md) for all commands and result states.
+Read [references/search-and-routing.md](references/search-and-routing.md) for query normalization,
+synonym maintenance, match explanations, and the required response to `no_match`.
 
 ## Availability and safety
 

@@ -1,0 +1,30 @@
+term,expands_to,note
+卒中,中风;stroke,卒中常用别名及中英对照
+中风,卒中;stroke,中风与卒中的常用同义关系及英文对照
+房颤,心房颤动;atrial fibrillation,心房颤动常用简称及英文对照
+心房颤动,房颤;atrial fibrillation,心房颤动常用简称及英文对照
+房颤卒中,房颤中风;atrial fibrillation stroke;cha2ds2,房颤卒中风险的常见中英文表述及评分缩写
+房颤卒中风险,房颤中风危险;atrial fibrillation stroke risk;cha2ds2,房颤卒中风险的常见中英文表述及评分缩写
+肾功能,肾小球滤过率;肌酐清除率;glomerular filtration rate;creatinine clearance;egfr;ckd epi;mdrd;cockcroft,临床肾功能估算的常用指标与方程名称
+renal function,肾功能;肾小球滤过率;肌酐清除率;glomerular filtration rate;creatinine clearance;egfr;ckd epi;mdrd;cockcroft,肾功能的中英对照及常用估算指标
+心梗,心肌梗死;myocardial infarction,心肌梗死常用简称及英文对照
+心肌梗死,心梗;myocardial infarction,心肌梗死常用简称及英文对照
+肺栓塞,pulmonary embolism,肺栓塞中英对照
+脓毒症,sepsis,脓毒症中英对照
+小儿,儿童;pediatric,儿科人群常用称谓及英文对照
+儿童,小儿;pediatric,儿科人群常用称谓及英文对照
+pe,肺栓塞;pulmonary embolism,肺栓塞常用英文缩写
+dvt,深静脉血栓;deep vein thrombosis,深静脉血栓形成常用英文缩写
+af,房颤;心房颤动;atrial fibrillation,心房颤动常用英文缩写
+gcs,glasgow coma scale;格拉斯哥昏迷评分,Glasgow昏迷评分常用缩写及中英对照
+crcl,肌酐清除率;creatinine clearance,肌酐清除率常用英文缩写
+概率,可能性;probability,临床风险表述中概率与可能性的常用同义关系及英文对照
+map,mean arterial pressure;平均动脉压;平均血管压力,平均动脉压常用英文缩写及中英对照
+liver fibrosis,hepatic fibrosis;肝纤维化;fibrosis,肝纤维化的英文表述及中英对照
+gi bleed,gastrointestinal bleeding;上消化道出血;gastrointestinal haemorrhage,消化道出血的常用英文表述
+upper gi bleed,上消化道出血,上消化道出血英文描述直接映射（消除残余Latin token问题）
+kawasaki,川崎;川崎病;kawasaki disease,川崎病中英对照及常用简称
+kawasaki disease,川崎病,川崎病英文全称直接映射至中文（消除残余Latin token问题）
+consciousness,意识;昏迷;consciousness disorder;coma;altered consciousness,意识障碍的常用英文表述
+consciousness impaired,意识障碍,意识障碍英文描述直接映射（消除残余Latin token问题）
+impaired consciousness,意识障碍,意识障碍英文描述直接映射

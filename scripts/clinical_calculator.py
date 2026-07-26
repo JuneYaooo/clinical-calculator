@@ -66,8 +66,8 @@ def emit(payload: Any) -> None:
     print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
 
 
-def skill_summary(skill: Any) -> dict[str, Any]:
-    return {
+def skill_summary(skill: Any, match: Any = None) -> dict[str, Any]:
+    summary = {
         "id": skill.metadata.id,
         "name_cn": skill.metadata.name_cn,
         "name_en": skill.metadata.name_en,
@@ -79,6 +79,9 @@ def skill_summary(skill: Any) -> dict[str, Any]:
         "runnable": skill.implemented,
         "clinically_released": skill.metadata.id in {item.metadata.id for item in skill_registry.released()},
     }
+    if match is not None:
+        summary["match"] = match.as_dict()
+    return summary
 
 
 def compact_registry_summary(registry: Any) -> dict[str, Any]:
@@ -571,12 +574,18 @@ def main() -> int:
             else:
                 matches = skill_registry.search_runnable(args.query, args.limit)
                 scope = "executable"
+            search_response = skill_registry.search_response()
             emit(
                 {
                     "query": args.query,
                     "scope": scope,
+                    "status": search_response.status,
                     "count": len(matches),
-                    "results": [skill_summary(item) for item in matches],
+                    "results": [
+                        skill_summary(item, skill_registry.search_match(item.metadata.id))
+                        for item in matches
+                    ],
+                    "suggestions": list(search_response.suggestions),
                 }
             )
             return 0

@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 import csv
-import re
-import unicodedata
 from pathlib import Path
 
 from .calculators import IMPLEMENTATIONS, IMPLEMENTATIONS_BY_ID
@@ -10,6 +8,7 @@ from .contracts import load_declared_contracts, validate_contract_alignment
 from .extensions import ManifestError, discover_custom_calculators
 from .models import CalculatorMetadata
 from .release import CLINICALLY_RELEASED_IDS
+from .search import SearchIndex, SearchMatch, SearchResponse
 from .skill import CalculatorSkill
 
 
@@ -57,65 +56,6 @@ KNOWN_PARTIAL_IDS = {
     "CALC-0278",
     "CALC-0283",
 }
-
-# Search aliases are deliberately small and domain-specific. They bridge common
-# clinician wording without changing calculator metadata or guessing formulas.
-SEARCH_ALIASES = {
-    "卒中": ("卒中", "中风", "stroke"),
-    "中风": ("中风", "卒中", "stroke"),
-    "房颤": ("房颤", "心房颤动", "atrial fibrillation"),
-    "心房颤动": ("心房颤动", "房颤", "atrial fibrillation"),
-    "房颤卒中": ("房颤中风", "atrial fibrillation stroke", "cha2ds2"),
-    "房颤卒中风险": ("房颤中风危险", "atrial fibrillation stroke risk", "cha2ds2"),
-    "肾功能": (
-        "肾功能",
-        "肾小球滤过率",
-        "肌酐清除率",
-        "egfr",
-        "ckd-epi",
-        "mdrd",
-        "cockcroft",
-    ),
-    "renal function": (
-        "renal function",
-        "glomerular filtration rate",
-        "creatinine clearance",
-        "egfr",
-        "ckd-epi",
-        "mdrd",
-        "cockcroft",
-    ),
-    "心梗": ("心梗", "心肌梗死", "myocardial infarction"),
-    "心肌梗死": ("心肌梗死", "心梗", "myocardial infarction"),
-    "肺栓塞": ("肺栓塞", "pulmonary embolism"),
-}
-
-
-def _normalize_search_text(value: str) -> str:
-    """Normalize width, case, punctuation, and whitespace for search only."""
-
-    normalized = unicodedata.normalize("NFKC", value).casefold()
-    normalized = re.sub(r"[^\w\u4e00-\u9fff]+", " ", normalized)
-    return " ".join(normalized.split())
-
-
-def _query_groups(query: str) -> tuple[tuple[str, ...], ...]:
-    """Return AND-ed query groups whose members are OR-ed search aliases."""
-
-    normalized = _normalize_search_text(query)
-    if not normalized:
-        return ()
-    if normalized in SEARCH_ALIASES:
-        return (tuple(_normalize_search_text(item) for item in SEARCH_ALIASES[normalized]),)
-    return tuple(
-        tuple(_normalize_search_text(item) for item in SEARCH_ALIASES.get(token, (token,)))
-        for token in normalized.split()
-    )
-
-
-def _matches_groups(haystack: str, groups: tuple[tuple[str, ...], ...]) -> bool:
-    return all(any(alias in haystack for alias in aliases) for aliases in groups)
-
 
 FIELD_MAP = {
     "id": "id",
@@ -168,6 +108,8 @@ class CalculatorRegistry:
                 raise ValueError(
                     f"calculator alias target does not exist: {alias_id} -> {canonical_id}"
                 )
+        self._search_index = SearchIndex(skills)
+        self._last_search_response = SearchResponse("no_match", ())
 
     def __len__(self) -> int:
         return len(self.skills)
@@ -200,52 +142,48 @@ class CalculatorRegistry:
         }
 
     def search(self, query: str, limit: int | None = 20) -> list[CalculatorSkill]:
-        needle = _normalize_search_text(query)
-        groups = _query_groups(query)
-        if not groups:
-            return []
+        return self._search(query, limit=limit)
 
-        scored: list[tuple[int, str, CalculatorSkill]] = []
-        for skill in self.skills:
-            metadata = skill.metadata
-            fields = (
-                metadata.name_cn,
-                metadata.name_en,
-                metadata.category,
-                metadata.subspecialty,
-                metadata.scenario,
-                metadata.purpose,
-                metadata.source,
-            )
-            normalized_fields = tuple(_normalize_search_text(field) for field in fields)
-            combined = " ".join(normalized_fields)
-            if not _matches_groups(combined, groups):
-                continue
-            score = 100
-            name_cn, name_en, category, subspecialty, scenario, purpose, source = normalized_fields
-            if name_cn == needle or name_en == needle:
-                score = 0
-            elif name_cn.startswith(needle) or name_en.startswith(needle):
-                score = 10
-            elif needle in name_cn or needle in name_en:
-                score = 20
-            elif _matches_groups(f"{name_cn} {name_en}", groups):
-                score = 30
-            elif needle in scenario:
-                score = 40
-            elif _matches_groups(scenario, groups):
-                score = 50
-            elif _matches_groups(f"{category} {subspecialty}", groups):
-                score = 60
-            elif _matches_groups(purpose, groups):
-                score = 80
-            elif _matches_groups(source, groups):
-                score = 90
-            scored.append((score, metadata.name_cn, skill))
+    def search_response(self) -> SearchResponse:
+        """Return diagnostics for the most recent search on this registry."""
 
-        scored.sort(key=lambda item: (item[0], item[1], item[2].metadata.id))
-        matches = [skill for _, _, skill in scored]
-        return matches[:limit] if limit is not None else matches
+        return self._last_search_response
+
+    def search_match(self, calculator_id: str) -> SearchMatch | None:
+        return next(
+            (
+                hit.match
+                for hit in self._last_search_response.hits
+                if hit.calculator_id == calculator_id
+            ),
+            None,
+        )
+
+    def _search(
+        self,
+        query: str,
+        *,
+        limit: int | None,
+        allowed_ids: set[str] | None = None,
+    ) -> list[CalculatorSkill]:
+        response = self._search_index.search(
+            query,
+            limit=limit,
+            allowed_ids=allowed_ids,
+        )
+        if response.status == "no_match" and allowed_ids is not None:
+            catalog_response = self._search_index.search(query, limit=5)
+            catalog_suggestions = [
+                self._by_id[hit.calculator_id].metadata.name_cn
+                for hit in catalog_response.hits
+            ]
+            catalog_suggestions.extend(catalog_response.suggestions)
+            suggestions = tuple(
+                dict.fromkeys((*catalog_suggestions, *response.suggestions))
+            )[:5]
+            response = SearchResponse("no_match", (), suggestions)
+        self._last_search_response = response
+        return [self._by_id[hit.calculator_id] for hit in self._last_search_response.hits]
 
     def by_category(self, category: str) -> list[CalculatorSkill]:
         return [skill for skill in self.skills if skill.metadata.category == category]
@@ -279,22 +217,17 @@ class CalculatorRegistry:
 
     def search_runnable(self, query: str, limit: int | None = 20) -> list[CalculatorSkill]:
         runnable_ids = {skill.metadata.id for skill in self.runnable()}
-        matches = self.search(query, limit=None)
-        matches = [skill for skill in matches if skill.metadata.id in runnable_ids]
-        return matches[:limit] if limit is not None else matches
+        return self._search(query, limit=limit, allowed_ids=runnable_ids)
 
     def search_layer(
         self, query: str, layer: str, limit: int | None = 20
     ) -> list[CalculatorSkill]:
         layer_ids = {skill.metadata.id for skill in self.by_catalog_layer(layer)}
-        matches = [skill for skill in self.search(query, limit=None) if skill.metadata.id in layer_ids]
-        return matches[:limit] if limit is not None else matches
+        return self._search(query, limit=limit, allowed_ids=layer_ids)
 
     def search_released(self, query: str, limit: int | None = 20) -> list[CalculatorSkill]:
         released_ids = {skill.metadata.id for skill in self.released()}
-        matches = self.search(query, limit=None)
-        matches = [skill for skill in matches if skill.metadata.id in released_ids]
-        return matches[:limit] if limit is not None else matches
+        return self._search(query, limit=limit, allowed_ids=released_ids)
 
     def summary(self) -> dict[str, object]:
         implemented = self.implemented()

@@ -1,0 +1,7 @@
+{
+  "case_count": 130,
+  "mrr": 1.0,
+  "recall_at_1": 1.0,
+  "recall_at_5": 1.0,
+  "zero_result_rate": 0.0
+}

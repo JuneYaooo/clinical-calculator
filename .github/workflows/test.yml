@@ -29,5 +29,7 @@ jobs:
         run: python scripts/clinical_calculator.py validate
       - name: Generate input contract coverage report
         run: python scripts/report_contract_coverage.py
+      - name: Evaluate routing quality
+        run: python scripts/evaluate_routing.py
       - name: Run tests
         run: python -m pytest -q
