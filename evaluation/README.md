@@ -17,18 +17,18 @@ Run `python3 scripts/evaluate_routing.py` to regenerate `reports/routing_evaluat
 
 ## Held-out evaluation
 
-`routing_cases_heldout.csv` contains the 30 independently checked cases from the phase C
-acceptance run. Regenerate its report with:
+`routing_cases_heldout.csv` contains the 22 independently checked executable-calculator cases
+retained from the phase C acceptance run. Regenerate its report with:
 
 ```bash
 python3 scripts/evaluate_routing.py --cases evaluation/routing_cases_heldout.csv \
     --report reports/routing_evaluation_heldout.json
 ```
 
-> 这 30 条是阶段 C 验收时的独立 held-out 集，其中 `abbrev` / `scenario` / `partial`
-> 三类查询不在主用例集里。需要注意：86.67% 这个 recall@1 **不是干净的泛化估计**——
+> 这 22 条来自阶段 C 验收时的独立 held-out 集，其中 `abbrev` / `scenario` / `partial`
+> 三类查询不在主用例集里。原始集合中指向已移除条目的用例已同步删除。当前 recall@1 **不是干净的泛化估计**——
 > 在看到失败案例之后，同义词表补了 4 条短语级映射，指标才从 73.33% 提到 86.67%。
 > 也就是说这批用例已经被拟合过一次。下一轮评测需要再建一批全新的、
 > 从未参与过任何调优的用例，才能得到干净的泛化估计。
 
-主用例集 130 条里有 81 条是把库存全名原样贴回来当查询，接近恒等映射；因此主集的高分不代表泛化能力。
+主用例集 125 条里仍有大量库存全名原样查询，接近恒等映射；因此主集的高分不代表泛化能力。

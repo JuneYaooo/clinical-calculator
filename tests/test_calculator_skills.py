@@ -30,20 +30,17 @@ class CalculatorSkillsTest(unittest.TestCase):
         registry = load_registry(ROOT / "clinical_calculator_inventory_full.csv")
         summary = registry.summary()
 
-        self.assertEqual(summary["total_rows"], 1054)
-        self.assertEqual(summary["inventory_rows"], 1138)
+        self.assertEqual(summary["total_rows"], 643)
+        self.assertEqual(summary["inventory_rows"], 727)
         self.assertEqual(summary["merged_alias_rows"], 84)
-        self.assertEqual(summary["unique_chinese_names"], 981)
+        self.assertEqual(summary["unique_chinese_names"], 570)
         self.assertEqual(summary["implemented_rows"], 643)
         self.assertEqual(summary["implemented_unique_names"], 570)
-        self.assertEqual(summary["metadata_only_rows"], 411)
         self.assertEqual(
-            summary["catalog_layers"],
+            summary["implementation_levels"],
             {
-                "executable": 643,
-                "source_candidate": 110,
-                "guidance_knowledge": 206,
-                "controlled_content": 95,
+                "complete": 593,
+                "partial": 50,
             },
         )
         for implemented_name in (
@@ -172,14 +169,8 @@ class CalculatorSkillsTest(unittest.TestCase):
         self.assertTrue(cardiovascular)
         self.assertTrue(all(skill.metadata.category == "心血管医学" for skill in cardiovascular))
 
-        self.assertEqual(len(registry.by_catalog_layer("executable")), 643)
-        self.assertEqual(len(registry.by_catalog_layer("source_candidate")), 110)
-        self.assertTrue(
-            all(
-                skill.catalog_layer == "guidance_knowledge"
-                for skill in registry.search_layer("筛查", "guidance_knowledge", limit=None)
-            )
-        )
+        self.assertEqual(len(registry.runnable()), 643)
+        self.assertTrue(all(skill.implemented for skill in registry.skills))
 
     def test_merged_alias_ids_resolve_to_one_canonical_skill(self):
         from clinical_calculators.registry import load_registry
@@ -195,14 +186,14 @@ class CalculatorSkillsTest(unittest.TestCase):
         self.assertIs(registry.get("CALC-0185"), registry.get("CALC-0187"))
         self.assertIs(registry.get("CALC-0559"), registry.get("CALC-0111"))
 
-    def test_registry_entries_are_runnable_without_claiming_unimplemented_formulas(self):
+    def test_registry_entries_are_runnable(self):
         from clinical_calculators.registry import load_registry
 
         registry = load_registry(ROOT / "clinical_calculator_inventory_full.csv")
 
         for skill in registry.skills:
             result = skill.run({})
-            self.assertIn(result.status, {"implemented", "missing_inputs", "needs_formula_implementation"})
+            self.assertIn(result.status, {"implemented", "partial", "missing_inputs"})
             self.assertTrue(result.message)
             self.assertEqual(result.calculator_id, skill.metadata.id)
 

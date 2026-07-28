@@ -1,11 +1,11 @@
 ---
 name: clinical-calculator
-description: Use for searching, selecting, calculating, checking, or explaining clinical formulas, medical calculators, risk and staging scores, renal estimates, lab-derived indices, unit conversions, dose arithmetic, or interpretation thresholds; also use to audit calculator availability or turn a supplied JSON, CSV, Markdown, PDF, DOCX, or written specification into a draft, validated, and installed user-defined scalar/multi-output formula, lookup table, or decision-tree calculator. Supports Chinese and English calculator names and explicitly separates executable, research-candidate, guidance, controlled, reviewed, and released states.
+description: Use for searching, selecting, calculating, checking, or explaining executable clinical formulas, medical calculators, risk and staging scores, renal estimates, lab-derived indices, unit conversions, dose arithmetic, or interpretation thresholds; also use to turn a supplied JSON, CSV, Markdown, PDF, DOCX, or written specification into a draft, validated, and installed user-defined scalar/multi-output formula, lookup table, or decision-tree calculator. Supports Chinese and English calculator names and keeps local executability separate from clinical review and release.
 ---
 
 # Clinical Calculator
 
-Use this repository as a calculation and evidence-routing Skill, not as a product interface. The inventory is broad, but not every indexed entry is executable or cleared for clinical release.
+Use this repository as a calculation and evidence-routing Skill, not as a product interface. Every indexed calculator has local executable logic; none is automatically cleared for clinical release.
 
 ## Core workflow
 
@@ -14,9 +14,6 @@ Use this repository as a calculation and evidence-routing Skill, not as a produc
    ```bash
    python3 scripts/clinical_calculator.py search "<中文名、英文名、专科或场景>"
    ```
-
-   Default search excludes non-executable catalog entries. Use `--all` for the complete
-   catalog or `--layer source_candidate|guidance_knowledge|controlled_content` when auditing.
 
 2. Resolve duplicate names by ID. Never silently choose among multiple versions or variants.
 3. Inspect the exact inputs, units, bounds, source, version, and implementation state:
@@ -43,11 +40,7 @@ synonym maintenance, match explanations, and the required response to `no_match`
 
 - `complete` means locally executable from its declared contract, not clinically approved.
 - `partial` returns an intermediate result or needs upstream/pre-scored values.
-- `metadata_only` is searchable but must return `needs_formula_implementation`.
-- `licensed_rule` is intentionally unavailable because exact content is rights- or subscription-governed.
 - `released` is controlled separately by an explicit clinician-approved allowlist. It is currently empty.
-- Catalog layers are separate from execution state: `executable`, `source_candidate`,
-  `guidance_knowledge`, and `controlled_content`. Do not present the latter three as runnable.
 - Resolve merged duplicate IDs through `clinical_calculator_aliases.csv`. Treat the canonical ID as
   the calculator record; keep old IDs working for backward compatibility and do not count aliases
   as separate calculators.
@@ -58,17 +51,7 @@ synonym maintenance, match explanations, and the required response to `no_match`
 - For medication dosing, separate calculation from prescribing and require clinician/pharmacist review.
 - For emergencies or high-stakes decisions, do not let a calculator replace urgent professional assessment.
 
-When an entry cannot run, explain its state and required source material. Offer a runnable alternative only if it answers the same clinical question and clearly identify any population or version difference.
-
-Rank the current evidence-retrieval candidates before source work:
-
-```bash
-python3 scripts/clinical_calculator.py backlog --limit 110
-python3 scripts/clinical_calculator.py backlog --blocker formula_missing
-```
-
-This queue is generated from `reports/calculator_implementation_status.csv`; do not infer missing
-rules from the queue metadata itself.
+If a requested calculator is not found, say that it is not included. Do not reconstruct missing coefficients, point tables, thresholds, or licensed content from memory. Offer an included alternative only if it answers the same clinical question and clearly identify any population or version difference.
 
 ## Add a custom calculator
 

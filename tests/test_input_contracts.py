@@ -6,7 +6,7 @@ import sys
 
 import pytest
 
-from clinical_calculators import InputSpec, load_registry
+from clinical_calculators import CalculationResult, InputSpec, load_registry
 from clinical_calculators.contracts import (
     ContractError,
     load_declared_contracts,
@@ -77,6 +77,7 @@ def test_explicit_schema_has_priority_over_built_in_contract():
     explicit = (InputSpec(name="manifest_value", value_type="string"),)
     skill = CalculatorSkill(
         metadata,
+        lambda item, inputs: CalculationResult(item.id, "implemented", "test"),
         required_inputs=("manifest_value",),
         input_schema=explicit,
     )

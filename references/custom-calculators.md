@@ -180,4 +180,4 @@ Do not force these into the declarative format:
 - proprietary or licensed question text;
 - formulas requiring specialized external libraries.
 
-Add those as source-backed Python implementations under `clinical_calculators/calculators/`, declare their exact input contract, and include source-derived unit, threshold, boundary, and invalid-input tests. Licensed content remains `licensed_rule` until redistribution and implementation rights are clear.
+Add those as source-backed Python implementations under `clinical_calculators/calculators/`, declare their exact input contract, and include source-derived unit, threshold, boundary, and invalid-input tests. Do not add licensed content unless redistribution and implementation rights are clear.

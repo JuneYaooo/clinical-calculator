@@ -231,13 +231,11 @@ class CalculatorSkill:
     def __init__(
         self,
         metadata: CalculatorMetadata,
-        implementation: Callable[[CalculatorMetadata, dict[str, Any]], CalculationResult] | None = None,
+        implementation: Callable[[CalculatorMetadata, dict[str, Any]], CalculationResult],
         required_inputs: tuple[str, ...] = (),
         implementation_module: str = "",
-        implementation_level: str = "metadata_only",
+        implementation_level: str = "complete",
         input_schema: tuple[InputSpec, ...] | None = None,
-        catalog_layer: str = "executable",
-        pending_blocker_type: str = "",
     ) -> None:
         self.metadata = metadata
         self._implementation = implementation
@@ -252,8 +250,6 @@ class CalculatorSkill:
         )
         self.implementation_module = implementation_module
         self.implementation_level = implementation_level
-        self.catalog_layer = catalog_layer
-        self.pending_blocker_type = pending_blocker_type
 
     @property
     def implemented(self) -> bool:
@@ -275,7 +271,7 @@ class CalculatorSkill:
         return SkillCheck(ok=not errors, errors=tuple(errors))
 
     def medical_review_check(self) -> SkillCheck:
-        """Report product-readiness gaps without removing metadata-only entries."""
+        """Report product-readiness gaps independently of local executability."""
         errors = []
         if self.implementation_level != "complete":
             errors.append(f"implementation level is {self.implementation_level}")
@@ -290,13 +286,6 @@ class CalculatorSkill:
         return SkillCheck(ok=not errors, errors=tuple(errors))
 
     def run(self, inputs: dict[str, Any]) -> CalculationResult:
-        if self._implementation is None:
-            return CalculationResult(
-                calculator_id=self.metadata.id,
-                status="needs_formula_implementation",
-                message="metadata is available, but calculation logic still requires formula-level medical audit and implementation",
-                required_inputs=(),
-            )
         missing = tuple(key for key in self.required_inputs if key not in inputs)
         if missing:
             return CalculationResult(

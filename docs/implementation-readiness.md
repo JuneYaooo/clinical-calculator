@@ -1,61 +1,41 @@
 # Clinical Calculator Implementation Readiness
 
-Generated baseline: 2026-07-15
+Updated baseline: 2026-07-28
 
-## Current Runtime Classification
+## Runtime inventory
 
-| Level | Rows | Meaning |
-|---|---:|---|
-| complete | 667 | Executable from its declared local input contract |
-| partial | 55 | Uses pre-scored/upstream values or implements only an intermediate step |
-| metadata_only | 325 | Metadata is searchable but no executable implementation is linked |
-| licensed_rule | 91 | Blocked by rights or versioned/subscription-governed content |
+The built-in registry contains executable calculators only.
 
-These levels total 1138 inventory rows. They are intentionally separate from medical review readiness. Source-backed promotions now include CALC-0285, CALC-0479, CALC-0569, CALC-0714, CALC-0162, CALC-0746, CALC-0758, CALC-0067, CALC-0642, CALC-0693, CALC-0387, CALC-0701, CALC-0525, CALC-0765, CALC-0712, and CALC-0711.
+| Level | Logical entries | Meaning |
+| --- | ---: | --- |
+| complete | 593 | Executable from original declared inputs |
+| partial | 50 | Executable intermediate step using pre-scored or upstream values |
+| total | 643 | All entries have local calculation logic |
 
-## Catalog Layers
+The CSV contains 727 rows because 84 retired duplicate IDs remain as compatibility aliases. They resolve to canonical executable entries and are not counted as separate calculators.
 
-| Layer | Rows | Default discovery behavior |
-|---|---:|---|
-| executable | 722 | Included in default CLI search |
-| source_candidate | 126 | Retained for formula/source research; requires explicit layer search |
-| guidance_knowledge | 199 | Retained as pathway, drug-rule, or prevention knowledge; not runnable |
-| controlled_content | 91 | Retained as rights- or staging-governed metadata; not runnable |
+The loader rejects any built-in inventory row that has no linked implementation. Incomplete proposals, guideline-only knowledge, and content without redistribution rights are not stored in the runtime inventory.
 
-Catalog layer and implementation level are independent concepts. Exact-ID `info` remains available
-for every retained row, while default search avoids presenting non-executable knowledge as a
-calculator result.
+## Medical review gate
 
-## Medical Review Gate
+Executability and clinical release remain separate. A calculator is not release-ready unless:
 
-A calculator is not release-ready unless all of the following are true:
-
-1. Its implementation level is `complete`.
+1. The implementation level is `complete`.
 2. The exact source version or publication year is recorded.
 3. The source URL identifies the calculator, guideline, or original publication rather than a library landing page.
 4. Interpretation thresholds are stored locally and do not defer to an unspecified external source.
 5. Independent source-derived validation cases cover ordinary, threshold, unit-conversion, and invalid inputs.
+6. A qualified reviewer has approved the calculator for the intended setting.
 
-At this baseline, 17 of 1138 rows have a version/year and 16 rows pass the automated portion of this gate. Passing the automated gate is not a substitute for clinician review.
+Currently 19 entries pass the automated metadata portion of this gate. The explicit clinician-approved release allowlist remains empty.
 
-## Result Status Contract
+## Result status contract
 
 | Status | Meaning |
-|---|---|
+| --- | --- |
 | implemented | Calculation completed |
-| partial | An intermediate result was calculated; another referenced step is required |
-| missing_inputs | The implementation exists but required inputs were omitted |
-| invalid_inputs | Values failed type, finite-number, range, or formula validation |
-| needs_formula_implementation | No executable formula/rule is linked |
+| partial | An executable intermediate result was calculated |
+| missing_inputs | One or more declared inputs were omitted |
+| invalid_inputs | Values failed type, finite-number, range, choice, or arithmetic validation |
 
-## Priority Backlog
-
-Do not infer coefficients or licensed tables from summaries. The next source-backed implementation batch should prioritize:
-
-1. ASCVD, PREVENT, and FRAX after exact coefficients, population limits, caps, and validation cases are captured; the four-variable KFRE is now implemented.
-2. Neonatal early-onset sepsis and VBAC models after the current official model/version is selected.
-3. Acetaminophen and Hartford nomograms with governed chart data and boundary tests.
-4. WHO/CDC/fetal growth calculations with versioned reference tables bundled locally.
-5. Antimicrobial renal adjustment as a versioned drug-rule dataset, not a single scalar formula.
-
-ACR pathways, AJCC/NCCN staging, screening schedules, and drug guidance should be implemented as versioned rule tables with effective dates. They should not be reclassified as ordinary formulas merely to raise the implementation count.
+Requests for calculators outside the registry return no match. The Agent must not reconstruct missing or protected rules from memory.

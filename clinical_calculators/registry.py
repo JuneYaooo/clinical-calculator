@@ -16,7 +16,6 @@ from .skill import CalculatorSkill
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CSV = ROOT / "clinical_calculator_inventory_full.csv"
 DEFAULT_ALIASES_CSV = ROOT / "clinical_calculator_aliases.csv"
-IMPLEMENTATION_STATUS_CSV = ROOT / "reports" / "calculator_implementation_status.csv"
 
 PARTIAL_INPUT_MARKERS = {
     "acute_physiology_score",
@@ -26,30 +25,6 @@ PARTIAL_INPUT_MARKERS = {
     "risk_score",
     "total_score",
 }
-LICENSED_BLOCKERS = {"rights_limited_questionnaire", "staging_or_subscription"}
-SOURCE_CANDIDATE_BLOCKERS = {
-    "formula_audit_needed",
-    "formula_missing",
-    "manual_research_needed",
-    "model_coefficients_needed",
-    "reference_tables_needed",
-    "chart_digitization_needed",
-}
-GUIDANCE_KNOWLEDGE_BLOCKERS = {
-    "guideline_pathway",
-    "drug_rule",
-    "prevention_guideline",
-}
-CONTROLLED_CONTENT_BLOCKERS = {
-    "rights_limited_questionnaire",
-    "staging_or_subscription",
-}
-CATALOG_LAYERS = (
-    "executable",
-    "source_candidate",
-    "guidance_knowledge",
-    "controlled_content",
-)
 KNOWN_PARTIAL_IDS = {
     "CALC-0004",  # SOFA currently accepts six pre-scored organ components.
     "CALC-0234",
@@ -225,15 +200,6 @@ class CalculatorRegistry:
         """Return complete and partial entries with executable local logic."""
         return self.implemented()
 
-    def backlog(self) -> list[CalculatorSkill]:
-        """Return metadata-only and licensed entries that cannot run locally."""
-        return [skill for skill in self.skills if not skill.implemented]
-
-    def by_catalog_layer(self, layer: str) -> list[CalculatorSkill]:
-        if layer not in CATALOG_LAYERS:
-            raise ValueError(f"unknown catalog layer: {layer}")
-        return [skill for skill in self.skills if skill.catalog_layer == layer]
-
     def automated_review_ready(self) -> list[CalculatorSkill]:
         """Return entries passing automated gates; clinician approval is separate."""
         return [skill for skill in self.skills if skill.medical_review_check().ok]
@@ -250,17 +216,6 @@ class CalculatorRegistry:
     ) -> CalculatorSearchResponse:
         runnable_ids = {skill.metadata.id for skill in self.runnable()}
         return self._search(query, limit=limit, allowed_ids=runnable_ids)
-
-    def search_layer(
-        self, query: str, layer: str, limit: int | None = 20
-    ) -> list[CalculatorSkill]:
-        return self.search_layer_detailed(query, layer, limit).skills
-
-    def search_layer_detailed(
-        self, query: str, layer: str, limit: int | None = 20
-    ) -> CalculatorSearchResponse:
-        layer_ids = {skill.metadata.id for skill in self.by_catalog_layer(layer)}
-        return self._search(query, limit=limit, allowed_ids=layer_ids)
 
     def search_released(self, query: str, limit: int | None = 20) -> list[CalculatorSkill]:
         return self.search_released_detailed(query, limit).skills
@@ -281,14 +236,9 @@ class CalculatorRegistry:
             "unique_chinese_names": len(self.unique_names()),
             "implemented_rows": len(implemented),
             "implemented_unique_names": len(implemented_names),
-            "metadata_only_rows": len(self.skills) - len(implemented),
             "implementation_levels": {
                 level: sum(skill.implementation_level == level for skill in self.skills)
-                for level in ("complete", "partial", "metadata_only", "licensed_rule")
-            },
-            "catalog_layers": {
-                layer: sum(skill.catalog_layer == layer for skill in self.skills)
-                for layer in CATALOG_LAYERS
+                for level in ("complete", "partial")
             },
             "ambiguous_name_groups": len(self.ambiguous_names()),
             "versioned_rows": sum(bool(skill.metadata.version) for skill in self.skills),
@@ -302,13 +252,6 @@ class CalculatorRegistry:
 def _metadata_from_row(row: dict[str, str]) -> CalculatorMetadata:
     values = {target: row.get(source, "").strip() for source, target in FIELD_MAP.items()}
     return CalculatorMetadata(**values)
-
-
-def _pending_blockers() -> dict[str, str]:
-    if not IMPLEMENTATION_STATUS_CSV.exists():
-        return {}
-    with IMPLEMENTATION_STATUS_CSV.open(encoding="utf-8-sig", newline="") as f:
-        return {row["id"]: row.get("pending_blocker_type", "") for row in csv.DictReader(f)}
 
 
 def _calculator_aliases(path: Path) -> dict[str, tuple[str, str]]:
@@ -337,10 +280,8 @@ def _calculator_aliases(path: Path) -> dict[str, tuple[str, str]]:
 
 
 def _implementation_level(
-    calculator_id: str, implementation: object | None, required_inputs: tuple[str, ...], blockers: dict[str, str]
+    calculator_id: str, required_inputs: tuple[str, ...]
 ) -> str:
-    if implementation is None:
-        return "licensed_rule" if blockers.get(calculator_id) in LICENSED_BLOCKERS else "metadata_only"
     if calculator_id in KNOWN_PARTIAL_IDS:
         return "partial"
     if any(
@@ -354,16 +295,6 @@ def _implementation_level(
     return "complete"
 
 
-def _catalog_layer(implementation: object | None, blocker: str) -> str:
-    if implementation is not None:
-        return "executable"
-    if blocker in GUIDANCE_KNOWLEDGE_BLOCKERS:
-        return "guidance_knowledge"
-    if blocker in CONTROLLED_CONTENT_BLOCKERS:
-        return "controlled_content"
-    return "source_candidate"
-
-
 def load_registry(
     csv_path: str | Path | None = None,
     *,
@@ -371,7 +302,6 @@ def load_registry(
     include_custom: bool = True,
 ) -> CalculatorRegistry:
     path = Path(csv_path) if csv_path else DEFAULT_CSV
-    blockers = _pending_blockers()
     aliases = _calculator_aliases(path)
     skills: list[CalculatorSkill] = []
     resolved_required_inputs: dict[str, tuple[str, ...]] = {}
@@ -385,11 +315,13 @@ def load_registry(
             implementation, required_inputs = IMPLEMENTATIONS_BY_ID.get(
                 metadata.id, IMPLEMENTATIONS.get(metadata.name_cn, (None, ()))
             )
+            if implementation is None:
+                raise ValueError(
+                    f"inventory contains calculator without local implementation: {metadata.id}"
+                )
             implementation_module = implementation.__module__ if implementation else ""
-            if implementation is not None:
-                resolved_required_inputs[metadata.id] = required_inputs
-            level = _implementation_level(metadata.id, implementation, required_inputs, blockers)
-            blocker = blockers.get(metadata.id, "")
+            resolved_required_inputs[metadata.id] = required_inputs
+            level = _implementation_level(metadata.id, required_inputs)
             skills.append(
                 CalculatorSkill(
                     metadata,
@@ -397,8 +329,6 @@ def load_registry(
                     required_inputs,
                     implementation_module,
                     level,
-                    catalog_layer=_catalog_layer(implementation, blocker),
-                    pending_blocker_type=blocker,
                 )
             )
     validate_contract_alignment(
@@ -422,7 +352,6 @@ def load_registry(
                     definition.implementation.__module__,
                     "complete",
                     definition.input_schema,
-                    "executable",
                 )
             )
     return CalculatorRegistry(skills, aliases, inventory_rows)

@@ -1,57 +1,50 @@
 {
   "by_category": {
     "abbrev": {
-      "case_count": 5,
-      "mrr": 1.0,
-      "recall_at_1": 1.0,
-      "recall_at_5": 1.0,
-      "zero_result_rate": 0.0
-    },
-    "direct": {
-      "case_count": 1,
+      "case_count": 4,
       "mrr": 1.0,
       "recall_at_1": 1.0,
       "recall_at_5": 1.0,
       "zero_result_rate": 0.0
     },
     "partial": {
-      "case_count": 11,
-      "mrr": 0.954545,
-      "recall_at_1": 0.909091,
+      "case_count": 9,
+      "mrr": 0.944444,
+      "recall_at_1": 0.888889,
       "recall_at_5": 1.0,
       "zero_result_rate": 0.0
     },
     "scenario": {
-      "case_count": 13,
-      "mrr": 0.884615,
-      "recall_at_1": 0.769231,
+      "case_count": 9,
+      "mrr": 0.888889,
+      "recall_at_1": 0.777778,
       "recall_at_5": 1.0,
       "zero_result_rate": 0.0
     }
   },
   "by_locale": {
     "en": {
-      "case_count": 13,
-      "mrr": 0.961538,
-      "recall_at_1": 0.923077,
+      "case_count": 10,
+      "mrr": 0.95,
+      "recall_at_1": 0.9,
       "recall_at_5": 1.0,
       "zero_result_rate": 0.0
     },
     "zh-CN": {
-      "case_count": 17,
-      "mrr": 0.911765,
-      "recall_at_1": 0.823529,
+      "case_count": 12,
+      "mrr": 0.916667,
+      "recall_at_1": 0.833333,
       "recall_at_5": 1.0,
       "zero_result_rate": 0.0
     }
   },
-  "case_count": 30,
+  "case_count": 22,
   "critical_case_count": 0,
   "critical_failures": [],
   "critical_recall_at_1": 0.0,
   "failures": [],
-  "mrr": 0.933333,
-  "recall_at_1": 0.866667,
+  "mrr": 0.931818,
+  "recall_at_1": 0.863636,
   "recall_at_5": 1.0,
   "zero_result_rate": 0.0
 }

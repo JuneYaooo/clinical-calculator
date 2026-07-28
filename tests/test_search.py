@@ -50,7 +50,7 @@ def test_search_index_is_built_once_and_exposes_match_details():
     ("query", "expected_id"),
     (
         ("肺栓塞概率", "CALC-0051"),
-        ("脓毒症", "CALC-0256"),
+        ("脓毒症", "CALC-0004"),
         ("小儿脱水", "CALC-0513"),
         ("预测死亡率的评分", "CALC-0212"),
         ("chads vasc", "CALC-0049"),
@@ -68,7 +68,6 @@ def test_no_match_cli_has_status_and_suggestions():
             str(ROOT / "scripts" / "clinical_calculator.py"),
             "search",
             "完全不存在的东西xyz",
-            "--all",
         ],
         check=True,
         capture_output=True,
@@ -80,13 +79,13 @@ def test_no_match_cli_has_status_and_suggestions():
     assert len(payload["suggestions"]) <= 5
 
 
-def test_default_scope_suggests_matching_non_executable_catalog_entry():
+def test_clinical_scenario_routes_only_to_executable_calculators():
     registry = load_registry()
 
-    response = registry.search_runnable_detailed("脓毒症")
-    assert response.skills == []
-    assert response.status == "no_match"
-    assert response.suggestions[0] == "新生儿早发败血症风险"
+    response = registry.search_detailed("脓毒症")
+    assert response.status == "ok"
+    assert [skill.metadata.id for skill in response.skills] == ["CALC-0004", "CALC-0009"]
+    assert all(skill.implemented for skill in response.skills)
 
 
 def test_search_alias_validation_rejects_self_loop_and_duplicate_term(tmp_path):

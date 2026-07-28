@@ -708,85 +708,45 @@ class CustomExtensionTest(unittest.TestCase):
                     )
                     self.assertEqual(validate.returncode, 0, validate.stdout)
 
-    def test_cli_backlog_ranks_all_source_candidates_and_filters(self):
-        full = subprocess.run(
-            [sys.executable, str(CLI), "backlog", "--limit", "110"],
+    def test_cli_search_exposes_only_executable_calculators(self):
+        missing = subprocess.run(
+            [sys.executable, str(CLI), "search", "not-in-registry-xyz"],
             cwd=ROOT,
             text=True,
             capture_output=True,
             check=False,
         )
-        filtered = subprocess.run(
-            [
-                sys.executable,
-                str(CLI),
-                "backlog",
-                "--blocker",
-                "reference_tables_needed",
-                "--limit",
-                "10",
-            ],
+        available = subprocess.run(
+            [sys.executable, str(CLI), "search", "Glasgow"],
             cwd=ROOT,
             text=True,
             capture_output=True,
             check=False,
         )
 
-        self.assertEqual(full.returncode, 0, full.stdout)
-        payload = json.loads(full.stdout)
-        self.assertEqual(payload["candidate_count"], 110)
-        self.assertEqual(payload["returned_count"], 110)
-        self.assertEqual(payload["queue"][0]["priority_tier"], 3)
-        self.assertEqual(payload["queue"][-1]["priority_tier"], 6)
-        self.assertEqual([item["rank"] for item in payload["queue"]], list(range(1, 111)))
+        self.assertEqual(missing.returncode, 0, missing.stdout)
+        self.assertEqual(json.loads(missing.stdout)["count"], 0)
+        self.assertEqual(available.returncode, 0, available.stdout)
+        payload = json.loads(available.stdout)
+        self.assertGreater(payload["count"], 0)
+        self.assertTrue(all(item["runnable"] for item in payload["results"]))
         self.assertTrue(
             all(
-                item["source_url"] and item["data_needed"] and item["next_action"]
-                for item in payload["queue"]
+                set(item)
+                == {
+                    "id",
+                    "name_cn",
+                    "name_en",
+                    "category",
+                    "scenario",
+                    "implementation_level",
+                    "runnable",
+                    "clinically_released",
+                    "match",
+                }
+                for item in payload["results"]
             )
         )
-
-        self.assertEqual(filtered.returncode, 0, filtered.stdout)
-        filtered_payload = json.loads(filtered.stdout)
-        self.assertEqual(filtered_payload["candidate_count"], 5)
-        self.assertEqual(filtered_payload["queue"][0]["id"], "CALC-0516")
-
-    def test_cli_search_defaults_to_executable_and_exposes_catalog_layers(self):
-        default = subprocess.run(
-            [sys.executable, str(CLI), "search", "CRIB-II"],
-            cwd=ROOT,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        all_entries = subprocess.run(
-            [sys.executable, str(CLI), "search", "CRIB-II", "--all"],
-            cwd=ROOT,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        candidate = subprocess.run(
-            [
-                sys.executable,
-                str(CLI),
-                "search",
-                "CRIB-II",
-                "--layer",
-                "source_candidate",
-            ],
-            cwd=ROOT,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-
-        self.assertEqual(default.returncode, 0, default.stdout)
-        self.assertEqual(json.loads(default.stdout)["count"], 0)
-        all_payload = json.loads(all_entries.stdout)
-        self.assertEqual(all_payload["count"], 1)
-        self.assertEqual(all_payload["results"][0]["catalog_layer"], "source_candidate")
-        self.assertEqual(json.loads(candidate.stdout)["results"][0]["id"], "CALC-0771")
 
     def test_cli_install_makes_manifest_discoverable(self):
         with tempfile.TemporaryDirectory() as temp:
@@ -846,12 +806,11 @@ class CustomExtensionTest(unittest.TestCase):
 
     def test_default_registry_baseline_is_unchanged(self):
         summary = load_registry(include_custom=False).summary()
-        self.assertEqual(summary["total_rows"], 1054)
-        self.assertEqual(summary["inventory_rows"], 1138)
+        self.assertEqual(summary["total_rows"], 643)
+        self.assertEqual(summary["inventory_rows"], 727)
         self.assertEqual(summary["merged_alias_rows"], 84)
         self.assertEqual(summary["implemented_rows"], 643)
         self.assertEqual(summary["implemented_unique_names"], 570)
-        self.assertEqual(summary["metadata_only_rows"], 411)
 
 
 if __name__ == "__main__":

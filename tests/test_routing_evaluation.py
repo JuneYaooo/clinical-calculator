@@ -68,7 +68,7 @@ def test_heldout_routing_quality_meets_thresholds():
     baseline = json.loads(BASELINE.read_text(encoding="utf-8"))
     thresholds = baseline["heldout_thresholds"]
 
-    assert len(cases) == 30
+    assert len(cases) == 22
     assert {case["category"] for case in cases} <= VALID_CATEGORIES
     assert current["recall_at_1"] >= thresholds["recall_at_1"], RATCHET_MESSAGE
     assert current["recall_at_5"] >= thresholds["recall_at_5"], RATCHET_MESSAGE

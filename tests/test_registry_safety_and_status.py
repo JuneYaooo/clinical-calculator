@@ -13,7 +13,7 @@ class RegistrySafetyAndStatusTest(unittest.TestCase):
 
         self.assertEqual(
             set(summary["implementation_levels"]),
-            {"complete", "partial", "metadata_only", "licensed_rule"},
+            {"complete", "partial"},
         )
         self.assertTrue(all(count > 0 for count in summary["implementation_levels"].values()))
         self.assertEqual(sum(summary["implementation_levels"].values()), summary["total_rows"])
@@ -23,7 +23,6 @@ class RegistrySafetyAndStatusTest(unittest.TestCase):
         self.assertEqual(summary["released_rows"], 0)
         self.assertEqual(self.registry.get("CALC-0039").implementation_level, "complete")
         self.assertEqual(self.registry.get("CALC-0004").implementation_level, "partial")
-        self.assertEqual(self.registry.get("CALC-0459").implementation_level, "licensed_rule")
 
     def test_medical_review_check_exposes_source_governance_gaps(self):
         generic = self.registry.get("CALC-0039").medical_review_check()
@@ -44,9 +43,9 @@ class RegistrySafetyAndStatusTest(unittest.TestCase):
         }
         self.assertEqual(len(qt_aliases), 13)
 
-    def test_runtime_backlog_and_release_views_are_separated(self):
+    def test_runtime_and_release_views_are_separated(self):
         self.assertEqual(len(self.registry.runnable()), self.registry.summary()["implemented_rows"])
-        self.assertEqual(len(self.registry.backlog()), self.registry.summary()["metadata_only_rows"])
+        self.assertTrue(all(skill.implemented for skill in self.registry.skills))
         self.assertEqual(len(self.registry.released()), 0)
         self.assertGreaterEqual(len(self.registry.automated_review_ready()), 4)
         self.assertTrue(self.registry.search_runnable("DLCN"))
@@ -59,14 +58,14 @@ class RegistrySafetyAndStatusTest(unittest.TestCase):
         self.assertEqual([spec.unit for spec in bmi.input_schema], ["kg", "cm"])
         self.assertTrue(all(spec.value_type == "number" for spec in bmi.input_schema))
 
-    def test_run_distinguishes_missing_invalid_and_unimplemented(self):
+    def test_run_distinguishes_missing_and_invalid_inputs(self):
         missing = self.registry.get("CALC-0039").run({"weight_kg": 70})
         invalid = self.registry.get("CALC-0039").run({"weight_kg": -70, "height_cm": 175})
-        unavailable = self.registry.get("CALC-0053").run({})
 
         self.assertEqual(missing.status, "missing_inputs")
         self.assertEqual(invalid.status, "invalid_inputs")
-        self.assertEqual(unavailable.status, "needs_formula_implementation")
+        with self.assertRaises(KeyError):
+            self.registry.get("NOT-IN-REGISTRY")
 
     def test_run_rejects_nonfinite_numbers_and_invalid_boolean_strings(self):
         nan_bmi = self.registry.get("CALC-0039").run({"weight_kg": "nan", "height_cm": 175})

@@ -1,7 +1,7 @@
 {
   "by_category": {
     "direct": {
-      "case_count": 116,
+      "case_count": 111,
       "mrr": 1.0,
       "recall_at_1": 1.0,
       "recall_at_5": 1.0,
@@ -17,21 +17,21 @@
   },
   "by_locale": {
     "en": {
-      "case_count": 64,
+      "case_count": 62,
       "mrr": 1.0,
       "recall_at_1": 1.0,
       "recall_at_5": 1.0,
       "zero_result_rate": 0.0
     },
     "zh-CN": {
-      "case_count": 66,
+      "case_count": 63,
       "mrr": 1.0,
       "recall_at_1": 1.0,
       "recall_at_5": 1.0,
       "zero_result_rate": 0.0
     }
   },
-  "case_count": 130,
+  "case_count": 125,
   "critical_case_count": 11,
   "critical_failures": [],
   "critical_recall_at_1": 1.0,

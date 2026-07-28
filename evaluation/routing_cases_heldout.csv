@@ -4,27 +4,19 @@ APACHE,CALC-0019,en,abbrev,no,阶段 C 验收独立 held-out 用例，ID 已对�
 MAP,CALC-0008,en,abbrev,no,阶段 C 验收独立 held-out 用例，依赖同义词表的 MAP 中英扩展，ID 已对照库存核查
 肝纤维化,CALC-0736;CALC-0737,zh-CN,scenario,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
 上消化道出血风险,CALC-0728;CALC-0729,zh-CN,scenario,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
-早产风险,CALC-0764,zh-CN,scenario,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
 川崎病,CALC-0773;CALC-0774,zh-CN,scenario,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
 意识障碍,CALC-0001;CALC-0827,zh-CN,scenario,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
 婴儿发热低危,CALC-0690;CALC-0691,zh-CN,partial,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
-新生儿风险,CALC-0771;CALC-0772,zh-CN,partial,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
+新生儿风险,CALC-0772,zh-CN,partial,no,已对照当前可执行目录核查
 肝癌分期,CALC-0739,zh-CN,partial,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
 子痫,CALC-0765,zh-CN,partial,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
 liver fibrosis,CALC-0736;CALC-0737,en,scenario,no,阶段 C 验收独立 held-out 用例，依赖同义词表的短语级映射，ID 已对照库存核查
 upper GI bleed,CALC-0728;CALC-0729,en,scenario,no,阶段 C 验收独立 held-out 用例，依赖同义词表的短语级映射，ID 已对照库存核查
-preterm birth risk,CALC-0764,en,scenario,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
 Kawasaki disease,CALC-0773;CALC-0774,en,scenario,no,阶段 C 验收独立 held-out 用例，依赖同义词表的短语级映射，ID 已对照库存核查
 consciousness impaired,CALC-0001;CALC-0827,en,scenario,no,阶段 C 验收独立 held-out 用例，依赖同义词表的短语级映射，ID 已对照库存核查
-儿童对乙酰氨基酚,CALC-1099,zh-CN,partial,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
-儿童布洛芬剂量,CALC-1100,zh-CN,direct,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
-pediatric acetaminophen,CALC-1099,en,scenario,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
-肩难产,CALC-0767,zh-CN,partial,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
 产科早期预警,CALC-0766,zh-CN,partial,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
 肌松恢复,CALC-0832,zh-CN,scenario,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
 train of four,CALC-0832,en,abbrev,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
-胶质瘤疗效,CALC-0795,zh-CN,scenario,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
-RANO criteria,CALC-0795,en,abbrev,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
 不良童年,CALC-0874,zh-CN,partial,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
 pulmonary embolism wells,CALC-0051,en,partial,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查
 dvt wells score,CALC-0050,en,partial,no,阶段 C 验收独立 held-out 用例，ID 已对照库存核查

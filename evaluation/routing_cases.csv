@@ -31,12 +31,10 @@ ST段抬高型心肌梗死溶栓（TIMI）评分,CALC-0034,zh-CN,direct,no,库�
 深静脉血栓形成概率：Wells评分系统,CALC-0050,zh-CN,direct,no,库存中文名称与CALC-0050一致
 肺栓塞可能性：Wells评分系统,CALC-0051,zh-CN,direct,no,库存中文名称与CALC-0051一致
 非Q波心肌梗死预测,CALC-0052,zh-CN,direct,no,库存中文名称与CALC-0052一致
-ASCVD 10年风险评估,CALC-0053,zh-CN,direct,no,库存中文名称与CALC-0053一致
 DAPT评分,CALC-0054,zh-CN,direct,no,库存中文名称与CALC-0054一致
 Duke跑台评分,CALC-0055,zh-CN,direct,no,库存中文名称与CALC-0055一致
 GRACE急性冠脉综合征风险评分,CALC-0056,zh-CN,direct,no,库存中文名称与CALC-0056一致
 ORBIT房颤出血风险评分,CALC-0057,zh-CN,direct,no,库存中文名称与CALC-0057一致
-PREVENT心血管风险方程,CALC-0058,zh-CN,direct,no,库存中文名称与CALC-0058一致
 RCRI围手术期心脏风险指数,CALC-0059,zh-CN,direct,no,库存中文名称与CALC-0059一致
 左室射血分数简化计算,CALC-0060,zh-CN,direct,no,库存中文名称与CALC-0060一致
 Glasgow Coma Scale,CALC-0001,en,direct,no,库存英文名称与CALC-0001一致
@@ -71,12 +69,10 @@ CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk,CALC-0049,en,direct,no,�
 Wells Score for Deep Vein Thrombosis,CALC-0050,en,direct,no,库存英文名称与CALC-0050一致
 Wells Score for Pulmonary Embolism,CALC-0051,en,direct,no,库存英文名称与CALC-0051一致
 Non-Q-Wave Myocardial Infarction Prediction,CALC-0052,en,direct,no,库存英文名称与CALC-0052一致
-ASCVD 10-Year Risk Estimator,CALC-0053,en,direct,no,库存英文名称与CALC-0053一致
 DAPT Score,CALC-0054,en,direct,no,库存英文名称与CALC-0054一致
 Duke Treadmill Score,CALC-0055,en,direct,no,库存英文名称与CALC-0055一致
 GRACE ACS Risk Score,CALC-0056,en,direct,no,库存英文名称与CALC-0056一致
 ORBIT Bleeding Risk Score,CALC-0057,en,direct,no,库存英文名称与CALC-0057一致
-AHA PREVENT Equations,CALC-0058,en,direct,no,库存英文名称与CALC-0058一致
 Revised Cardiac Risk Index,CALC-0059,en,direct,no,库存英文名称与CALC-0059一致
 Left Ventricular Ejection Fraction,CALC-0060,en,direct,no,库存英文名称与CALC-0060一致
 CHA（2）DS（2）-VASc,CALC-0049,zh-CN,direct,yes,库存CALC-0049中英文名称均含该评分名
@@ -93,7 +89,7 @@ Wells PE,CALC-0051,en,synonym,yes,库存CALC-0051英文名称为Wells Score for 
 deep vein thrombosis wells,CALC-0050,en,direct,no,库存CALC-0050英文名称同时含Wells与Deep Vein Thrombosis
 pulmonary embolism wells,CALC-0051,en,direct,no,库存CALC-0051英文名称同时含Wells与Pulmonary Embolism
 肺栓塞概率,CALC-0051,zh-CN,synonym,yes,库存CALC-0051中文名称为肺栓塞可能性Wells评分且概率与可能性同义
-脓毒症,CALC-0256,zh-CN,synonym,yes,库存CALC-0256英文名称明确含Sepsis且脓毒症为其中文对照
+脓毒症,CALC-0004;CALC-0009,zh-CN,synonym,yes,脓毒症场景路由至已收录的 SOFA 与 qSOFA 可执行工具
 小儿脱水,CALC-0513,zh-CN,synonym,yes,库存CALC-0513中文名称为儿童脱水临床评分且小儿与儿童同义
 预测死亡率的评分,CALC-0212;CALC-0030,zh-CN,direct,yes,库存CALC-0212为死亡率评分且CALC-0030为死亡率预测
 房颤 卒中,CALC-0049,zh-CN,synonym,no,库存CALC-0049名称为房颤中风危险评分且卒中与中风同义
@@ -118,7 +114,6 @@ Cockcroft Gault SI,CALC-0191,en,direct,no,库存CALC-0191英文名称为Cockcrof
 儿童气管导管,CALC-0006,zh-CN,direct,no,库存CALC-0006中文名称明确为儿童气管导管大小
 成人社区获得性肺炎,CALC-0070,zh-CN,direct,no,库存CALC-0070中文名称明确限定成人社区获得性肺炎
 儿童GCS,CALC-0254,zh-CN,direct,no,库存CALC-0254中文名称明确为儿童GCS
-新生儿sepsis,CALC-0256,zh-CN,direct,no,库存CALC-0256英文名称含Neonatal Early-Onset Sepsis
 PESI 肺栓塞,CALC-0722,zh-CN,direct,no,库存CALC-0722中英文名称明确为简化PESI肺栓塞风险
 死亡风险评分,CALC-0212;CALC-0433;CALC-0525;CALC-0665;CALC-0701;CALC-0720,zh-CN,direct,no,库存这些条目中文名称均明确含死亡率或死亡风险评分
 肺栓塞排除,CALC-0023,zh-CN,direct,no,库存CALC-0023中文名称明确为PERC肺栓塞排除规则

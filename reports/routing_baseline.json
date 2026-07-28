@@ -1,6 +1,6 @@
 {
   "observed": {
-    "case_count": 130,
+    "case_count": 125,
     "mrr": 1.0,
     "recall_at_1": 1.0,
     "recall_at_5": 1.0,
@@ -16,9 +16,9 @@
     "critical_recall_at_1": 1.0
   },
   "heldout_observed": {
-    "case_count": 30,
-    "mrr": 0.933333,
-    "recall_at_1": 0.866667,
+    "case_count": 22,
+    "mrr": 0.931818,
+    "recall_at_1": 0.863636,
     "recall_at_5": 1.0,
     "zero_result_rate": 0.0
   },
@@ -29,7 +29,7 @@
     "zero_result_rate": 0.02
   },
   "notes": [
-    "主用例集 130 条里有 81 条是把库存全名原样贴回来当查询，接近恒等映射，所以主集的高分不能当作泛化能力的证据。",
+    "主用例集 125 条里有大量库存全名原样查询，接近恒等映射，所以主集的高分不能当作泛化能力的证据。",
     "thresholds 是有意预留的余量，不等于实测值；只有 critical_recall_at_1 不留余量。"
   ]
 }

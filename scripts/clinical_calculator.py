@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import csv
 from dataclasses import asdict
 import json
 from pathlib import Path
@@ -21,47 +20,6 @@ from clinical_calculators import ManifestError, load_custom_manifest, load_regis
 from clinical_calculators.extensions import DEFAULT_CUSTOM_DIR  # noqa: E402
 
 
-IMPLEMENTATION_STATUS_REPORT = ROOT / "reports" / "calculator_implementation_status.csv"
-SOURCE_CANDIDATE_PRIORITIES = {
-    "formula_audit_needed": {
-        "priority_tier": 1,
-        "data_needed": "公开的逐项计分规则、适用人群、版本和至少两个已知答案",
-        "next_action": "定位原始文献或官方规则，逐项审计本地元数据后实现并做边界测试",
-        "suggested_structure": "formula、formula_set 或 decision_tree",
-    },
-    "formula_missing": {
-        "priority_tier": 2,
-        "data_needed": "完整公式、变量定义、单位、截断规则、版本和已知答案",
-        "next_action": "从官方计算器或原始论文回源提取完整公式，不从名称反推",
-        "suggested_structure": "formula、formula_set 或 Python",
-    },
-    "reference_tables_needed": {
-        "priority_tier": 3,
-        "data_needed": "可再分发的完整参考表、分层维度、边界、版本和校验样例",
-        "next_action": "确认数据授权并提取全表；仅离散匹配时使用多维查表",
-        "suggested_structure": "multidimensional_lookup；需要插值时使用 Python",
-    },
-    "model_coefficients_needed": {
-        "priority_tier": 4,
-        "data_needed": "所有分层系数、基线风险、变量变换、上下限、适用人群和校准版本",
-        "next_action": "定位模型附录或官方代码，核对系数集与模型版本后实现",
-        "suggested_structure": "formula_set 或经过来源审计的 Python 模型",
-    },
-    "chart_digitization_needed": {
-        "priority_tier": 5,
-        "data_needed": "权威数值表或公开公式；若仅有图形还需数字化误差与边界验证",
-        "next_action": "优先寻找原始数值表/公式，无法取得时评估是否应继续保留为候选",
-        "suggested_structure": "multidimensional_lookup；需要插值时使用 Python",
-    },
-    "manual_research_needed": {
-        "priority_tier": 6,
-        "data_needed": "可追溯的一手来源、计算规则类型、输入输出、版本及可验证样例",
-        "next_action": "先做定向来源检索和可执行性判断，再决定公式、查表或移出计算器候选",
-        "suggested_structure": "待回源判断",
-    },
-}
-
-
 def emit(payload: Any) -> None:
     print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
 
@@ -74,8 +32,6 @@ def skill_summary(skill: Any, match: Any = None) -> dict[str, Any]:
         "category": skill.metadata.category,
         "scenario": skill.metadata.scenario,
         "implementation_level": skill.implementation_level,
-        "catalog_layer": skill.catalog_layer,
-        "pending_blocker_type": skill.pending_blocker_type,
         "runnable": skill.implemented,
         "clinically_released": skill.metadata.id in {item.metadata.id for item in skill_registry.released()},
     }
@@ -149,22 +105,6 @@ def make_parser() -> argparse.ArgumentParser:
     search = subparsers.add_parser("search", help="search names, specialties, scenarios, and sources")
     search.add_argument("query")
     search.add_argument("--limit", type=int, default=20)
-    search_scope = search.add_mutually_exclusive_group()
-    search_scope.add_argument(
-        "--runnable",
-        action="store_true",
-        help="show only locally executable entries (the default)",
-    )
-    search_scope.add_argument(
-        "--all",
-        action="store_true",
-        help="include pending, guidance, and controlled-content entries",
-    )
-    search_scope.add_argument(
-        "--layer",
-        choices=("executable", "source_candidate", "guidance_knowledge", "controlled_content"),
-        help="search one catalog layer",
-    )
 
     info = subparsers.add_parser("info", help="show metadata and exact input contract")
     info.add_argument("calculator")
@@ -174,16 +114,6 @@ def make_parser() -> argparse.ArgumentParser:
     run.add_argument("--input", action="append", default=[], metavar="KEY=VALUE")
 
     subparsers.add_parser("validate", help="validate the registry and all discovered custom manifests")
-
-    backlog = subparsers.add_parser(
-        "backlog", help="rank source-candidate calculators for evidence retrieval"
-    )
-    backlog.add_argument("--limit", type=int, default=50)
-    backlog.add_argument(
-        "--blocker",
-        choices=tuple(SOURCE_CANDIDATE_PRIORITIES),
-        help="show only one evidence blocker type",
-    )
 
     validate_custom = subparsers.add_parser("validate-custom", help="validate one custom manifest")
     validate_custom.add_argument("path", type=Path)
@@ -453,54 +383,6 @@ def scaffold_payload(args: argparse.Namespace) -> dict[str, Any]:
     }
 
 
-def source_candidate_backlog(blocker: str | None, limit: int) -> dict[str, Any]:
-    if limit <= 0:
-        raise ValueError("--limit must be greater than zero")
-    try:
-        with IMPLEMENTATION_STATUS_REPORT.open(encoding="utf-8-sig", newline="") as handle:
-            rows = list(csv.DictReader(handle))
-    except OSError as exc:
-        raise ValueError(f"cannot read implementation status report: {exc}") from exc
-
-    candidates = [
-        row
-        for row in rows
-        if row.get("pending_blocker_type") in SOURCE_CANDIDATE_PRIORITIES
-        and (blocker is None or row.get("pending_blocker_type") == blocker)
-    ]
-    candidates.sort(
-        key=lambda row: (
-            SOURCE_CANDIDATE_PRIORITIES[row["pending_blocker_type"]]["priority_tier"],
-            row["id"],
-        )
-    )
-    queue = []
-    for rank, row in enumerate(candidates, 1):
-        guidance = SOURCE_CANDIDATE_PRIORITIES[row["pending_blocker_type"]]
-        queue.append(
-            {
-                "rank": rank,
-                "priority_tier": guidance["priority_tier"],
-                "id": row["id"],
-                "name_cn": row["中文名称"],
-                "name_en": row["英文名称"],
-                "blocker": row["pending_blocker_type"],
-                "source": row["来源/指南"],
-                "source_url": row["来源链接"],
-                "data_needed": guidance["data_needed"],
-                "next_action": guidance["next_action"],
-                "suggested_structure": guidance["suggested_structure"],
-            }
-        )
-    return {
-        "source": str(IMPLEMENTATION_STATUS_REPORT),
-        "blocker": blocker,
-        "candidate_count": len(candidates),
-        "returned_count": min(len(queue), limit),
-        "queue": queue[:limit],
-    }
-
-
 def ensure_custom_source_is_final(definition: Any) -> None:
     metadata = definition.metadata
     source_text = " ".join(
@@ -540,10 +422,6 @@ def main() -> int:
             )
             return 0
 
-        if args.command == "backlog":
-            emit(source_candidate_backlog(args.blocker, args.limit))
-            return 0
-
         if args.command == "install-custom":
             definition = load_custom_manifest(args.manifest)
             ensure_custom_source_is_final(definition)
@@ -565,23 +443,11 @@ def main() -> int:
             emit(compact_registry_summary(skill_registry))
             return 0
         if args.command == "search":
-            if args.all:
-                search_response = skill_registry.search_detailed(args.query, args.limit)
-                scope = "all"
-            elif args.layer:
-                search_response = skill_registry.search_layer_detailed(
-                    args.query, args.layer, args.limit
-                )
-                scope = args.layer
-            else:
-                search_response = skill_registry.search_runnable_detailed(
-                    args.query, args.limit
-                )
-                scope = "executable"
+            search_response = skill_registry.search_detailed(args.query, args.limit)
             emit(
                 {
                     "query": args.query,
-                    "scope": scope,
+                    "scope": "executable",
                     "status": search_response.status,
                     "count": len(search_response.results),
                     "results": [
@@ -624,7 +490,7 @@ def main() -> int:
                     "result": asdict(result),
                 }
             )
-            return 0 if result.status not in {"missing_inputs", "invalid_inputs", "needs_formula_implementation"} else 2
+            return 0 if result.status not in {"missing_inputs", "invalid_inputs"} else 2
         if args.command == "validate":
             failures = [
                 {"id": skill.metadata.id, "errors": skill.self_check().errors}
