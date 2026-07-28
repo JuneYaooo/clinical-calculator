@@ -89,6 +89,10 @@ The main inventory contains only entries with local calculation logic and explic
 
 The repository does not retain name-only entries, missing formulas, guideline-only knowledge, or restricted content that cannot be executed. Executable does not mean clinically approved for release.
 
+## Supported calculators
+
+[View the complete calculator catalog](./CALCULATORS_EN.md), grouped by specialty across all 643 executable entries. Each entry includes its English and Chinese names, implementation type, and the source and link currently recorded by the repository.
+
 ## What a result includes
 
 A complete response usually includes:
