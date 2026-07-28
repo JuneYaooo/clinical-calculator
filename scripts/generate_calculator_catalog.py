@@ -164,8 +164,8 @@ def render_catalog(language: str) -> str:
             ])
         else:
             lines.extend([
-                "| ID | Calculator | Chinese name | Implementation | Source |",
-                "| --- | --- | --- | --- | --- |",
+                "| ID | Calculator | Implementation | Source |",
+                "| --- | --- | --- | --- |",
             ])
         for skill in grouped[category]:
             metadata = skill.metadata
@@ -174,12 +174,16 @@ def render_catalog(language: str) -> str:
             ) if language == "zh" else (
                 "Complete" if skill.implementation_level == "complete" else "Intermediate"
             )
-            primary = metadata.name_cn if language == "zh" else metadata.name_en
-            secondary = metadata.name_en if language == "zh" else metadata.name_cn
-            lines.append(
-                f"| {cell(metadata.id)} | {cell(primary)} | {cell(secondary)} | {level} | "
-                f"{source_link(metadata.source, metadata.source_url)} |"
-            )
+            if language == "zh":
+                lines.append(
+                    f"| {cell(metadata.id)} | {cell(metadata.name_cn)} | {cell(metadata.name_en)} | "
+                    f"{level} | {source_link(metadata.source, metadata.source_url)} |"
+                )
+            else:
+                lines.append(
+                    f"| {cell(metadata.id)} | {cell(metadata.name_en)} | {level} | "
+                    f"{source_link(metadata.source, metadata.source_url)} |"
+                )
 
     lines.append("")
     return "\n".join(lines)

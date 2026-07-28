@@ -11,6 +11,8 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Agent-Skill-159a87?style=flat-square" alt="Agent Skill" />
   <img src="https://img.shields.io/badge/executable-643-173a44?style=flat-square" alt="643 executable calculators" />
+  <img src="https://img.shields.io/badge/specialties-56-173a44?style=flat-square" alt="56 specialty categories" />
+  <img src="https://img.shields.io/badge/source%20sites-125-173a44?style=flat-square" alt="Sources across 125 site domains" />
   <img src="https://img.shields.io/badge/CN%20%2F%20EN-search-173a44?style=flat-square" alt="Chinese and English search" />
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-173a44?style=flat-square" alt="MIT License" /></a>
 </p>
@@ -32,7 +34,7 @@
 
 ## About the project
 
-Clinical Calculator turns calculation rules scattered across official resources, professional societies, original publications, clinical calculator platforms, and traceable research into a unified capability that an Agent can search, verify, and execute. It currently contains **643 locally executable entries**, covering **570 unique calculator names** across **56 specialties**. Each entry retains its English and Chinese names, input requirements, implementation type, and the source and link currently recorded by the repository.
+Clinical Calculator turns calculation rules scattered across official resources, professional societies, original publications, clinical calculator platforms, and traceable research into a unified capability that an Agent can search, verify, and execute. It currently contains **643 locally executable entries**, covering **570 deduplicated calculator names**, **56 specialty categories**, and **555 distinct disease or clinical-scenario labels recorded in the inventory**. Together, the entries cite **220 traceable source links** across **125 source-site domains**; each retains its input requirements, implementation type, and the source currently recorded by the repository.
 
 Users can also give the Agent guidelines, papers, formula specifications, tables, or other reliable source material. The Skill can extract explicit inputs, units, formulas, lookup tables, or decision trees from JSON, CSV, Markdown, PDF, DOCX, and written rules, then create and validate a draft before asking the user whether to install it as a new custom calculator.
 
@@ -100,7 +102,7 @@ The repository does not retain name-only entries, missing formulas, guideline-on
 
 ## Supported calculators
 
-[View the complete calculator catalog](./CALCULATORS_EN.md), grouped by specialty across all 643 executable entries. Each entry includes its English and Chinese names, implementation type, and the source and link currently recorded by the repository.
+[View the complete calculator catalog](./CALCULATORS_EN.md), grouped by specialty across all 643 executable entries. Each entry includes its English name, implementation type, and the source and link currently recorded by the repository.
 
 ## What a result includes
 

@@ -38,3 +38,10 @@ def test_bilingual_catalogs_list_every_builtin_calculator_once():
 def test_readmes_link_to_the_matching_language_catalog():
     assert "(./CALCULATORS.md)" in (ROOT / "README.md").read_text(encoding="utf-8")
     assert "(./CALCULATORS_EN.md)" in (ROOT / "README_EN.md").read_text(encoding="utf-8")
+
+
+def test_english_catalog_does_not_include_chinese_name_column():
+    english_catalog = (ROOT / "CALCULATORS_EN.md").read_text(encoding="utf-8")
+
+    assert "| ID | Calculator | Implementation | Source |" in english_catalog
+    assert "Chinese name" not in english_catalog

@@ -11,6 +11,8 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Agent-Skill-159a87?style=flat-square" alt="Agent Skill" />
   <img src="https://img.shields.io/badge/可直接计算-643-173a44?style=flat-square" alt="643 个可直接计算的条目" />
+  <img src="https://img.shields.io/badge/专业类别-56-173a44?style=flat-square" alt="覆盖 56 个专业类别" />
+  <img src="https://img.shields.io/badge/来源站点-125-173a44?style=flat-square" alt="来源覆盖 125 个站点域名" />
   <img src="https://img.shields.io/badge/中英文检索-支持-173a44?style=flat-square" alt="支持中英文检索" />
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-173a44?style=flat-square" alt="MIT License" /></a>
 </p>
@@ -32,7 +34,7 @@
 
 ## 项目介绍
 
-Clinical Calculator 将分散在官方资料、专业协会、原始文献、临床计算器平台与可追溯研究中的计算规则，整理成 Agent 可以搜索、核对和执行的统一能力。目前收录 **643** 个本地可执行条目，覆盖 **570** 个唯一中文名称和 **56** 个专业类别；每个条目都保留中英文名称、输入要求、实现类型以及仓库当前记录的来源与链接。
+Clinical Calculator 将分散在官方资料、专业协会、原始文献、临床计算器平台与可追溯研究中的计算规则，整理成 Agent 可以搜索、核对和执行的统一能力。目前收录 **643** 个本地可执行条目，覆盖 **570** 个去重后的计算器名称、**56** 个专业类别，以及清单中登记的 **555** 个不同疾病或临床场景标签。全部条目共关联 **220** 条可追溯来源链接，分布于 **125** 个来源站点域名；每个条目都保留中英文名称、输入要求、实现类型以及仓库当前记录的来源与链接。
 
 除了使用已有目录，用户也可以把指南、论文、公式说明、表格或其他可靠素材交给 Agent。Skill 支持从 JSON、CSV、Markdown、PDF、DOCX 和书面规则中提取明确的输入、单位、公式、查表或决策树，先生成草稿并验证，再由用户确认是否安装为新的自定义计算器。
 
