@@ -16,10 +16,11 @@
 </p>
 
 <p align="center">
-  Tell your Agent the clinical question. It will find the right calculator, verify inputs and units, run it, and explain the formula, source, and limits.
+  Give your Agent a clinical question or reliable source material. It can find, run, and explain calculators—or turn the material into a validated new calculator.
 </p>
 
 <p align="center">
+  <a href="#about-the-project">About</a> ·
   <a href="#use-it-through-an-agent">Get started</a> ·
   <a href="#real-world-usage">Examples</a> ·
   <a href="#how-the-agent-handles-a-calculation">Workflow</a> ·
@@ -28,6 +29,14 @@
 
 > [!IMPORTANT]
 > This is a medical calculation capability library for AI Agents that support Agent Skills. It is not a standalone diagnostic product. Results are for decision support, education, and verification; they do not replace professional diagnosis, prescribing, or emergency care.
+
+## About the project
+
+Clinical Calculator turns calculation rules scattered across official resources, professional societies, original publications, clinical calculator platforms, and traceable research into a unified capability that an Agent can search, verify, and execute. It currently contains **643 locally executable entries**, covering **570 unique calculator names** across **56 specialties**. Each entry retains its English and Chinese names, input requirements, implementation type, and the source and link currently recorded by the repository.
+
+Users can also give the Agent guidelines, papers, formula specifications, tables, or other reliable source material. The Skill can extract explicit inputs, units, formulas, lookup tables, or decision trees from JSON, CSV, Markdown, PDF, DOCX, and written rules, then create and validate a draft before asking the user whether to install it as a new custom calculator.
+
+Inclusion and local executability do not mean that a calculator's version, intended population, content rights, or clinical release status has received independent approval.
 
 ## Use it through an Agent
 
@@ -42,7 +51,7 @@ Try asking:
 | Find the right tool | “Find a calculator for stroke risk in atrial fibrillation and tell me what information you need.” |
 | Run a calculation | “The patient weighs 70 kg and is 175 cm tall. Calculate BMI and explain the formula, result, source, and limitations.” |
 | Verify a score | “Work through CURB-65 item by item. Ask me about anything uncertain instead of assuming it.” |
-| Add a custom rule | “I will provide an authoritative source file. Turn its explicit formula into a validated custom calculator, and show me the draft before installing it.” |
+| Add a new calculator | “I will provide a guideline or paper. Turn its explicit formula into a validated custom calculator, and show me the draft before installing it.” |
 
 You do not need to know the exact calculator name or any technical details. Describe the problem; the Agent handles search, selection, and execution.
 
@@ -81,7 +90,7 @@ The guiding principle is verify first, calculate second:
 - Calculate from explicit inputs while preserving a reproducible calculation trail.
 - Distinguish similar names, different versions, and adult versus pediatric populations.
 - Flag incomplete inputs, unclear units, and values outside declared boundaries.
-- Turn reliable source material into a custom formula, lookup table, or decision tree, validating it before installation and asking for your confirmation.
+- Turn a supplied guideline, paper, table, or rules file into a custom formula, lookup table, or decision tree, validating it before installation and asking for your confirmation.
 
 ## Current coverage
 
@@ -106,9 +115,9 @@ A complete response usually includes:
 
 ## Custom calculators
 
-If an authoritative formula is not included, give the Agent the source file or written rule. It extracts only the inputs, units, boundaries, formula, tables, version, and known answers explicitly stated in that material. It does not fill in missing coefficients or thresholds from memory.
+If an authoritative calculation rule is not included, give the Agent the JSON, CSV, Markdown, PDF, DOCX, guideline, paper, table, or written rule. It extracts only the inputs, units, boundaries, formula, tables, version, and known answers explicitly stated in that material. It does not fill in missing coefficients or thresholds from memory.
 
-Custom content remains a draft while its structure and known cases are validated. The Agent shows you the proposed rule and tests, and installs it only after you confirm.
+The workflow is: identify the explicit rules, create a custom-calculator draft, validate its structure and source-derived cases, and show the proposed inputs, rules, source, and tests to the user. Installation happens only after confirmation. Incomplete material remains a non-executable draft with the missing information clearly identified. Patient identifiers and case data are never stored in a calculator definition.
 
 ## Safety boundaries
 
