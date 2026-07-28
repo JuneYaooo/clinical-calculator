@@ -1,0 +1,76 @@
+<svg width="1280" height="500" viewBox="0 0 1280 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="coverGlowEn" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1112 62) rotate(137) scale(566 690)">
+      <stop stop-color="#39C6AE" stop-opacity="0.24"/>
+      <stop offset="1" stop-color="#39C6AE" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="coverLineEn" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#9BE1D5" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#9BE1D5" stop-opacity="0.06"/>
+    </linearGradient>
+    <pattern id="coverGridEn" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" stroke="#D7F5EF" stroke-opacity="0.045"/>
+    </pattern>
+    <filter id="coverShadowEn" x="-40" y="-40" width="660" height="500" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="22" stdDeviation="24" flood-color="#020C10" flood-opacity="0.32"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="500" rx="28" fill="#0B2028"/>
+  <rect width="1280" height="500" rx="28" fill="url(#coverGridEn)"/>
+  <rect width="1280" height="500" rx="28" fill="url(#coverGlowEn)"/>
+
+  <g transform="translate(72 62)">
+    <rect width="56" height="56" rx="16" fill="#D7F5EF"/>
+    <path d="M17 19H13V37H17M39 19H43V37H39" stroke="#0B2028" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M20 29H25L28 22L32 35L35 29H40" stroke="#159A87" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <text x="72" y="161" fill="#9BE1D5" font-family="'Avenir Next', 'Plus Jakarta Sans', sans-serif" font-size="16" font-weight="600" letter-spacing="3.2">CLINICAL CALCULATOR · AGENT SKILL</text>
+  <text x="72" y="225" fill="#F4FAF8" font-family="'Avenir Next', 'Plus Jakarta Sans', sans-serif" font-size="47" font-weight="700" letter-spacing="-1.8">Clinical calculations,</text>
+  <text x="72" y="283" fill="#F4FAF8" font-family="'Avenir Next', 'Plus Jakarta Sans', sans-serif" font-size="42" font-weight="700" letter-spacing="-1.6">made verifiable by your Agent</text>
+  <text x="72" y="337" fill="#A9C3C5" font-family="'Avenir Next', 'Plus Jakarta Sans', sans-serif" font-size="17">Ask naturally · Verify inputs · Explain results · Trace sources</text>
+
+  <g transform="translate(72 383)">
+    <rect width="132" height="42" rx="21" fill="#15333B"/>
+    <circle cx="22" cy="21" r="5" fill="#39C6AE"/>
+    <text x="36" y="27" fill="#D7F5EF" font-family="'Avenir Next', 'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="600">643 executable</text>
+    <rect x="144" width="134" height="42" rx="21" fill="#15333B"/>
+    <text x="165" y="27" fill="#D7F5EF" font-family="'Avenir Next', 'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="600">CN / EN search</text>
+    <rect x="290" width="140" height="42" rx="21" fill="#15333B"/>
+    <text x="311" y="27" fill="#D7F5EF" font-family="'Avenir Next', 'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="600">Sources &amp; limits</text>
+  </g>
+
+  <g transform="translate(690 50)" filter="url(#coverShadowEn)">
+    <rect x="-6" y="-6" width="530" height="412" rx="26" fill="#17323A" stroke="url(#coverLineEn)" stroke-width="2"/>
+    <rect width="518" height="400" rx="21" fill="#F4F8F7"/>
+    <rect width="518" height="58" rx="21" fill="#E9F1EF"/>
+    <rect y="38" width="518" height="20" fill="#E9F1EF"/>
+    <circle cx="28" cy="29" r="7" fill="#159A87"/>
+    <circle cx="28" cy="29" r="3" fill="#D7F5EF"/>
+    <text x="46" y="34" fill="#173A44" font-family="'Avenir Next', 'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="700">Agent session</text>
+    <rect x="394" y="17" width="102" height="24" rx="12" fill="#D6ECE7"/>
+    <circle cx="410" cy="29" r="4" fill="#159A87"/>
+    <text x="421" y="33" fill="#397067" font-family="'Avenir Next', 'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="600">Skill active</text>
+
+    <text x="24" y="89" fill="#70878A" font-family="'Avenir Next', 'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="700" letter-spacing="1.5">YOU</text>
+    <rect x="24" y="101" width="423" height="64" rx="16" fill="#FFFFFF"/>
+    <text x="44" y="128" fill="#173A44" font-family="'Avenir Next', 'Plus Jakarta Sans', sans-serif" font-size="13">Patient weighs 70 kg and is 175 cm tall.</text>
+    <text x="44" y="150" fill="#173A44" font-family="'Avenir Next', 'Plus Jakarta Sans', sans-serif" font-size="13">Calculate BMI; include the source and limits.</text>
+
+    <g transform="translate(24 188)">
+      <circle cx="14" cy="14" r="14" fill="#0B2028"/>
+      <path d="M8 14H11L14 9L17 19L19 14H22" stroke="#7ED7C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="38" y="19" fill="#173A44" font-family="'Avenir Next', 'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="700">Clinical Calculator</text>
+    </g>
+
+    <rect x="24" y="230" width="470" height="142" rx="18" fill="#0F2931"/>
+    <text x="46" y="261" fill="#8DB4B4" font-family="'Avenir Next', 'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="600" letter-spacing="1.3">BODY MASS INDEX</text>
+    <text x="46" y="305" fill="#F4FAF8" font-family="'Avenir Next', 'Plus Jakarta Sans', sans-serif" font-size="32" font-weight="700">22.8571</text>
+    <text x="179" y="305" fill="#A9C3C5" font-family="'Avenir Next', 'Plus Jakarta Sans', sans-serif" font-size="15">kg/m²</text>
+    <rect x="348" y="276" width="120" height="30" rx="15" fill="#D7F5EF"/>
+    <text x="367" y="296" fill="#116B5D" font-family="'Avenir Next', 'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="700">Within adult range</text>
+    <path d="M46 327H468" stroke="#D7F5EF" stroke-opacity="0.12"/>
+    <text x="46" y="351" fill="#A9C3C5" font-family="'Avenir Next', 'Plus Jakarta Sans', sans-serif" font-size="11">Inputs verified · Formula, source, and limitations available</text>
+  </g>
+</svg>

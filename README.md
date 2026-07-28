@@ -1,4 +1,8 @@
 <p align="center">
+  <strong>简体中文</strong> · <a href="./README_EN.md">English</a>
+</p>
+
+<p align="center">
   <img src="./assets/clinical-calculator-cover.svg" alt="Clinical Calculator：让 Agent 可靠完成医学计算与证据路由" width="100%" />
 </p>
 
@@ -109,12 +113,6 @@
 - 自定义计算器即使能够运行，也不代表已经通过独立临床审核。
 - MIT 许可只覆盖仓库自身内容，不自动授予第三方问卷、专有表格或分期内容的再分发权。
 - 若输入不足、存在歧义或超出声明边界，Agent 应停止计算并明确说明，而不是生成看似可信的结果。
-
-## 了解更多
-
-- [查看 Skill 工作流与安全约束](./SKILL.md)
-- [了解来源与收录方法](./clinical_calculator_source_methodology.md)
-- [参与维护与贡献](./CONTRIBUTING.md)
 
 ## License
 
