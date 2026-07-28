@@ -1,65 +1,76 @@
 <svg width="1280" height="500" viewBox="0 0 1280 500" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1060 70) rotate(128) scale(490 610)">
-      <stop stop-color="#2CB7A2" stop-opacity="0.2"/>
-      <stop offset="1" stop-color="#2CB7A2" stop-opacity="0"/>
+    <radialGradient id="coverGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1112 62) rotate(137) scale(566 690)">
+      <stop stop-color="#39C6AE" stop-opacity="0.24"/>
+      <stop offset="1" stop-color="#39C6AE" stop-opacity="0"/>
     </radialGradient>
-    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M32 0H0V32" stroke="#D7F5EF" stroke-opacity="0.055"/>
+    <linearGradient id="coverLine" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#9BE1D5" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#9BE1D5" stop-opacity="0.06"/>
+    </linearGradient>
+    <pattern id="coverGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" stroke="#D7F5EF" stroke-opacity="0.045"/>
     </pattern>
-    <filter id="shadow" x="-30" y="-30" width="720" height="480" filterUnits="userSpaceOnUse">
-      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#020C10" flood-opacity="0.28"/>
+    <filter id="coverShadow" x="-40" y="-40" width="660" height="500" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="22" stdDeviation="24" flood-color="#020C10" flood-opacity="0.32"/>
     </filter>
   </defs>
 
   <rect width="1280" height="500" rx="28" fill="#0B2028"/>
-  <rect width="1280" height="500" rx="28" fill="url(#grid)"/>
-  <rect width="1280" height="500" rx="28" fill="url(#glow)"/>
+  <rect width="1280" height="500" rx="28" fill="url(#coverGrid)"/>
+  <rect width="1280" height="500" rx="28" fill="url(#coverGlow)"/>
 
-  <g transform="translate(72 68)">
-    <rect width="54" height="54" rx="14" fill="#D7F5EF"/>
-    <path d="M16 18H12V36H16M38 18H42V36H38" stroke="#0B2028" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M20 28H25L28 21L32 34L35 28H39" stroke="#159A87" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(72 62)">
+    <rect width="56" height="56" rx="16" fill="#D7F5EF"/>
+    <path d="M17 19H13V37H17M39 19H43V37H39" stroke="#0B2028" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M20 29H25L28 22L32 35L35 29H40" stroke="#159A87" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
 
-  <text x="72" y="174" fill="#D7F5EF" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="18" font-weight="600" letter-spacing="3">CLINICAL CALCULATOR</text>
-  <text x="72" y="236" fill="#F4FAF8" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="48" font-weight="700" letter-spacing="-1.6">让 Agent 可靠地完成</text>
-  <text x="72" y="294" fill="#F4FAF8" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="48" font-weight="700" letter-spacing="-1.6">医学计算与证据路由</text>
-  <text x="72" y="350" fill="#A9C3C5" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="20">搜索 · 核对输入与单位 · 运行 · 解释 · 追溯来源</text>
+  <text x="72" y="161" fill="#9BE1D5" font-family="'Avenir Next', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="600" letter-spacing="3.2">CLINICAL CALCULATOR · AGENT SKILL</text>
+  <text x="72" y="225" fill="#F4FAF8" font-family="'Avenir Next', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="48" font-weight="700" letter-spacing="-1.8">把临床问题交给 Agent</text>
+  <text x="72" y="285" fill="#F4FAF8" font-family="'Avenir Next', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="48" font-weight="700" letter-spacing="-1.8">得到可核对的计算结果</text>
+  <text x="72" y="337" fill="#A9C3C5" font-family="'Avenir Next', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="19">自然语言提问 · 主动补齐信息 · 解释结果 · 追溯来源</text>
 
-  <g transform="translate(72 392)">
-    <rect width="126" height="40" rx="8" fill="#15333B"/>
-    <text x="18" y="26" fill="#D7F5EF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="14" font-weight="600">643 runnable</text>
-    <rect x="138" width="132" height="40" rx="8" fill="#15333B"/>
-    <text x="156" y="26" fill="#D7F5EF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="14" font-weight="600">937 tests</text>
-    <rect x="282" width="146" height="40" rx="8" fill="#15333B"/>
-    <text x="300" y="26" fill="#D7F5EF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="14" font-weight="600">CN / EN search</text>
+  <g transform="translate(72 383)">
+    <rect width="132" height="42" rx="21" fill="#15333B"/>
+    <circle cx="22" cy="21" r="5" fill="#39C6AE"/>
+    <text x="36" y="27" fill="#D7F5EF" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="14" font-weight="600">643 项可计算</text>
+    <rect x="144" width="134" height="42" rx="21" fill="#15333B"/>
+    <text x="164" y="27" fill="#D7F5EF" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="14" font-weight="600">中英文检索</text>
+    <rect x="290" width="140" height="42" rx="21" fill="#15333B"/>
+    <text x="310" y="27" fill="#D7F5EF" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="14" font-weight="600">来源与边界提示</text>
   </g>
 
-  <g transform="translate(680 62)" filter="url(#shadow)">
-    <rect width="530" height="376" rx="18" fill="#102A33" stroke="#78CFC0" stroke-opacity="0.22"/>
-    <rect width="530" height="54" rx="18" fill="#153640"/>
-    <rect y="36" width="530" height="18" fill="#153640"/>
-    <circle cx="25" cy="27" r="5" fill="#E98D76"/>
-    <circle cx="44" cy="27" r="5" fill="#E4C36F"/>
-    <circle cx="63" cy="27" r="5" fill="#66BFAF"/>
-    <text x="92" y="33" fill="#8EADB0" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13">clinical_calculator.py</text>
+  <g transform="translate(690 50)" filter="url(#coverShadow)">
+    <rect x="-6" y="-6" width="530" height="412" rx="26" fill="#17323A" stroke="url(#coverLine)" stroke-width="2"/>
+    <rect width="518" height="400" rx="21" fill="#F4F8F7"/>
+    <rect width="518" height="58" rx="21" fill="#E9F1EF"/>
+    <rect y="38" width="518" height="20" fill="#E9F1EF"/>
+    <circle cx="28" cy="29" r="7" fill="#159A87"/>
+    <circle cx="28" cy="29" r="3" fill="#D7F5EF"/>
+    <text x="46" y="34" fill="#173A44" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="14" font-weight="700">Agent session</text>
+    <rect x="394" y="17" width="102" height="24" rx="12" fill="#D6ECE7"/>
+    <circle cx="410" cy="29" r="4" fill="#159A87"/>
+    <text x="421" y="33" fill="#397067" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="11" font-weight="600">Skill 已启用</text>
 
-    <text x="28" y="94" fill="#78CFC0" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="14">$</text>
-    <text x="48" y="94" fill="#DCEBE8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="14">search "房颤 卒中"</text>
+    <text x="24" y="89" fill="#70878A" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="11" font-weight="700" letter-spacing="1.5">YOU</text>
+    <rect x="24" y="101" width="403" height="64" rx="16" fill="#FFFFFF"/>
+    <text x="44" y="128" fill="#173A44" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="14">患者体重 70 kg、身高 175 cm，</text>
+    <text x="44" y="150" fill="#173A44" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="14">请计算 BMI，并说明来源和限制。</text>
 
-    <rect x="28" y="117" width="474" height="94" rx="10" fill="#0D242C"/>
-    <text x="48" y="148" fill="#6F9297" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="12">CALC-0049</text>
-    <text x="48" y="174" fill="#F4FAF8" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="16" font-weight="600">CHA₂DS₂-VASc 评分</text>
-    <text x="48" y="197" fill="#8EADB0" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="13">executable · 心血管医学</text>
+    <g transform="translate(24 188)">
+      <circle cx="14" cy="14" r="14" fill="#0B2028"/>
+      <path d="M8 14H11L14 9L17 19L19 14H22" stroke="#7ED7C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="38" y="19" fill="#173A44" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="13" font-weight="700">Clinical Calculator</text>
+    </g>
 
-    <text x="28" y="252" fill="#78CFC0" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="14">$</text>
-    <text x="48" y="252" fill="#DCEBE8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="14">run CALC-0039 ...</text>
-
-    <rect x="28" y="275" width="474" height="73" rx="10" fill="#D7F5EF"/>
-    <text x="48" y="304" fill="#49666A" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="12">RESULT</text>
-    <text x="48" y="332" fill="#0B2028" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="20" font-weight="700">22.8571 kg/m²</text>
-    <circle cx="473" cy="312" r="12" fill="#159A87"/>
-    <path d="M468 312L472 316L479 308" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="24" y="230" width="470" height="142" rx="18" fill="#0F2931"/>
+    <text x="46" y="261" fill="#8DB4B4" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="11" font-weight="600" letter-spacing="1.3">BODY MASS INDEX</text>
+    <text x="46" y="305" fill="#F4FAF8" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="32" font-weight="700">22.8571</text>
+    <text x="179" y="305" fill="#A9C3C5" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="15">kg/m²</text>
+    <rect x="363" y="276" width="105" height="30" rx="15" fill="#D7F5EF"/>
+    <text x="385" y="296" fill="#116B5D" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="12" font-weight="700">正常成人范围</text>
+    <path d="M46 327H468" stroke="#D7F5EF" stroke-opacity="0.12"/>
+    <text x="46" y="351" fill="#A9C3C5" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="12">已核对输入与单位 · 公式、来源和限制可展开查看</text>
   </g>
 </svg>

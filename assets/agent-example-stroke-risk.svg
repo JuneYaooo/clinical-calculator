@@ -1,0 +1,80 @@
+<svg width="1280" height="760" viewBox="0 0 1280 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="riskGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1120 40) rotate(139) scale(650 800)">
+      <stop stop-color="#39C6AE" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#39C6AE" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="riskShadow" x="-60" y="-60" width="1280" height="850" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#020C10" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+  <rect width="1280" height="760" rx="28" fill="#0B2028"/>
+  <rect width="1280" height="760" rx="28" fill="url(#riskGlow)"/>
+
+  <g transform="translate(74 44)" filter="url(#riskShadow)">
+    <rect x="-7" y="-7" width="1146" height="686" rx="27" fill="#17343C" stroke="#77CEBF" stroke-opacity="0.22" stroke-width="2"/>
+    <rect width="1132" height="672" rx="21" fill="#F4F8F7"/>
+    <rect width="1132" height="64" rx="21" fill="#E8F0EE"/>
+    <rect y="42" width="1132" height="22" fill="#E8F0EE"/>
+    <circle cx="30" cy="32" r="8" fill="#159A87"/>
+    <circle cx="30" cy="32" r="3" fill="#D7F5EF"/>
+    <text x="50" y="37" fill="#173A44" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="15" font-weight="700">Agent session</text>
+    <text x="166" y="37" fill="#789093" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="13">·  Clinical Calculator</text>
+    <rect x="985" y="20" width="123" height="25" rx="13" fill="#D2EAE5"/>
+    <circle cx="1002" cy="32.5" r="4" fill="#159A87"/>
+    <text x="1014" y="36.5" fill="#397067" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="11" font-weight="700">谨慎补齐信息</text>
+
+    <g transform="translate(32 87)">
+      <text x="0" y="13" fill="#6F878A" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="11" font-weight="700" letter-spacing="1.5">YOU</text>
+      <rect y="27" width="374" height="53" rx="17" fill="#FFFFFF"/>
+      <text x="22" y="60" fill="#173A44" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="16">帮我评估一位房颤患者的卒中风险。</text>
+    </g>
+
+    <g transform="translate(468 88)">
+      <circle cx="15" cy="15" r="15" fill="#0B2028"/>
+      <path d="M8 15H12L15 9L18 21L21 15H24" stroke="#7ED7C8" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="42" y="20" fill="#173A44" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="14" font-weight="700">Clinical Calculator</text>
+      <rect x="0" y="37" width="628" height="100" rx="18" fill="#E5EFED"/>
+      <text x="22" y="66" fill="#173A44" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="14">可以。已匹配 CHA₂DS₂-VASc。为避免假设，请补充：</text>
+      <text x="22" y="92" fill="#526E72" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="13">年龄、性别，以及是否有心衰、高血压、糖尿病、</text>
+      <text x="22" y="116" fill="#526E72" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="13">卒中/TIA/血栓栓塞史和血管疾病。</text>
+    </g>
+
+    <g transform="translate(32 255)">
+      <text x="0" y="13" fill="#6F878A" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="11" font-weight="700" letter-spacing="1.5">YOU</text>
+      <rect y="27" width="590" height="76" rx="18" fill="#FFFFFF"/>
+      <text x="22" y="58" fill="#173A44" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="15">72 岁女性，有高血压和血管疾病；无心衰、糖尿病，</text>
+      <text x="22" y="83" fill="#173A44" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="15">也没有卒中、TIA 或血栓栓塞史。</text>
+    </g>
+
+    <g transform="translate(32 389)">
+      <circle cx="15" cy="15" r="15" fill="#0B2028"/>
+      <path d="M8 15H12L15 9L18 21L21 15H24" stroke="#7ED7C8" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="42" y="20" fill="#173A44" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="14" font-weight="700">Clinical Calculator</text>
+      <rect x="190" y="2" width="117" height="26" rx="13" fill="#D7F5EF"/>
+      <path d="M206 15L210 19L216 11" stroke="#159A87" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="223" y="19" fill="#397067" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="11" font-weight="700">7 项输入已核对</text>
+
+      <rect x="0" y="43" width="1064" height="204" rx="22" fill="#102A32"/>
+      <text x="26" y="76" fill="#8FB5B4" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="12" font-weight="700" letter-spacing="1.4">CHA₂DS₂-VASc · 房颤卒中风险</text>
+      <text x="26" y="132" fill="#F4FAF8" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="44" font-weight="700">4</text>
+      <text x="59" y="132" fill="#A9C3C5" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="17">分</text>
+      <rect x="112" y="98" width="102" height="38" rx="19" fill="#F0DDC4"/>
+      <text x="136" y="123" fill="#7A5221" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="13" font-weight="700">较高风险提示</text>
+      <path d="M260 69V221" stroke="#D7F5EF" stroke-opacity="0.12"/>
+
+      <text x="292" y="83" fill="#7EA2A5" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="11" font-weight="700" letter-spacing="1.2">计分明细</text>
+      <text x="292" y="111" fill="#E6F0EE" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="14">高血压 +1  ·  65–74 岁 +1</text>
+      <text x="292" y="137" fill="#E6F0EE" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="14">血管疾病 +1  ·  女性 +1</text>
+      <text x="292" y="174" fill="#7EA2A5" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="11" font-weight="700" letter-spacing="1.2">临床边界</text>
+      <text x="292" y="201" fill="#E6F0EE" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="13">抗凝决策仍需结合现行指南、患者背景与出血风险。</text>
+
+      <text x="752" y="83" fill="#7EA2A5" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="11" font-weight="700" letter-spacing="1.2">来源状态</text>
+      <text x="752" y="111" fill="#E6F0EE" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="13">当前收录来源：MDCalc library</text>
+      <text x="752" y="137" fill="#E6F0EE" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="13">尚需回溯原始指南与版本。</text>
+      <rect x="752" y="165" width="273" height="39" rx="12" fill="#183B43"/>
+      <circle cx="772" cy="184.5" r="5" fill="#E4C36F"/>
+      <text x="786" y="189" fill="#C9DAD7" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="12">用于核对，不替代临床决策</text>
+    </g>
+  </g>
+</svg>

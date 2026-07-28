@@ -1,0 +1,71 @@
+<svg width="1280" height="440" viewBox="0 0 1280 440" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="flowGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1110 50) rotate(144) scale(510 660)">
+      <stop stop-color="#35BFA8" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#35BFA8" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="flowGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" stroke="#D7F5EF" stroke-opacity="0.04"/>
+    </pattern>
+    <filter id="flowShadow" x="-30" y="-30" width="360" height="300" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#020C10" flood-opacity="0.24"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="440" rx="28" fill="#0B2028"/>
+  <rect width="1280" height="440" rx="28" fill="url(#flowGrid)"/>
+  <rect width="1280" height="440" rx="28" fill="url(#flowGlow)"/>
+
+  <text x="64" y="68" fill="#8FD9CC" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="13" font-weight="700" letter-spacing="2.4">ONE RELIABLE WORKFLOW</text>
+  <text x="64" y="106" fill="#F4FAF8" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="28" font-weight="700">Agent 在每一步都保留可核对的依据</text>
+
+  <path d="M285 231H348M600 231H663M915 231H978" stroke="#75CFC0" stroke-opacity="0.48" stroke-width="2" stroke-dasharray="4 8"/>
+  <path d="M340 224L348 231L340 238M655 224L663 231L655 238M970 224L978 231L970 238" stroke="#75CFC0" stroke-opacity="0.72" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g transform="translate(55 142)" filter="url(#flowShadow)">
+    <rect x="-5" y="-5" width="240" height="190" rx="24" fill="#17343C" stroke="#73CABA" stroke-opacity="0.2"/>
+    <rect width="230" height="180" rx="19" fill="#123039"/>
+    <rect x="20" y="20" width="42" height="28" rx="14" fill="#D7F5EF"/>
+    <text x="34" y="39" fill="#116B5D" font-family="'Avenir Next', sans-serif" font-size="12" font-weight="800">01</text>
+    <text x="20" y="84" fill="#F4FAF8" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="20" font-weight="700">描述临床问题</text>
+    <text x="20" y="114" fill="#9DB8BA" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="13">直接使用自然语言，</text>
+    <text x="20" y="137" fill="#9DB8BA" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="13">不必记名称或内部编号。</text>
+  </g>
+
+  <g transform="translate(370 142)" filter="url(#flowShadow)">
+    <rect x="-5" y="-5" width="240" height="190" rx="24" fill="#17343C" stroke="#73CABA" stroke-opacity="0.2"/>
+    <rect width="230" height="180" rx="19" fill="#123039"/>
+    <rect x="20" y="20" width="42" height="28" rx="14" fill="#D7F5EF"/>
+    <text x="34" y="39" fill="#116B5D" font-family="'Avenir Next', sans-serif" font-size="12" font-weight="800">02</text>
+    <text x="20" y="84" fill="#F4FAF8" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="20" font-weight="700">匹配合适工具</text>
+    <text x="20" y="114" fill="#9DB8BA" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="13">核对名称、版本、</text>
+    <text x="20" y="137" fill="#9DB8BA" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="13">适用人群与执行状态。</text>
+  </g>
+
+  <g transform="translate(685 142)" filter="url(#flowShadow)">
+    <rect x="-5" y="-5" width="240" height="190" rx="24" fill="#17343C" stroke="#73CABA" stroke-opacity="0.2"/>
+    <rect width="230" height="180" rx="19" fill="#123039"/>
+    <rect x="20" y="20" width="42" height="28" rx="14" fill="#D7F5EF"/>
+    <text x="34" y="39" fill="#116B5D" font-family="'Avenir Next', sans-serif" font-size="12" font-weight="800">03</text>
+    <text x="20" y="84" fill="#F4FAF8" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="20" font-weight="700">补齐关键信息</text>
+    <text x="20" y="114" fill="#9DB8BA" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="13">只追问缺失的输入、</text>
+    <text x="20" y="137" fill="#9DB8BA" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="13">单位、时间点与病史。</text>
+  </g>
+
+  <g transform="translate(1000 142)" filter="url(#flowShadow)">
+    <rect x="-5" y="-5" width="240" height="190" rx="24" fill="#17343C" stroke="#73CABA" stroke-opacity="0.2"/>
+    <rect width="230" height="180" rx="19" fill="#123039"/>
+    <rect x="20" y="20" width="42" height="28" rx="14" fill="#D7F5EF"/>
+    <text x="34" y="39" fill="#116B5D" font-family="'Avenir Next', sans-serif" font-size="12" font-weight="800">04</text>
+    <text x="20" y="84" fill="#F4FAF8" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="20" font-weight="700">计算并解释</text>
+    <text x="20" y="114" fill="#9DB8BA" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="13">返回公式、结果、来源、</text>
+    <text x="20" y="137" fill="#9DB8BA" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="13">审核状态与重要限制。</text>
+  </g>
+
+  <g transform="translate(305 362)">
+    <rect width="670" height="42" rx="21" fill="#D7F5EF"/>
+    <circle cx="25" cy="21" r="7" fill="#159A87"/>
+    <path d="M22 21L25 24L30 18" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="43" y="27" fill="#225049" font-family="'Avenir Next', 'PingFang SC', sans-serif" font-size="14" font-weight="600">遇到歧义或资料不足时，Agent 会停下来说明，不凭记忆补全。</text>
+  </g>
+</svg>
