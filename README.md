@@ -1,133 +1,133 @@
 <p align="center">
-  <strong>简体中文</strong> · <a href="./README_EN.md">English</a>
+  <strong>English</strong> · <a href="./README.zh-CN.md">简体中文</a>
 </p>
 
 <p align="center">
-  <img src="./assets/clinical-calculator-cover.svg" alt="Clinical Calculator：让 Agent 可靠完成医学计算与证据路由" width="100%" />
+  <img src="./assets/clinical-calculator-cover-en.svg" alt="Clinical Calculator: verifiable medical calculations through your Agent" width="100%" />
 </p>
 
 <h1 align="center">Clinical Calculator</h1>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Agent-Skill-159a87?style=flat-square" alt="Agent Skill" />
-  <img src="https://img.shields.io/badge/可直接计算-643-173a44?style=flat-square" alt="643 个可直接计算的条目" />
-  <img src="https://img.shields.io/badge/专业类别-56-173a44?style=flat-square" alt="覆盖 56 个专业类别" />
-  <img src="https://img.shields.io/badge/来源站点-125-173a44?style=flat-square" alt="来源覆盖 125 个站点域名" />
-  <img src="https://img.shields.io/badge/中英文检索-支持-173a44?style=flat-square" alt="支持中英文检索" />
+  <img src="https://img.shields.io/badge/executable-643-173a44?style=flat-square" alt="643 executable calculators" />
+  <img src="https://img.shields.io/badge/specialties-56-173a44?style=flat-square" alt="56 specialty categories" />
+  <img src="https://img.shields.io/badge/source%20sites-125-173a44?style=flat-square" alt="Sources across 125 site domains" />
+  <img src="https://img.shields.io/badge/CN%20%2F%20EN-search-173a44?style=flat-square" alt="Chinese and English search" />
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-173a44?style=flat-square" alt="MIT License" /></a>
 </p>
 
 <p align="center">
-  把临床问题或可靠来源资料直接交给 Agent。它可以查找、计算、解释，也可以从资料中整理并验证新的计算器。
+  Give your Agent a clinical question or reliable source material. It can find, run, and explain calculators—or turn the material into a validated new calculator.
 </p>
 
 <p align="center">
-  <a href="#项目介绍">项目介绍</a> ·
-  <a href="#交给-agent-使用">开始使用</a> ·
-  <a href="#实际使用">实际使用</a> ·
-  <a href="#agent-如何完成一次计算">工作方式</a> ·
-  <a href="#安全边界">安全边界</a>
+  <a href="#about-the-project">About</a> ·
+  <a href="#use-it-through-an-agent">Get started</a> ·
+  <a href="#real-world-usage">Examples</a> ·
+  <a href="#how-the-agent-handles-a-calculation">Workflow</a> ·
+  <a href="#safety-boundaries">Safety</a>
 </p>
 
 > [!IMPORTANT]
-> 这是一个供支持 Agent Skills 的 AI Agent 使用的医学计算能力库，不是独立诊疗产品。结果用于决策支持、教学与核对，不能替代专业诊断、处方或紧急处置。
+> This is a medical calculation capability library for AI Agents that support Agent Skills. It is not a standalone diagnostic product. Results are for decision support, education, and verification; they do not replace professional diagnosis, prescribing, or emergency care.
 
-## 项目介绍
+## About the project
 
-Clinical Calculator 将分散在官方资料、专业协会、原始文献、临床计算器平台与可追溯研究中的计算规则，整理成 Agent 可以搜索、核对和执行的统一能力。目前收录 **643** 个本地可执行条目，覆盖 **570** 个去重后的计算器名称、**56** 个专业类别，以及清单中登记的 **555** 个不同疾病或临床场景标签。全部条目共关联 **220** 条可追溯来源链接，分布于 **125** 个来源站点域名；每个条目都保留中英文名称、输入要求、实现类型以及仓库当前记录的来源与链接。
+Clinical Calculator turns calculation rules scattered across official resources, professional societies, original publications, clinical calculator platforms, and traceable research into a unified capability that an Agent can search, verify, and execute. It currently contains **643 locally executable entries**, covering **570 deduplicated calculator names**, **56 specialty categories**, and **555 distinct disease or clinical-scenario labels recorded in the inventory**. Together, the entries cite **220 traceable source links** across **125 source-site domains**; each retains its input requirements, implementation type, and the source currently recorded by the repository.
 
-除了使用已有目录，用户也可以把指南、论文、公式说明、表格或其他可靠素材交给 Agent。Skill 支持从 JSON、CSV、Markdown、PDF、DOCX 和书面规则中提取明确的输入、单位、公式、查表或决策树，先生成草稿并验证，再由用户确认是否安装为新的自定义计算器。
+Users can also give the Agent guidelines, papers, formula specifications, tables, or other reliable source material. The Skill can extract explicit inputs, units, formulas, lookup tables, or decision trees from JSON, CSV, Markdown, PDF, DOCX, and written rules, then create and validate a draft before asking the user whether to install it as a new custom calculator.
 
-资料已收录或计算逻辑可以执行，并不代表其版本、适用人群、授权状态或临床发布状态已经通过独立审核。
+Inclusion and local executability do not mean that a calculator's version, intended population, content rights, or clinical release status has received independent approval. The catalog is international rather than country-specific: its source material is predominantly recorded in English, but each calculator must still be checked against its original validation population, regional units, and current local guidance before use.
 
-## 交给 Agent 使用
+## Use it through an Agent
 
-1. 在支持 Agent Skills 的工具中添加或打开本仓库。
-2. 用自然语言说明你要解决的临床问题；已有的患者信息可以一起提供。
-3. Agent 会选择合适的计算器。遇到缺失信息、同名版本或适用人群不明确时，它会先向你确认，再给出结果。
+1. Add or open this repository in a tool that supports Agent Skills.
+2. Describe the clinical question in natural language. Include any patient information you already have.
+3. The Agent will select an appropriate calculator. If inputs, versions, or the target population are unclear, it will ask before calculating.
 
-你可以直接这样说：
+Try asking:
 
-| 你想做什么 | 告诉 Agent |
+| What you want to do | Tell the Agent |
 | --- | --- |
-| 找到合适的工具 | “帮我找一下评估房颤卒中风险的计算器，并告诉我需要哪些信息。” |
-| 完成一次计算 | “患者体重 70 kg、身高 175 cm，计算 BMI，并说明公式、结果、来源和限制。” |
-| 核对评分过程 | “请逐项核对 CURB-65，不确定的项目先问我，不要自行假设。” |
-| 增加新的计算器 | “我会提供一份指南或论文，请把其中明确的公式整理成可验证的自定义计算器，安装前先让我确认。” |
+| Find the right tool | “Find a calculator for stroke risk in atrial fibrillation and tell me what information you need.” |
+| Run a calculation | “The patient weighs 70 kg and is 175 cm tall. Calculate BMI and explain the formula, result, source, and limitations.” |
+| Verify a score | “Work through CURB-65 item by item. Ask me about anything uncertain instead of assuming it.” |
+| Add a new calculator | “I will provide a guideline or paper. Turn its explicit formula into a validated custom calculator, and show me the draft before installing it.” |
 
-不需要知道计算器的准确名称或任何技术细节。描述问题即可，搜索、选择和执行由 Agent 完成。
+You do not need to know the exact calculator name or any technical details. Describe the problem; the Agent handles search, selection, and execution.
 
-## 实际使用
+## Real-world usage
 
-下面两组场景使用了仓库当前的真实输入契约与计算结果。界面为通用 Agent 对话示意，不绑定某个特定客户端。
+These scenarios use the repository’s current input contracts and actual calculation results. The interface is a generic Agent conversation rather than a specific client.
 
-### 已提供完整信息：直接计算并解释
-
-<p align="center">
-  <img src="./assets/agent-example-bmi.svg" alt="通过 Agent 计算 BMI 的实际使用示例" width="100%" />
-</p>
-
-### 信息不完整：先追问，再计算
+### Complete inputs: calculate and explain
 
 <p align="center">
-  <img src="./assets/agent-example-stroke-risk.svg" alt="通过 Agent 评估房颤卒中风险的实际使用示例" width="100%" />
+  <img src="./assets/agent-example-bmi-en.svg" alt="Using an Agent to calculate and explain BMI" width="100%" />
 </p>
 
-## Agent 如何完成一次计算
+### Missing inputs: ask first, then calculate
 
 <p align="center">
-  <img src="./assets/agent-workflow.svg" alt="Clinical Calculator Agent 工作流程：理解问题、匹配计算器、补齐信息、计算与解释" width="100%" />
+  <img src="./assets/agent-example-stroke-risk-en.svg" alt="Using an Agent to assess atrial fibrillation stroke risk" width="100%" />
 </p>
 
-关键原则是“先核对，再计算”：
+## How the Agent handles a calculation
 
-- 同名评分存在不同版本或适用人群时，Agent 不会静默代选。
-- 输入、单位或时间点不明确时，Agent 会追问，不会自行补全。
-- 请求的计算器未被收录时，Agent 会明确说明，不会凭记忆临时拼出公式。
-- 返回结果时会同时给出计算器、输入、公式或规则、结果、解释、来源和重要限制。
+<p align="center">
+  <img src="./assets/agent-workflow-en.svg" alt="Clinical Calculator Agent workflow: describe, match, clarify, calculate, and explain" width="100%" />
+</p>
 
-## 能处理什么
+The guiding principle is verify first, calculate second:
 
-- 搜索中英文临床计算器、评分、分期、肾功能估算、实验室衍生指标与单位换算。
-- 根据明确输入完成计算，并保留可复核的计算过程。
-- 区分相似名称、不同版本、成人与儿童等适用范围。
-- 对输入不完整、单位不明确或超出边界的情况给出明确提示。
-- 从你提供的指南、论文、表格或规则文件中整理自定义公式、查表或决策树；验证通过并经你确认后再安装。
+- The Agent will not silently choose between similarly named versions or populations.
+- It asks when an input, unit, or time point is unclear instead of filling the gap itself.
+- If a requested calculator is not included, it says so rather than reconstructing a formula from memory.
+- Every result identifies the calculator, inputs, formula or rule, result, interpretation, source, and important limitations.
 
-## 当前覆盖
+## What it can do
 
-主目录只收录具备本地计算逻辑和明确输入契约的内容：共 **643** 个可执行条目，覆盖 **570** 个唯一中文名称。其中 593 个可以从原始输入完成计算，50 个用于需要预评分组件或上游结果的中间计算。
+- Search Chinese and English clinical calculators, scores, staging systems, renal estimates, lab-derived indices, and unit conversions.
+- Calculate from explicit inputs while preserving a reproducible calculation trail.
+- Distinguish similar names, different versions, and adult versus pediatric populations.
+- Flag incomplete inputs, unclear units, and values outside declared boundaries.
+- Turn a supplied guideline, paper, table, or rules file into a custom formula, lookup table, or decision tree, validating it before installation and asking for your confirmation.
 
-仓库不保留只有名称、缺少公式、属于指南知识或受授权限制的不可执行条目。可执行仍不等同于已经获得临床发布批准。
+## Current coverage
 
-## 已支持的计算器
+The main inventory contains only entries with local calculation logic and explicit input contracts: **643 executable entries** covering **570 unique calculator names**. Of these, 593 calculate from original inputs and 50 are executable intermediate steps that require pre-scored components or upstream results.
 
-[查看完整计算器目录](./CALCULATORS.md)，可按专业类别浏览全部 643 个可执行条目。目录逐项列出中英文名称、实现类型以及仓库当前记录的来源与链接。
+The repository does not retain name-only entries, missing formulas, guideline-only knowledge, or restricted content that cannot be executed. Executable does not mean clinically approved for release.
 
-## 结果里会说明什么
+## Supported calculators
 
-一次完整回答通常包括：
+[View the complete calculator catalog](./CALCULATORS_EN.md), grouped by specialty across all 643 executable entries. Each entry includes its English name, implementation type, and the source and link currently recorded by the repository.
 
-- 使用的计算器与版本
-- 输入值、单位和必要的换算
-- 公式、计分规则或查表依据
-- 结果、取整方式与适用的解释
-- 来源链接及当前审核状态
-- 适用人群、已知限制与需要专业复核的事项
+## What a result includes
 
-## 自定义计算器
+A complete response usually includes:
 
-如果权威资料中的计算规则尚未收录，可以直接把 JSON、CSV、Markdown、PDF、DOCX、指南、论文、表格或书面规则交给 Agent。Agent 只提取资料中明确写出的输入、单位、边界、公式、表格、版本和已知答案；不会凭记忆补齐缺失的系数或阈值。
+- Calculator and version
+- Input values, units, and any necessary conversions
+- Formula, scoring rule, or lookup basis
+- Result, rounding, and applicable interpretation
+- Source link and current review status
+- Intended population, known limitations, and items requiring professional review
 
-处理流程为：识别材料中的规则，生成自定义计算器草稿，验证结构与来源案例，再向用户展示拟收录的输入、规则、来源和测试。只有在用户确认后才会安装；材料不完整时会保留为不可执行草稿，并明确指出缺少的内容。患者身份信息和病例数据不会写入计算器定义。
+## Custom calculators
 
-## 安全边界
+If an authoritative calculation rule is not included, give the Agent the JSON, CSV, Markdown, PDF, DOCX, guideline, paper, table, or written rule. It extracts only the inputs, units, boundaries, formula, tables, version, and known answers explicitly stated in that material. It does not fill in missing coefficients or thresholds from memory.
 
-- 高风险场景必须结合患者状态、完整指南和专业人员判断。
-- 药物剂量计算与具体处方决策必须分开，并由临床医生或药师复核。
-- 自定义计算器即使能够运行，也不代表已经通过独立临床审核。
-- MIT 许可只覆盖仓库自身内容，不自动授予第三方问卷、专有表格或分期内容的再分发权。
-- 若输入不足、存在歧义或超出声明边界，Agent 应停止计算并明确说明，而不是生成看似可信的结果。
+The workflow is: identify the explicit rules, create a custom-calculator draft, validate its structure and source-derived cases, and show the proposed inputs, rules, source, and tests to the user. Installation happens only after confirmation. Incomplete material remains a non-executable draft with the missing information clearly identified. Patient identifiers and case data are never stored in a calculator definition.
+
+## Safety boundaries
+
+- High-risk situations require the patient’s full clinical context, current guidance, and professional judgment.
+- Drug-dose arithmetic must remain separate from prescribing decisions and be reviewed by a clinician or pharmacist.
+- A runnable custom calculator has not necessarily received independent clinical review.
+- The MIT license covers this repository’s own content; it does not grant redistribution rights for third-party questionnaires, proprietary tables, or staging content.
+- If information is missing, ambiguous, or outside declared boundaries, the Agent should stop and explain rather than return a plausible-looking result.
 
 ## License
 
