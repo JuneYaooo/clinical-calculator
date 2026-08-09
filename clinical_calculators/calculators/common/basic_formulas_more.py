@@ -137,7 +137,7 @@ def penn_state_energy_expenditure(metadata: CalculatorMetadata, inputs: dict[str
     else:
         raise ValueError("sex must be 'male' or 'female'")
 
-    value = 0.96 * mifflin + 167 * max_temperature_c + 31 * minute_ventilation - 6218
+    value = 0.96 * mifflin + 167 * max_temperature_c + 31 * minute_ventilation - 6212
     return result(metadata, value, "kcal/day", "Penn State critical care energy expenditure estimate.")
 
 

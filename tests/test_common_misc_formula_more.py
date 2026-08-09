@@ -74,7 +74,7 @@ class CommonMiscFormulaMoreTest(unittest.TestCase):
 
         self.assertEqual(high_risk.value, 9)
         self.assertIn("score >=5", high_risk.interpretation)
-        self.assertEqual(low_risk.value, -1)
+        self.assertEqual(low_risk.value, 0)
         self.assertEqual(high_risk.unit, "points")
 
     def test_bang_diabetes_risk_score_rejects_outside_validated_age(self):

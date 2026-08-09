@@ -452,14 +452,14 @@ class CommonNursingObstetricScoresTest(unittest.TestCase):
         self.assertEqual(result.value["reserve_status"], "adequate")
         self.assertIn("POSEIDON group 1B", result.interpretation)
 
-    def test_poseidon_uses_either_afc_or_amh_to_identify_adequate_reserve(self):
+    def test_poseidon_low_amh_alone_identifies_low_reserve(self):
         result = poseidon_criteria(
             metadata("POSEIDON低预后分类", "POSEIDON Criteria"),
             {"age_years": 34, "afc": 6, "amh_ng_ml": 0.8, "previous_oocytes_retrieved": 3},
         )
 
-        self.assertEqual(result.value["group"], "1A")
-        self.assertEqual(result.value["reserve_status"], "adequate")
+        self.assertEqual(result.value["group"], "3")
+        self.assertEqual(result.value["reserve_status"], "low")
 
     def test_poseidon_classifies_group_four_for_older_low_reserve(self):
         result = poseidon_criteria(

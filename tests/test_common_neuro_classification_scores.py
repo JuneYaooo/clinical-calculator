@@ -148,7 +148,7 @@ class CommonNeuroClassificationScoresTest(unittest.TestCase):
         self.assertIn("no symptoms", result.interpretation)
 
     def test_nihss_maxima_sum_matches_supported_item_maxima(self):
-        maxima = [3, 2, 2, 2, 3, 4, 4, 2, 2, 3, 2, 2, 1, 2, 2]
+        maxima = [3, 2, 2, 2, 3, 3, 4, 4, 4, 4, 2, 2, 3, 2, 2]
 
         result = nih_stroke_scale(
             metadata("NIH 卒中评分", "NIH Stroke Scale"),

@@ -44,16 +44,14 @@ def bang_diabetes_risk_score(metadata: CalculatorMetadata, inputs: dict[str, Any
         bmi_points = 0
     elif bmi < 30:
         bmi_points = 1
-    elif bmi < 40:
-        bmi_points = 2
     else:
-        bmi_points = 3
+        bmi_points = 2
 
     score = age_points + bmi_points
     score += int(sex == "male")
     score += int(boolean(inputs, "family_history_diabetes"))
     score += int(boolean(inputs, "hypertension"))
-    score -= int(boolean(inputs, "physically_active"))
+    score += int(not boolean(inputs, "physically_active"))
 
     if score >= 5:
         interpretation = (

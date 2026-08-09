@@ -57,7 +57,7 @@ def apri_for_hepatitis_c_cirrhosis_probability(
     elif value <= 1.5:
         interpretation = "significant fibrosis likely; cirrhosis indeterminate"
     elif value <= 2:
-        interpretation = "significant fibrosis likely; cirrhosis indeterminate"
+        interpretation = "significant fibrosis likely; cirrhosis possible"
     else:
         interpretation = "significant fibrosis and cirrhosis likely"
     return result(metadata, value, "score", interpretation)

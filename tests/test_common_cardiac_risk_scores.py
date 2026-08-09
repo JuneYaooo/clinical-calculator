@@ -362,7 +362,7 @@ class CommonCardiacRiskScoresTest(unittest.TestCase):
             },
         )
 
-        self.assertEqual(calculation.value, 0)
+        self.assertEqual(calculation.value, 1)
         self.assertIn("low operative risk", calculation.interpretation)
 
     def test_grace_acs_all_lowest_values_scores_one(self):

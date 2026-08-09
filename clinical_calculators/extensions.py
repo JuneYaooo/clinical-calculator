@@ -124,9 +124,13 @@ class SafeExpression:
                 return _FUNCTIONS[node.id]
             return values[node.id]
         if isinstance(node, ast.BinOp):
-            return _BINARY_OPERATORS[type(node.op)](
-                self._evaluate(node.left, values), self._evaluate(node.right, values)
-            )
+            left = self._evaluate(node.left, values)
+            right = self._evaluate(node.right, values)
+            if isinstance(node.op, ast.Pow) and not (
+                isinstance(right, (int, float)) and abs(right) <= 100
+            ):
+                raise ManifestError("exponents must be numbers between -100 and 100")
+            return _BINARY_OPERATORS[type(node.op)](left, right)
         if isinstance(node, ast.UnaryOp):
             operand = self._evaluate(node.operand, values)
             if isinstance(node.op, ast.UAdd):

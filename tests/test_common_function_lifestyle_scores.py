@@ -285,6 +285,26 @@ class CommonFunctionLifestyleScoresTest(unittest.TestCase):
                 {"items": items},
             )
 
+    def test_barthel_rejects_value_above_domain_maximum(self):
+        items = {
+            "feeding": 10,
+            "bathing": 10,
+            "grooming": 5,
+            "dressing": 10,
+            "bowels": 10,
+            "bladder": 10,
+            "toilet_use": 10,
+            "transfers": 15,
+            "mobility": 15,
+            "stairs": 10,
+        }
+
+        with self.assertRaises(ValueError):
+            barthel_activities_of_daily_living_index(
+                metadata("Barthel日常生活活动指数", "Barthel Activities of Daily Living Index"),
+                {"items": items},
+            )
+
     def test_functional_independence_measure_sums_eighteen_one_to_seven_items(self):
         result = functional_independence_measure(
             metadata("功能独立性评定", "Functional Independence Measure"),

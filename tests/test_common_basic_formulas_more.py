@@ -144,7 +144,7 @@ class CommonBasicFormulasMoreTest(unittest.TestCase):
         )
 
         self.assertEqual(calculation.status, "implemented")
-        self.assertAlmostEqual(calculation.value, 1972.8, places=4)
+        self.assertAlmostEqual(calculation.value, 1978.8, places=4)
         self.assertEqual(calculation.unit, "kcal/day")
 
     def test_ireton_jones_energy_expenditure_supports_ventilated_and_spontaneous_forms(self):

@@ -79,7 +79,7 @@ class CommonBodyWaterCalculatorsTest(unittest.TestCase):
         )
 
         self.assertEqual(result.status, "implemented")
-        self.assertAlmostEqual(result.value, 40.198, places=4)
+        self.assertAlmostEqual(result.value, 40.018, places=4)
         self.assertEqual(result.unit, "L")
 
     def test_free_water_deficit_uses_total_body_water_fraction(self):

@@ -51,7 +51,7 @@ def male_total_body_water_watson_formula(metadata: CalculatorMetadata, inputs: d
     weight_kg = number(inputs, "weight_kg")
     age_years = number(inputs, "age_years")
 
-    value = 2.447 - 0.09156 * age_years + 0.1074 * height_cm + 0.3362 * weight_kg
+    value = 2.447 - 0.09516 * age_years + 0.1074 * height_cm + 0.3362 * weight_kg
     return result(metadata, value, "L", "estimated total body water by Watson male equation")
 
 

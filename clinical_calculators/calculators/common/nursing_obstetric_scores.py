@@ -714,7 +714,7 @@ def poseidon_criteria(metadata: CalculatorMetadata, inputs: dict[str, Any]) -> C
     if age < 0 or amh < 0:
         raise ValueError("age_years and amh_ng_ml must be nonnegative")
 
-    low_reserve = afc < 5 and amh < 1.2
+    low_reserve = afc < 5 or amh < 1.2
     older = age >= 35
     previous_oocytes = None
     subgroup = ""

@@ -421,7 +421,7 @@ def isth_overt_dic_score(metadata: CalculatorMetadata, inputs: dict[str, Any]) -
     elif pt_prolongation >= 3:
         score += 1
 
-    if _positive_number(inputs, "fibrinogen_g_l") <= 1.0:
+    if _positive_number(inputs, "fibrinogen_g_l") < 1.0:
         score += 1
 
     interpretation = (
@@ -717,7 +717,7 @@ def jaam_dic_score(metadata: CalculatorMetadata, inputs: dict[str, Any]) -> Calc
     score = 1 if _coded_integer(inputs, "sirs_criteria_count", 0, 4) >= 3 else 0
 
     platelets = _positive_number(inputs, "platelets_10e9_l")
-    if platelets <= 80:
+    if platelets < 80:
         platelet_points = 3
     elif platelets < 120:
         platelet_points = 1

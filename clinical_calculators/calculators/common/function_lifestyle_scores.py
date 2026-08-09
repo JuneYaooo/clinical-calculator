@@ -19,7 +19,18 @@ BARTHEL_DOMAINS = {
     "mobility",
     "stairs",
 }
-BARTHEL_VALUES = {0, 5, 10, 15}
+BARTHEL_DOMAIN_VALUES = {
+    "feeding": (0, 5, 10),
+    "bathing": (0, 5),
+    "grooming": (0, 5),
+    "dressing": (0, 5, 10),
+    "bowels": (0, 5, 10),
+    "bladder": (0, 5, 10),
+    "toilet_use": (0, 5, 10),
+    "transfers": (0, 5, 10, 15),
+    "mobility": (0, 5, 10, 15),
+    "stairs": (0, 5, 10),
+}
 
 
 def _integer_value(value: Any, key: str) -> int:
@@ -190,8 +201,8 @@ def _barthel_items(inputs: dict[str, Any]) -> dict[str, int]:
     scores = {}
     for domain, value in items.items():
         score = _integer_value(value, f"items[{domain}]")
-        if score not in BARTHEL_VALUES:
-            raise ValueError(f"items[{domain}] must be one of {sorted(BARTHEL_VALUES)}")
+        if score not in BARTHEL_DOMAIN_VALUES[domain]:
+            raise ValueError(f"items[{domain}] must be one of {sorted(BARTHEL_DOMAIN_VALUES[domain])}")
         scores[str(domain)] = score
     return scores
 

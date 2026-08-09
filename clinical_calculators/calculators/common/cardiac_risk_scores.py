@@ -415,7 +415,7 @@ def additive_euroscore(metadata: CalculatorMetadata, inputs: dict[str, Any]) -> 
     if age_years < 0:
         raise ValueError("age_years must be non-negative")
 
-    score = max(0, math.ceil((age_years - 60) / 5))
+    score = min(8, max(0, (age_years - 55) // 5))
     if _sex(inputs) == "female":
         score += 1
 

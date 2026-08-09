@@ -675,7 +675,7 @@ def simple_clinical_colitis_activity_index(
         + _integer_range(inputs, "urgency", 0, 3)
         + _integer_range(inputs, "blood_in_stool", 0, 3)
         + _integer_range(inputs, "general_wellbeing", 0, 4)
-        + _integer_range(inputs, "extracolonic_manifestations", 0, 4)
+        + _integer_range(inputs, "extracolonic_manifestations", 0, 3)
     )
     activity = "active disease likely" if score >= 5 else "clinical remission more likely"
     return result(metadata, score, "points", f"SCCAI ulcerative colitis activity: {activity}.")
@@ -1092,7 +1092,7 @@ def bclc_hepatocellular_carcinoma_stage(metadata: CalculatorMetadata, inputs: di
         stage, label = "D", "terminal stage"
     elif portal_invasion or extrahepatic_spread or ecog in {1, 2}:
         stage, label = "C", "advanced stage"
-    elif not single_tumor and tumor_count > 3:
+    elif not single_tumor and (tumor_count > 3 or largest_tumor > 3):
         stage, label = "B", "intermediate stage"
     elif single_tumor and tumor_count == 1 and largest_tumor <= 2 and ecog == 0 and child_pugh == "A":
         stage, label = "0", "very early stage"

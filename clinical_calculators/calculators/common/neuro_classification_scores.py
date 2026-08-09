@@ -7,7 +7,7 @@ from clinical_calculators.calculators._helpers import result
 from clinical_calculators.models import CalculationResult, CalculatorMetadata
 
 
-NIHSS_ITEM_MAXIMA = (3, 2, 2, 2, 3, 4, 4, 2, 2, 3, 2, 2, 1, 2, 2)
+NIHSS_ITEM_MAXIMA = (3, 2, 2, 2, 3, 3, 4, 4, 4, 4, 2, 2, 3, 2, 2)
 UPDRS_PART_KEYS = ("part_i", "part_ii", "part_iii", "part_iv")
 
 
