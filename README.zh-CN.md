@@ -129,6 +129,10 @@ Clinical Calculator 将分散在官方资料、专业协会、原始文献、临
 - MIT 许可只覆盖仓库自身内容，不自动授予第三方问卷、专有表格或分期内容的再分发权。
 - 若输入不足、存在歧义或超出声明边界，Agent 应停止计算并明确说明，而不是生成看似可信的结果。
 
+## 社区
+
+[**LINUX DO — 中文开发者社区**](https://linux.do/)
+
 ## License
 
 [MIT](./LICENSE) © Clinical Calculator contributors

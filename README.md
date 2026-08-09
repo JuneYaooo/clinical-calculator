@@ -129,6 +129,10 @@ The workflow is: identify the explicit rules, create a custom-calculator draft, 
 - The MIT license covers this repository’s own content; it does not grant redistribution rights for third-party questionnaires, proprietary tables, or staging content.
 - If information is missing, ambiguous, or outside declared boundaries, the Agent should stop and explain rather than return a plausible-looking result.
 
+## Community
+
+[**LINUX DO — Chinese Developer Community**](https://linux.do/)
+
 ## License
 
 [MIT](./LICENSE) © Clinical Calculator contributors
