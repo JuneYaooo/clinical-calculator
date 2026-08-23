@@ -69,8 +69,6 @@ It listens on `http://127.0.0.1:8765` by default. Case data and results remain i
 
 Case-driven routing uses conservative, explainable cues to identify assessment opportunities. It does not treat those cues as diagnoses or bypass explicit user selection. This repository is most useful as the calculation and verification component of a broader clinical workflow: upstream systems can provide de-identification, structured EHR/FHIR data, terminology normalization, and guideline/literature RAG; downstream systems can provide clinical review, access control, signatures, audit retention, and result write-back. Standalone use is appropriate for local demonstration, education, and manual verification, not as a replacement for those production systems.
 
-[Read the case-workbench integration guide](./references/case-workbench.md).
-
 ## Real-world usage
 
 These screenshots come from a real browser session of the local case workbench, using the repository's current search results, input contracts, and calculator implementations.
