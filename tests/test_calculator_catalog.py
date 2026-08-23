@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CATALOGS = (ROOT / "CALCULATORS.md", ROOT / "CALCULATORS_EN.md")
 LANGUAGE_READMES = (
     "README.md",
-    "README.zh-CN.md",
+    "README.en.md",
 )
 
 
@@ -40,8 +40,8 @@ def test_bilingual_catalogs_list_every_builtin_calculator_once():
 
 
 def test_readmes_link_to_the_matching_language_catalog():
-    assert "(./CALCULATORS_EN.md)" in (ROOT / "README.md").read_text(encoding="utf-8")
-    assert "(./CALCULATORS.md)" in (ROOT / "README.zh-CN.md").read_text(encoding="utf-8")
+    assert "(./CALCULATORS.md)" in (ROOT / "README.md").read_text(encoding="utf-8")
+    assert "(./CALCULATORS_EN.md)" in (ROOT / "README.en.md").read_text(encoding="utf-8")
 
 
 def test_localized_readmes_link_to_every_other_language():
