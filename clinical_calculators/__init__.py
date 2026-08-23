@@ -8,6 +8,12 @@ from .registry import (
     CalculatorSearchResult,
     load_registry,
 )
+from .workbench import (
+    calculate_selected,
+    detect_case_intents,
+    detect_privacy_risks,
+    recommend_for_case,
+)
 
 __all__ = [
     "CalculationResult",
@@ -19,4 +25,8 @@ __all__ = [
     "ManifestError",
     "load_registry",
     "load_custom_manifest",
+    "calculate_selected",
+    "detect_case_intents",
+    "detect_privacy_risks",
+    "recommend_for_case",
 ]

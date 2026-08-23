@@ -57,21 +57,39 @@ Try asking:
 
 You do not need to know the exact calculator name or any technical details. Describe the problem; the Agent handles search, selection, and execution.
 
+### Local case workbench
+
+The repository also includes a zero-dependency local workbench for the flow “enter a de-identified case → automatically discover potentially relevant calculators/scales → review candidates and evidence → select calculators → complete missing data → calculate and export an audit log.” The assessment goal is optional: leave it blank for case-driven discovery, or provide it to constrain recommendations.
+
+```bash
+python3 scripts/clinical_workbench.py --open
+```
+
+It listens on `http://127.0.0.1:8765` by default. Case data and results remain in the browser page and Python process memory; the service does not write them to disk. Audit JSON is saved only when the user explicitly downloads it. Recommendations currently search the repository's curated local evidence catalog, not live literature sources. The UI exposes source specificity, missing versions, automated review gaps, and the distinction between executable and clinically released calculators.
+
+Case-driven routing uses conservative, explainable cues to identify assessment opportunities. It does not treat those cues as diagnoses or bypass explicit user selection. This repository is most useful as the calculation and verification component of a broader clinical workflow: upstream systems can provide de-identification, structured EHR/FHIR data, terminology normalization, and guideline/literature RAG; downstream systems can provide clinical review, access control, signatures, audit retention, and result write-back. Standalone use is appropriate for local demonstration, education, and manual verification, not as a replacement for those production systems.
+
+[Read the case-workbench integration guide](./references/case-workbench.md).
+
 ## Real-world usage
 
-These scenarios use the repository’s current input contracts and actual calculation results. The interface is a generic Agent conversation rather than a specific client.
+These screenshots come from a real browser session of the local case workbench, using the repository's current search results, input contracts, and calculator implementations.
 
-### Complete inputs: calculate and explain
-
-<p align="center">
-  <img src="./assets/agent-example-bmi-en.svg" alt="Using an Agent to calculate and explain BMI" width="100%" />
-</p>
-
-### Missing inputs: ask first, then calculate
+### Case only: discover assessment directions and candidate tools
 
 <p align="center">
-  <img src="./assets/agent-example-stroke-risk-en.svg" alt="Using an Agent to assess atrial fibrillation stroke risk" width="100%" />
+  <img src="./assets/workbench-case-driven-recommendations.png" alt="The local case workbench recommends CHA2DS2-VASc, ORBIT, and HAS-BLED from an atrial fibrillation case" width="100%" />
 </p>
+
+The workbench identifies stroke-risk and anticoagulation-related bleeding-risk assessment directions from the case. It presents candidate tools, recommendation reasons, missing inputs, sources, and review gaps; the user must still select calculators explicitly.
+
+### Complete missing data: calculate with a verifiable trace
+
+<p align="center">
+  <img src="./assets/workbench-verifiable-result.png" alt="CHA2DS2-VASc result with a clinical explanation, confirmed inputs, calculation process, and source notice" width="100%" />
+</p>
+
+After the user confirms the missing fields, the example produces a CHA₂DS₂-VASc score of 4. The result retains the input snapshot, validation state, formula, output, source-review gaps, and an exportable audit JSON bundle.
 
 ## How the Agent handles a calculation
 

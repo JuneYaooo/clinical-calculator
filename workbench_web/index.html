@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="本地运行的临床计算器病例工作台" />
+    <meta name="color-scheme" content="light" />
+    <title>Clinical Calculator Workbench</title>
+    <link rel="icon" href="/assets/clinical-calculator-cover.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <header class="topbar">
+      <div class="brand" aria-label="Clinical Calculator Workbench">
+        <span class="brand-mark" aria-hidden="true">C</span>
+        <span>
+          <strong>Clinical Calculator</strong>
+          <small>case workbench</small>
+        </span>
+      </div>
+      <div class="runtime-state"><span class="state-dot"></span>本地运行 · 内存处理</div>
+    </header>
+
+    <main id="main" class="workspace">
+      <aside class="case-panel" aria-labelledby="case-title">
+        <div class="panel-heading">
+          <span class="step-index">01</span>
+          <div>
+            <h1 id="case-title">病例与评估目标</h1>
+            <p>仅输入已脱敏、与计算有关的信息。</p>
+          </div>
+        </div>
+
+        <form id="case-form">
+          <label for="query">需要评估什么 <span class="optional-label">可选</span></label>
+          <input
+            id="query"
+            name="query"
+            type="text"
+            placeholder="例如：房颤卒中风险、肺炎严重度、肾功能"
+            autocomplete="off"
+          />
+
+          <div class="label-row">
+            <label for="case-text">脱敏病例数据</label>
+            <button class="text-button" type="button" id="fill-example">填入示例</button>
+          </div>
+          <textarea
+            id="case-text"
+            name="case_text"
+            rows="15"
+            spellcheck="false"
+            placeholder="粘贴已脱敏的病例摘要、主要诊断、生命体征和检验结果。&#10;&#10;请移除姓名、证件号、联系方式、住院号等直接身份信息。"
+          ></textarea>
+          <div class="privacy-note">
+            <span aria-hidden="true">◌</span>
+            <span>服务不写入病例和计算结果；刷新页面即清空当前会话。</span>
+          </div>
+          <div id="form-error" class="inline-error" role="alert" hidden></div>
+          <button class="primary-button" type="submit" id="recommend-button">
+            <span>分析病例并生成建议</span><span aria-hidden="true">→</span>
+          </button>
+        </form>
+      </aside>
+
+      <section class="flow-panel" aria-live="polite">
+        <nav class="progress" aria-label="工作流进度">
+          <button class="progress-item is-active" type="button" data-stage="recommendations">
+            <span>1</span>候选建议
+          </button>
+          <span class="progress-line"></span>
+          <button class="progress-item" type="button" data-stage="inputs" disabled>
+            <span>2</span>补齐数据
+          </button>
+          <span class="progress-line"></span>
+          <button class="progress-item" type="button" data-stage="results" disabled>
+            <span>3</span>计算与验证
+          </button>
+        </nav>
+
+        <section id="empty-state" class="empty-state">
+          <div class="empty-diagram" aria-hidden="true">
+            <span>病例</span><i></i><span>证据目录</span><i></i><span>可验证结果</span>
+          </div>
+          <h2>从病例或临床问题开始</h2>
+          <p>只输入脱敏病例也可以自动发现评估方向；指定目标时，系统会用目标约束候选。信息不足时不会自行假定阴性或正常。</p>
+          <dl class="catalog-facts">
+            <div><dt>643</dt><dd>可执行条目</dd></div>
+            <div><dt>220</dt><dd>来源链接</dd></div>
+            <div><dt>0</dt><dd>默认临床发布</dd></div>
+          </dl>
+        </section>
+
+        <section id="loading-state" class="loading-state" hidden aria-label="正在检索">
+          <div class="skeleton skeleton-title"></div>
+          <div class="skeleton skeleton-card"></div>
+          <div class="skeleton skeleton-card"></div>
+          <div class="skeleton skeleton-card short"></div>
+        </section>
+
+        <section id="recommendations-stage" class="stage" hidden>
+          <div class="stage-heading">
+            <div>
+              <span class="eyebrow">病例评估建议</span>
+              <h2>选择需要完成的评估</h2>
+              <p id="recommendation-summary"></p>
+            </div>
+            <span id="candidate-count" class="count-box"></span>
+          </div>
+          <div id="privacy-warning" class="warning-banner" hidden></div>
+          <div id="candidate-list" class="candidate-list"></div>
+          <div class="sticky-action">
+            <span id="selection-summary">尚未选择</span>
+            <button id="continue-button" class="primary-button compact" type="button" disabled>
+              下一步：核对必要数据 <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </section>
+
+        <section id="inputs-stage" class="stage" hidden>
+          <div class="stage-heading">
+            <div>
+              <span class="eyebrow">必要数据</span>
+              <h2>核对评估所需信息</h2>
+              <p>已从病例识别的内容会自动带入；病例未明确的项目需要补充。</p>
+            </div>
+            <button class="secondary-button" id="back-to-recommendations" type="button">← 返回选择</button>
+          </div>
+          <form id="input-form">
+            <div id="input-groups"></div>
+            <div id="input-error" class="inline-error" role="alert" hidden></div>
+            <div class="sticky-action">
+              <span id="completeness-summary">等待填写</span>
+              <button class="primary-button compact" id="calculate-button" type="submit">
+                计算所选评估 <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <section id="results-stage" class="stage" hidden>
+          <div class="stage-heading">
+            <div>
+              <span class="eyebrow">评估结果</span>
+              <h2>结果与临床核对信息</h2>
+              <p>先看结论和已确认数据；计算依据与技术审计信息按需展开。</p>
+            </div>
+            <div class="result-actions">
+              <button class="secondary-button" id="edit-case" type="button">修改病例</button>
+              <button class="secondary-button" id="back-to-inputs" type="button">← 修改数据</button>
+              <button class="secondary-button" id="download-log" type="button">导出审计文件</button>
+            </div>
+          </div>
+          <div id="result-list" class="result-list"></div>
+          <details class="audit-section">
+            <summary>技术审计记录（供复核或系统集成）</summary>
+            <ol id="audit-log" class="audit-log"></ol>
+          </details>
+        </section>
+      </section>
+    </main>
+
+    <footer>
+      <span>决策支持与核对工具，不替代诊断、处方或紧急处置。</span>
+      <a href="https://github.com/JuneYaooo/clinical-calculator" rel="noreferrer">项目说明</a>
+    </footer>
+  </body>
+</html>
